@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Form</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body onload="onLoad()">
+        <center> <h1> <u>New User Registration Form </u> </h1> </center>
+        
+        
+        <div style="background-color: white; width: 90%; margin: auto; margin-bottom: 15px; padding: 15px; box-shadow: -5px -5px 5px 5px #5c5656;">
+            <form action="save.html" method="get" onsubmit="return validateForm()">
+                <fieldset>
+                <legend><h3>Your Details</h3></legend>
+                    <h3>Name</h3>
+                    <div class="names">
+                        <div>
+                            <label for="fname">First name<span class="star">*</span>:</label>
+                            <input type="text" id="fname" name="fname" placeholder="First name" required>
+                        </div>
+                        <div>
+                            <label for="mname">Middle name:</label>
+                            <input type="text" id="mname" name="mname" placeholder="Middle name">
+                        </div>
+                        
+                        <div>
+                            <label for="lname">Last name<span class="star">*</span>:</label>
+                            <input type="text" id="lname" name="lname" placeholder="Last name" required>
+                        </div>
+                    </div>
+                    <h3>Father Name</h3>
+                    <div class="names">
+                        <div>
+                            <label for="ffname">First name<span class="star">*</span>:</label>
+                            <input type="text" id="ffname" name="ffname" placeholder="First name" required>
+                        </div>
+                        <div>
+                            <label for="fmname">Middle name:</label>
+                            <input type="text" id="fmname" name="fmname" placeholder="Middle name">
+                        </div>
+                        
+                        <div>
+                            <label for="flname">Last name<span class="star">*</span>:</label>
+                            <input type="text" id="flname" name="flname" placeholder="Last name" required>
+                        </div>     
+                    </div>
+                    <h3>Mother Name</h3>
+                    <div class="names">
+                        <div>
+                            <label for="mfname">First name<span class="star">*</span>:</label>
+                            <input type="text" id="mfname" name="mfname" placeholder="First name" required>
+                        </div>
+                        <div>
+                            <label for="mmname">Middle name:</label>
+                            <input type="text" id="mmname" name="mmname" placeholder="Middle name">
+                        </div>
+                        
+                        <div>
+                            <label for="mlname">Last name<span class="star">*</span>:</label>
+                            <input type="text" id="mlname" name="mlname" placeholder="Last name" required>
+                        </div>     
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                <legend><h3>Personal Details</h3></legend>
+                    <div class="personal">
+                        <div>
+                            <label for="email">Email address<span class="star">*</span>:</label>
+                            <input type="email" id="email" name="email" placeholder="email@gmail.com" required>
+                        </div>
+
+                        <div>
+                            <label for="pno">Phone no<span class="star">*</span>:</label>
+                            <input type="text" id="pno" name="pno" placeholder="+91" oninput="validateNo(this)" required>
+                        </div>
+
+                        <div>
+                            <label for="con"> Enter Country<span class="star">*</span>:</label>
+                            <select id="con" name="con" onchange="updateStates()">
+                                <option value="India">India</option>
+                                <option value="USA">USA</option>
+                                <option value="UK">UK</option>
+                                <option value="Singapore">Singapore</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="st"> Enter State<span class="star">*</span>:</label>
+                            <select id="st" name="st">
+                                <option value="Odisha">Odisha</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="about" style="margin-top: 20px;">
+                        <div style="width: 70%;">
+                            <p>Choose your Gender<span class="star">*</span>:</p> 
+                            <div class="gender">
+                                <div>
+                                    <input type="radio" id="male" name="gender" value="Male" required>
+                                    <label for="male">Male</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="female" name="gender" value="Female">
+                                    <label for="female">Female</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width: 70%;" class="aabout">
+                            <label for="dob">Enter Date of Birth<span class="star">*</span>:</label> 
+                            <input type="date" id="dob" name="dob" max="2016-12-31" min="2000-01-01" required>
+                        </div>
+
+                        <div style="width: 70%;" class="aabout">
+                            <label for="address">Address<span class="star">*</span>:</label>
+                            <input type="text" id="address" name="address" placeholder="Address" required>
+                        </div>
+
+                        <div style="width: 70%;" class="aabout">
+                            <label for="pincode">pincode<span class="star">*</span>:</label>
+                            <input type="text" id="pincode" name="pincode" placeholder="pincode" oninput="validateNo(this)" required>
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                <legend><h3>Educational Details</h3></legend>
+                <div class="education">
+                    <div>
+                        <label for="edu">Highest Education<span class="star">*</span>:</label> 
+                        <select id="edu" name="edu" onchange="updateEdu()">
+                            <option value="Secondary">Secondary</option>
+                            <option value="Higher Secondary">Higher Secondary</option>
+                            <option value="B.Tech">B.Tech</option>
+                            <option value="M.Tech">M.Tech</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="br">Branch<span class="star">*</span>:</label> 
+                        <select id="br" name="br">
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="yop">Year of passout<span class="star">*</span>:</label> 
+                        <select id="yop" name="yop">
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="marks" style="margin-top: 10px;">
+                    <div>
+                        <div>
+                            <div class="sec">
+                                <label for="secondary">Enter Secondary marks out of 100<span class="star">*</span>:</label>
+                                <input type="text" id="secondary" name="secondary" placeholder="100"  oninput="validateNo(this)" required>
+                            </div>
+                            <div class="hsec">
+                                <label for="hsecondary">Enter Higher Secondary marks out of 100<span class="star">*</span>:</label>
+                                <input type="text" id="hsecondary" name="hsecondary" placeholder="100"  oninput="validateNo(this)">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="b">
+                                <label for="btech">Enter B.Tech marks out of 100<span class="star">*</span>:</label>
+                                <input type="text" id="btech" name="btech" placeholder="100"  oninput="validateNo(this)">
+                            </div>
+                            <div class="m">
+                                <label for="mtech">Enter M.Tech marks out of 100<span class="star">*</span>:</label>
+                                <input type="text" id="mtech" name="mtech" placeholder="100"  oninput="validateNo(this)">
+                            </div>
+                        </div>
+                    </div>
+                    <div >
+                        <div>
+                            <div class="sec">
+                                <label for="nsecondary">Enter Secondary School name<span class="star">*</span>:</label>
+                                <input type="text" id="nsecondary" name="nsecondary" placeholder="ABC School" required>
+                            </div>
+                            <div class="ihsec">
+                                <label for="nhsecondary">Enter Higher Secondary School name<span class="star">*</span>:</label>
+                                <input type="text" id="nhsecondary" name="nhsecondary" placeholder="ABC School">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="ib">
+                                <label for="nbtech">Enter B.Tech college name<span class="star">*</span>:</label>
+                                <input type="text" id="nbtech" name="nbtech" placeholder="XYZ College">
+                            </div>
+                            <div class="im">
+                                <label for="nmtech">Enter M.Tech college name<span class="star">*</span>:</label>
+                                <input type="text" id="nmtech" name="nmtech" placeholder="XYZ College">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </fieldset>
+
+                <fieldset>
+                <legend><h3>Documents</h3></legend>
+
+                    <div class="doc">
+                        <div>
+                            <label for="cv">Enter Resume<span class="star">*</span>:</label> 
+                            <input type="file" id="cv" name="cv" class="upload" accept="application/pdf" required> 
+                        </div>
+                        <div>
+                            <label for="img">Enter Your image<span class="star">*</span>:</label> 
+                            <input type="file" id="img" name="img" class="upload" accept="image/png, image/jpg, image/jpeg" required> 
+                        </div>
+                        <div>
+                            <label for="idcard">Enter Your Aadhaar Card<span class="star">*</span>:</label> 
+                            <input type="file" id="idcard" name="idcard" class="upload" accept="image/png, image/jpg, image/jpeg" required>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <h3> About You </h3>
+                <div class="tell">
+                    <div>
+                        <label for="about">Tell me about Yourself:</label>
+                        <textarea id="about" name="about" cols="80" rows="5"></textarea>
+                    </div>
+                    <div>
+                        <label for="hobby">Enter your hobbies:</label>
+                        <textarea id="hobby" name="hobby" cols="80" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="subs">
+                    <input type="checkbox" id="subscribe" name="subscribe" value="subscribe" onchange="updateCol(this)">
+                    <label for="subscribe" id="newsletter"> Yes, I want to Subscribe newsletter</label>
+                </div>
+
+                <div class="btn">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </div>
+
+            </form>
+        </div>
+    </body>
+    <script src="script.js"></script>
+</html>
