@@ -1,144 +1,138 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login Form</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body onload="onLoad()">
-        <center> <h1> <u>New User Registration Form </u> </h1> </center>
-        
-        
-        <div style="background-color: white; width: 90%; margin: auto; margin-bottom: 15px; padding: 15px; box-shadow: -5px -5px 5px 5px #5c5656;">
-            <form method="get" onsubmit="return validateForm()">
-                <fieldset>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="onLoad()">
+    <center><h1><u>New User Registration Form</u></h1></center>
+
+    <div style="background-color: white; width: 90%; margin: auto; margin-bottom: 15px; padding: 15px; box-shadow: -5px -5px 5px 5px #5c5656;">
+        <form method="get" onsubmit="return validateForm()">
+            <fieldset>
                 <legend><h3>Your Details</h3></legend>
-                    <h3>Name</h3>
-                    <div class="names">
-                        <div>
-                            <label for="fname">First name<span class="star">*</span>:</label>
-                            <input type="text" id="fname" name="fname" placeholder="First name">
-                        </div>
-                        <div>
-                            <label for="mname">Middle name:</label>
-                            <input type="text" id="mname" name="mname" placeholder="Middle name">
-                        </div>
-                        
-                        <div>
-                            <label for="lname">Last name<span class="star">*</span>:</label>
-                            <input type="text" id="lname" name="lname" placeholder="Last name">
-                        </div>
+                <h3>Name</h3>
+                <div class="names">
+                    <div>
+                        <label for="txtFirstName">First name<span class="star">*</span>:</label>
+                        <input type="text" id="txtFirstName" name="txtFirstName" placeholder="First name" data-take="input" data-validate="validate" oninput="check(this)" >
                     </div>
-                    <h3>Father Name</h3>
-                    <div class="names">
-                        <div>
-                            <label for="ffname">First name<span class="star">*</span>:</label>
-                            <input type="text" id="ffname" name="ffname" placeholder="First name" >
-                        </div>
-                        <div>
-                            <label for="fmname">Middle name:</label>
-                            <input type="text" id="fmname" name="fmname" placeholder="Middle name">
-                        </div>
-                        
-                        <div>
-                            <label for="flname">Last name<span class="star">*</span>:</label>
-                            <input type="text" id="flname" name="flname" placeholder="Last name" >
-                        </div>     
+                    <div>
+                        <label for="txtMiddleName">Middle name:</label>
+                        <input type="text" id="txtMiddleName" name="txtMiddleName" placeholder="Middle name" data-take="input">
                     </div>
-                    <h3>Mother Name</h3>
-                    <div class="names">
-                        <div>
-                            <label for="mfname">First name<span class="star">*</span>:</label>
-                            <input type="text" id="mfname" name="mfname" placeholder="First name" >
-                        </div>
-                        <div>
-                            <label for="mmname">Middle name:</label>
-                            <input type="text" id="mmname" name="mmname" placeholder="Middle name">
-                        </div>
-                        
-                        <div>
-                            <label for="mlname">Last name<span class="star">*</span>:</label>
-                            <input type="text" id="mlname" name="mlname" placeholder="Last name" >
-                        </div>     
+                    <div>
+                        <label for="txtLastName">Last name<span class="star">*</span>:</label>
+                        <input type="text" id="txtLastName" name="txtLastName" placeholder="Last name" data-take="input" data-validate="validate" oninput="check(this)" >
                     </div>
-                </fieldset>
+                </div>
+                <h3>Father Name</h3>
+                <div class="names">
+                    <div>
+                        <label for="txtFatherFirstName">First name<span class="star">*</span>:</label>
+                        <input type="text" id="txtFatherFirstName" name="txtFatherFirstName" placeholder="First name" data-take="input" data-validate="validate" oninput="check(this)" >
+                    </div>
+                    <div>
+                        <label for="txtFatherMiddleName">Middle name:</label>
+                        <input type="text" id="txtFatherMiddleName" name="txtFatherMiddleName" placeholder="Middle name" data-take="input" >
+                    </div>
+                    <div>
+                        <label for="txtFatherLastName">Last name<span class="star">*</span>:</label>
+                        <input type="text" id="txtFatherLastName" name="txtFatherLastName" placeholder="Last name" data-take="input" data-validate="validate" oninput="check(this)" >
+                    </div>
+                </div>
+                <h3>Mother Name</h3>
+                <div class="names">
+                    <div>
+                        <label for="txtMotherFirstName">First name<span class="star">*</span>:</label>
+                        <input type="text" id="txtMotherFirstName" name="txtMotherFirstName" placeholder="First name" data-take="input" data-validate="validate" oninput="check(this)" >
+                    </div>
+                    <div>
+                        <label for="txtMotherMiddleName">Middle name:</label>
+                        <input type="text" id="txtMotherMiddleName" name="txtMotherMiddleName" placeholder="Middle name" data-take="input" >
+                    </div>
+                    <div>
+                        <label for="txtMotherLastName">Last name<span class="star">*</span>:</label>
+                        <input type="text" id="txtMotherLastName" name="txtMotherLastName" placeholder="Last name" data-take="input" data-validate="validate" oninput="check(this)" >
+                    </div>
+                </div>
+            </fieldset>
 
-                <fieldset>
+            <fieldset>
                 <legend><h3>Personal Details</h3></legend>
-                    <div class="personal">
-                        <div>
-                            <label for="email">Email address<span class="star">*</span>:</label>
-                            <input type="text" id="email" name="email" placeholder="email@gmail.com" >
-                        </div>
-
-                        <div>
-                            <label for="pno">Phone no<span class="star">*</span>:</label>
-                            <input type="text" id="pno" name="pno" placeholder="+91" oninput="validateNo(this)" >
-                        </div>
-
-                        <div>
-                            <label for="con"> Enter Country<span class="star">*</span>:</label>
-                            <select id="con" name="con" onchange="updateStates()">
-                                <option value="India">India</option>
-                                <option value="USA">USA</option>
-                                <option value="UK">UK</option>
-                                <option value="Singapore">Singapore</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="st"> Enter State<span class="star">*</span>:</label>
-                            <select id="st" name="st">
-                                <option value="Odisha">Odisha</option>
-                                <option value="Mumbai">Mumbai</option>
-                                <option value="Bangalore">Bangalore</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="West Bengal">West Bengal</option>
-                            </select>
-                        </div>
-
+                <div class="personal">
+                    <div>
+                        <label for="txtEmail">Email address<span class="star">*</span>:</label>
+                        <input type="text" id="txtEmail" name="txtEmail" placeholder="email@gmail.com" data-take="input" data-validate="validate" oninput="check(this)" >
                     </div>
 
-                    <div class="about" style="margin-top: 20px;">
-                        <div style="width: 70%;">
-                            <p>Choose your Gender<span class="star">*</span>:</p> 
-                            <div class="gender">
-                                <div>
-                                    <input type="radio" id="male" name="gender" value="Male" >
-                                    <label for="male">Male</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="female" name="gender" value="Female">
-                                    <label for="female">Female</label>
-                                </div>
+                    <div>
+                        <label for="txtPhoneNumber">Phone no<span class="star">*</span>:</label>
+                        <input type="text" id="txtPhoneNumber" name="txtPhoneNumber" placeholder="+91" oninput="validateNo(this)" data-take="input" data-validate="validate" oninput="check(this)" >
+                    </div>
+
+                    <div>
+                        <label for="selectCountry">Enter Country<span class="star">*</span>:</label>
+                        <select id="selectCountry" name="selectCountry" onchange="updateStates()" data-take="input">
+                            <option value="India">India</option>
+                            <option value="USA">USA</option>
+                            <option value="UK">UK</option>
+                            <option value="Singapore">Singapore</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="selectState">Enter State<span class="star">*</span>:</label>
+                        <select id="selectState" name="selectState" data-take="input">
+                            <option value="Odisha">Odisha</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="WestBengal">West Bengal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="about" style="margin-top: 20px;">
+                    <div style="width: 70%;">
+                        <p>Choose your Gender<span class="star">*</span>:</p>
+                        <div class="gender">
+                            <div>
+                                <input type="radio" id="radioMale" name="radioGender" value="Male" checked>
+                                <label for="radioMale">Male</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="radioFemale" name="radioGender" value="Female">
+                                <label for="radioFemale">Female</label>
                             </div>
                         </div>
-
-                        <div style="width: 70%;" class="aabout">
-                            <label for="dob">Enter Date of Birth<span class="star">*</span>:</label> 
-                            <input type="date" id="dob" name="dob" max="2016-12-31" min="2000-01-01" >
-                        </div>
-
-                        <div style="width: 70%;" class="aabout">
-                            <label for="address">Address<span class="star">*</span>:</label>
-                            <input type="text" id="address" name="address" placeholder="Address" >
-                        </div>
-
-                        <div style="width: 70%;" class="aabout">
-                            <label for="pincode">pincode<span class="star">*</span>:</label>
-                            <input type="text" id="pincode" name="pincode" placeholder="pincode" oninput="validateNo(this)" >
-                        </div>
-                        
                     </div>
-                </fieldset>
 
-                <fieldset>
+                    <div style="width: 70%;" class="aabout">
+                        <label for="dateOfBirth">Enter Date of Birth<span class="star">*</span>:</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" max="2016-12-31" min="2000-01-01" data-take="input" data-validate="validate" oninput="check(this)" >
+                    </div>
+
+                    <div style="width: 70%;" class="aabout">
+                        <label for="txtAddress">Address<span class="star">*</span>:</label>
+                        <input type="text" id="txtAddress" name="txtAddress" placeholder="Address" data-take="input" data-validate="validate" oninput="check(this)" >
+                    </div>
+
+                    <div style="width: 70%;" class="aabout">
+                        <label for="txtPincode">Pincode<span class="star">*</span>:</label>
+                        <input type="text" id="txtPincode" name="txtPincode" placeholder="Pincode" oninput="validateNo(this)" data-take="input" data-validate="validate" oninput="check(this)" >
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
                 <legend><h3>Educational Details</h3></legend>
                 <div class="education">
                     <div>
-                        <label for="edu">Highest Education<span class="star">*</span>:</label> 
-                        <select id="edu" name="edu" onchange="updateEdu()">
+                        <label for="selectEducation">Highest Education<span class="star">*</span>:</label>
+                        <select id="selectEducation" name="selectEducation" onchange="updateEdu()" data-take="input">
                             <option value="Secondary">Secondary</option>
                             <option value="Higher Secondary">Higher Secondary</option>
                             <option value="B.Tech">B.Tech</option>
@@ -147,14 +141,15 @@
                     </div>
 
                     <div>
-                        <label for="br">Branch<span class="star">*</span>:</label> 
-                        <select id="br" name="br">
+                        <label for="selectBranch">Branch<span class="star">*</span>:</label>
+                        <select id="selectBranch" name="selectBranch" data-take="input">
+                            <option value="All">All</option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="yop">Year of passout<span class="star">*</span>:</label> 
-                        <select id="yop" name="yop">
+                        <label for="selectYearOfPassout">Year of passout<span class="star">*</span>:</label>
+                        <select id="selectYearOfPassout" name="selectYearOfPassout" data-take="input">
                             <option value="2024">2024</option>
                             <option value="2025">2025</option>
                             <option value="2026">2026</option>
@@ -166,353 +161,397 @@
                 <div class="marks" style="margin-top: 10px;">
                     <div>
                         <div>
-                            <div class="sec">
-                                <label for="secondary">Enter Secondary marks out of 100<span class="star">*</span>:</label>
-                                <input type="text" id="secondary" name="secondary" placeholder="100"  oninput="validateNo(this)" >
+                            <div class="secondary-marks">
+                                <label for="txtSecondaryMarks">Enter Secondary marks out of 100<span class="star">*</span>:</label>
+                                <input type="text" id="txtSecondaryMarks" name="txtSecondaryMarks" placeholder="100" oninput="validateNo(this)" data-take="input">
                             </div>
-                            <div class="hsec">
-                                <label for="hsecondary">Enter Higher Secondary marks out of 100<span class="star">*</span>:</label>
-                                <input type="text" id="hsecondary" name="hsecondary" placeholder="100"  oninput="validateNo(this)">
+                            <div class="higher-secondary-marks">
+                                <label for="txtHigherSecondaryMarks">Enter Higher Secondary marks out of 100<span class="star">*</span>:</label>
+                                <input type="text" id="txtHigherSecondaryMarks" name="txtHigherSecondaryMarks" placeholder="100" oninput="validateNo(this)" data-take="input">
                             </div>
                         </div>
                         <div>
-                            <div class="b">
-                                <label for="btech">Enter B.Tech marks out of 100<span class="star">*</span>:</label>
-                                <input type="text" id="btech" name="btech" placeholder="100"  oninput="validateNo(this)">
+                            <div class="b-tech-marks">
+                                <label for="txtBTechMarks">Enter B.Tech marks out of 100<span class="star">*</span>:</label>
+                                <input type="text" id="txtBTechMarks" name="txtBTechMarks" placeholder="100" oninput="validateNo(this)" data-take="input">
                             </div>
-                            <div class="m">
-                                <label for="mtech">Enter M.Tech marks out of 100<span class="star">*</span>:</label>
-                                <input type="text" id="mtech" name="mtech" placeholder="100"  oninput="validateNo(this)">
+                            <div class="m-tech-marks">
+                                <label for="txtMTechMarks">Enter M.Tech marks out of 100<span class="star">*</span>:</label>
+                                <input type="text" id="txtMTechMarks" name="txtMTechMarks" placeholder="100" oninput="validateNo(this)" data-take="input">
                             </div>
                         </div>
                     </div>
-                    <div >
+                    <div>
                         <div>
-                            <div class="sec">
-                                <label for="nsecondary">Enter Secondary School name<span class="star">*</span>:</label>
-                                <input type="text" id="nsecondary" name="nsecondary" placeholder="ABC School" >
+                            <div class="secondary-school-name">
+                                <label for="txtSecondarySchoolName">Enter Secondary School name<span class="star">*</span>:</label>
+                                <input type="text" id="txtSecondarySchoolName" name="txtSecondarySchoolName" placeholder="ABC School" data-take="input">
                             </div>
-                            <div class="ihsec">
-                                <label for="nhsecondary">Enter Higher Secondary School name<span class="star">*</span>:</label>
-                                <input type="text" id="nhsecondary" name="nhsecondary" placeholder="ABC School">
+                            <div class="higher-secondary-school-name">
+                                <label for="txtHigherSecondarySchoolName">Enter Higher Secondary School name<span class="star">*</span>:</label>
+                                <input type="text" id="txtHigherSecondarySchoolName" name="txtHigherSecondarySchoolName" placeholder="ABC School" data-take="input">
                             </div>
                         </div>
-
+                
                         <div>
-                            <div class="ib">
-                                <label for="nbtech">Enter B.Tech college name<span class="star">*</span>:</label>
-                                <input type="text" id="nbtech" name="nbtech" placeholder="XYZ College">
+                            <div class="b-tech-college-name">
+                                <label for="txtBTechCollegeName">Enter B.Tech college name<span class="star">*</span>:</label>
+                                <input type="text" id="txtBTechCollegeName" name="txtBTechCollegeName" placeholder="XYZ College" data-take="input">
                             </div>
-                            <div class="im">
-                                <label for="nmtech">Enter M.Tech college name<span class="star">*</span>:</label>
-                                <input type="text" id="nmtech" name="nmtech" placeholder="XYZ College">
+                            <div class="m-tech-college-name">
+                                <label for="txtMTechCollegeName">Enter M.Tech college name<span class="star">*</span>:</label>
+                                <input type="text" id="txtMTechCollegeName" name="txtMTechCollegeName" placeholder="XYZ College" data-take="input">
                             </div>
                         </div>
                     </div>
-                </div>
-                </fieldset>
+                </div>                
+            </fieldset>
 
-                <fieldset>
+            <fieldset>
                 <legend><h3>Documents</h3></legend>
-
-                    <div class="doc">
-                        <div>
-                            <label for="img">Enter Your image<span class="star">*</span>:</label> 
-                            <img id="imgoutput" width="200" />
-                            <input type="file" id="img" name="img" class="upload" accept="image/png, image/jpg, image/jpeg" onchange="loadimage(event)" > 
-                        </div>
-                        <div>
-                            <label for="idcard">Enter Your Aadhaar Card<span class="star">*</span>:</label> 
-                            <img id="imgidcard" width="200" />
-                            <input type="file" id="idcard" name="idcard" class="upload" accept="image/png, image/jpg, image/jpeg" onchange="loadid(event)" >
-                        </div>
-                        <div>
-                            <label for="cv">Enter Resume<span class="star">*</span>:</label> 
-                            <!-- <embed id="showresume" width="200" /> -->
-                            <iframe id="showresume" width="200" style="display: none;"></iframe>
-                                <input type="file" id="cv" name="cv" class="upload" accept="application/pdf" onchange="showresume(event)" c> 
-                            </div>
-                    </div>
-                </fieldset>
-
-                <h3> About You </h3>
-                <div class="tell">
+                <div class="doc">
                     <div>
-                        <label for="about">Tell me about Yourself:</label>
-                        <textarea id="about" name="about" cols="80" rows="5"></textarea>
+                        <label for="fileImage">Enter Your image<span class="star">*</span>:</label>
+                        <img id="imgOutput" width="200" />
+                        <input type="file" id="fileImage" name="fileImage" class="upload" accept="image/png, image/jpg, image/jpeg" onchange="loadImage(event)" data-validate="validate"  data-take="input" oninput="check(this)" >
                     </div>
                     <div>
-                        <label for="hobby">Enter your hobbies:</label>
-                        <textarea id="hobby" name="hobby" cols="80" rows="5"></textarea>
+                        <label for="fileAadharCard">Enter Your Aadhaar Card<span class="star">*</span>:</label>
+                        <img id="imgAadharCard" width="200" />
+                        <input type="file" id="fileAadharCard" name="fileAadharCard" class="upload" accept="image/png, image/jpg, image/jpeg" onchange="loadAadharCard(event)" data-validate="validate"  data-take="input" oninput="check(this)" >
+                    </div>
+                    <div>
+                        <label for="fileResume">Enter Resume<span class="star">*</span>:</label>
+                        <iframe id="showResume" width="200" style="display: none;"></iframe>
+                        <input type="file" id="fileResume" name="fileResume" class="upload" accept="application/pdf" onchange="showResume(event)" data-validate="validate"  data-take="input" oninput="check(this)" >
                     </div>
                 </div>
+            </fieldset>
 
-                <div class="subs">
-                    <input type="checkbox" id="subscribe" name="subscribe" value="subscribe" onchange="updateCol(this)">
-                    <label for="subscribe" id="newsletter"> Yes, I want to Subscribe newsletter</label>
+            <h3>About You</h3>
+            <div class="tell">
+                <div>
+                    <label for="txtAboutYourself">Tell me about Yourself:</label>
+                    <textarea id="txtAboutYourself" name="txtAboutYourself" cols="80" rows="5" data-take="input"></textarea>
                 </div>
-
-                <div class="btn">
-                    <input type="submit" value="Submit">
-                    <input type="reset" value="Reset">
+                <div>
+                    <label for="txtHobbies">Enter your hobbies:</label>
+                    <textarea id="txtHobbies" name="txtHobbies" cols="80" rows="5" data-take="input"></textarea>
                 </div>
-
-            </form>
-        </div>
-
-        <div class="modal">
-            <div class="btns">
-                <button class="close-modal" onclick="closeModal()">&times;</button>
-                <button class="close-modal" onclick="allDone()">&#x2713;</button>
             </div>
-            <div class="result">
-                <fieldset>
-                    <legend><h3>Details</h3></legend>
-                    <div>
-                        <div>
-                            Name:
-                        </div>
-                        <div id="rname">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Father Name:
-                        </div>
-                        <div id="rfname">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Mother Name:
-                        </div>
-                        <div id="rmname">
-                            
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend><h3>Personal Details</h3></legend>
-                    <div>
-                        <div>
-                            Email Address:
-                        </div>
-                        <div id="remail">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Mobile No:
-                        </div>
-                        <div id="rph">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Country:
-                        </div>
-                        <div id="rcon">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            State:
-                        </div>
-                        <div id="rstate">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Gender:
-                        </div>
-                        <div id="rgen">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            DOB:
-                        </div>
-                        <div id="rdob">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Address:
-                        </div>
-                        <div id="raddress">
-                        
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Pincode:
-                        </div>
-                        <div id="rpin">
-                            
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend><h3>Education</h3></legend>
-                    <div>
-                        <div>
-                            Highest Education:
-                        </div>
-                        <div id="rhedu">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Branch:
-                        </div>
-                        <div id="rbranch">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            YOP:
-                        </div>
-                        <div id="ryop">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Secondary School:
-                        </div>
-                        <div id="rssec">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Higher Secondary School:
-                        </div>
-                        <div id="rhssec">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            B.Tech College:
-                        </div>
-                        <div id="rbtech">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            M.Tech College:
-                        </div>
-                        <div id="rmtech">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Secondary Marks:
-                        </div>
-                        <div id="rmsec">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Higher Secondary Marks:
-                        </div>
-                        <div id="rmhsec">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            B.Tech Marks:
-                        </div>
-                        <div id="rmbtech">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            M.Tech Marks:
-                        </div>
-                        <div id="rmmtech">
-                            
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend><h3>Identity</h3></legend>
-                    <div>
-                        <div>
-                            Resume:
-                        </div>
-                        <div id="rresume">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Image:
-                        </div>
-                        <div id="rimg">
-                        
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Aadhar Card:
-                        </div>
-                        <div id="raadhar">
-                            
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend><h3>About you</h3></legend>
-                    <div>
-                        <div>
-                            About Yourself:
-                        </div>
-                        <div id="rabout">
-                            
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Your Hobbies:
-                        </div>
-                        <div id="rhobby">
-                            
-                        </div>
-                    </div>
 
-                    <div>
-                        <div>
-                            Subscribe:
-                        </div>
-                        <div id="rsub">
-                            
-                        </div>
-                    </div>
-                </fieldset>
-
+            <div class="subs">
+                <input type="checkbox" id="checkboxSubscribe" name="checkboxSubscribe" value="subscribe" onchange="updateCol(this)" data-take="input">
+                <label for="checkboxSubscribe" id="labelNewsletter"> Yes, I want to Subscribe newsletter</label>
             </div>
+
+            <div class="btn">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal">
+        <div class="btns">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <button class="close-modal" onclick="allDone()">&#x2713;</button>
         </div>
+        <div class="result-details">
+            <fieldset>
+                <legend><h3>Details</h3></legend>
+                <div>
+                    <div>
+                        Your First Name:
+                    </div>
+                    <div id="result-txtFirstName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Your Middle Name:
+                    </div>
+                    <div id="result-txtMiddleName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Your Last Name:
+                    </div>
+                    <div id="result-txtLastName">
+    
+                    </div>
+                </div>
 
-        <div class="overlay"></div>
+                <div>
+                    <div>
+                        Father First Name:
+                    </div>
+                    <div id="result-txtFatherFirstName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Father Middle Name:
+                    </div>
+                    <div id="result-txtFatherMiddleName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Father Last Name:
+                    </div>
+                    <div id="result-txtFatherLastName">
+    
+                    </div>
+                </div>
 
+                <div>
+                    <div>
+                        Mother First Name:
+                    </div>
+                    <div id="result-txtMotherFirstName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Mother Middle Name:
+                    </div>
+                    <div id="result-txtMotherMiddleName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Mother Last Name:
+                    </div>
+                    <div id="result-txtMotherLastName">
+    
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><h3>Personal Details</h3></legend>
+                <div>
+                    <div>
+                        Email Address:
+                    </div>
+                    <div id="result-txtEmail">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Mobile No:
+                    </div>
+                    <div id="result-txtPhoneNumber">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Country:
+                    </div>
+                    <div id="result-selectCountry">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        State:
+                    </div>
+                    <div id="result-selectState">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Gender:
+                    </div>
+                    <div id="result-radioGender">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        DOB:
+                    </div>
+                    <div id="result-dateOfBirth">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Address:
+                    </div>
+                    <div id="result-txtAddress">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Pincode:
+                    </div>
+                    <div id="result-txtPincode">
+    
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><h3>Education</h3></legend>
+                <div>
+                    <div>
+                        Highest Education:
+                    </div>
+                    <div id="result-selectEducation">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Branch:
+                    </div>
+                    <div id="result-selectBranch">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        YOP:
+                    </div>
+                    <div id="result-selectYearOfPassout">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Secondary School:
+                    </div>
+                    <div id="result-txtSecondarySchoolName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Higher Secondary School:
+                    </div>
+                    <div id="result-txtHigherSecondarySchoolName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        B.Tech College:
+                    </div>
+                    <div id="result-txtBTechCollegeName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        M.Tech College:
+                    </div>
+                    <div id="result-txtMTechCollegeName">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Secondary Marks:
+                    </div>
+                    <div id="result-txtSecondaryMarks">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Higher Secondary Marks:
+                    </div>
+                    <div id="result-txtHigherSecondaryMarks">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        B.Tech Marks:
+                    </div>
+                    <div id="result-txtBTechMarks">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        M.Tech Marks:
+                    </div>
+                    <div id="result-txtMTechMarks">
+    
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><h3>Identity</h3></legend>
+                <div>
+                    <div>
+                        Resume:
+                    </div>
+                    <div id="result-fileResume">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Image:
+                    </div>
+                    <div id="result-fileImage">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Aadhar Card:
+                    </div>
+                    <div id="result-fileAadharCard">
+    
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><h3>About you</h3></legend>
+                <div>
+                    <div>
+                        About Yourself:
+                    </div>
+                    <div id="result-txtAboutYourself">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Your Hobbies:
+                    </div>
+                    <div id="result-txtHobbies">
+    
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Subscribe:
+                    </div>
+                    <div id="result-checkboxSubscribe">
+    
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
 
+    <div class="overlay"></div>
         
 
     </body>
