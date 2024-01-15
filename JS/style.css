@@ -478,7 +478,7 @@ body .modal{
 
 .result-details div div{
     flex: 50%;
-    justify-content: center;
+    justify-content: start;
 }
 
 .hidden{
