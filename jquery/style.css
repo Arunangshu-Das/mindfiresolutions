@@ -162,12 +162,18 @@ input:focus-visible{
     flex: 24%;
 } */
 
+.about .aboutdetail{
+    flex: 100%;
+    width: 70%;
+}
+
 @media (max-width: 700px) {
     .about{
         flex-direction: column;
     }
-    .about .aabout{
+    fieldset .about .aboutdetail{
         flex: 100%;
+        width: 100%;
     }
 }
 
@@ -428,6 +434,14 @@ body .modal{
     overflow-y: scroll;
 }
 
+::-webkit-scrollbar{
+    display: none;
+}
+
+::-webkit-scrollbar-track{
+    display: none;
+}
+
 @media (max-width: 600px) {
     body .modal{
         width: 98%;
@@ -488,31 +502,77 @@ body .modal{
 .err .errormsg{
     display: block;
     background-color: #f1f1f1;
-    width: 90%;
+    width: 100%;
     border: 1px solid black;
     padding: 10px;
     text-align: center;
     position: relative;
     margin-top: 10px;
+    z-index: 10;
 }
 
 .err{
     margin-top: 5px;
-    width: 90%;
+    width: 20%;
     display: flex;
     flex-direction: row;
     align-items: center;
     position: absolute;
+    z-index: 30;
 }
 
 .errormsg:after{
     content: " ";
     position: absolute;
-    right: 50px;
+    right: 200px;
     top: -15px;
     border-top: none;
     border-right: 15px solid transparent;
     border-left: 15px solid transparent;
     border-bottom: 15px solid black;
+    z-index: 4;
 }
 
+.doc div .err{
+    margin-top: 80px;
+}
+
+@media (max-width: 700px) {
+    .err{
+        width: 70%;
+    }
+
+}
+
+@media (max-width: 1180px) {
+    .errormsg:after{
+        right: 150px;
+    }
+}
+
+@media (max-width: 920px) {
+    .errormsg:after{
+        right: 100px;
+    }
+}
+
+@media (max-width: 700px) {
+    .errormsg:after{
+        right: 250px;
+        z-index: 4;
+    }
+}
+
+@media (max-width: 430px) {
+    .errormsg:after{
+        right: 200px;
+        z-index: 4;
+    }
+}
+
+@media (max-width: 330px) {
+    .errormsg:after{
+        right: 150px;
+        z-index: 4;
+    }
+}
