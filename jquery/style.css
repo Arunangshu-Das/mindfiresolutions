@@ -1,0 +1,541 @@
+@import url('https://fonts.googleapis.com/css2?family=Salsa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital@1&display=swap');
+
+::selection{
+    background-color: transparent;
+    color: #5c5656;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f1f1f1;
+    font-family: 'Nunito', sans-serif;
+}
+form{
+    margin: auto;
+}
+
+h1{
+    font-family: 'Merriweather', serif;
+    text-shadow: 0px 0px 12px black;
+    color: white;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+h3{
+    font-family: 'Salsa', cursive;
+}
+
+.names{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    margin: auto;
+}
+.names div{
+    flex: 30%;
+}
+
+@media (max-width: 700px) {
+    .names div{
+        flex: 100%;
+    }
+}
+
+input
+{
+    border: none;
+    border-bottom: 1px solid;
+    width: 92%;
+    margin-top: 5px;
+    padding: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+select{
+    border: none;
+    border-bottom: 1px solid;
+    width: 92%;
+    margin-top: 5px;
+    padding: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+@media (max-width: 700px) {
+    input{
+        border: none;
+        border-bottom: 1px solid;
+        width: 99%;
+        margin-top: 3px;
+        padding: 2px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+    }
+
+    select{
+        border: none;
+        border-bottom: 1px solid;
+        width: 99%;
+        margin-top: 3px;
+        padding: 2px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+    }   
+}
+
+fieldset{
+    padding: 5px;
+    padding-bottom: 12px;
+}
+
+select:focus-visible{
+    outline: none;
+}
+
+textarea{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+input[type="file"] , input[type="checkbox"], input[type="submit"], input[type="reset"]{
+    border: none;
+    margin-top: 0px;
+    zoom: 1.2;
+}
+
+input[type="checkbox"]{
+    transform: rotate(0deg);
+    transition: 1.2s;
+}
+
+input[type="checkbox"]:checked{
+    zoom: 1.4;
+    transform: rotate(360deg);
+    transition: 1.2s;
+}
+
+input:active
+{
+    border: none;
+    border-bottom: 1px solid;
+}
+
+input:focus-visible{
+    outline: none;
+}
+
+.personal{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    margin: auto;
+}
+
+.personal div{
+    flex: 22%;
+}
+
+@media (max-width: 700px) {
+    .personal div{
+        flex: 100%;
+    }
+}
+
+.about{
+    display: flex;
+    justify-content: space-between;
+}
+
+.about .aboutdetail{
+    width: 70%;
+}
+
+
+@media (max-width: 700px) {
+    .about{
+        flex-direction: column;
+    }
+    fieldset .about .aboutdetail{
+        width: 100%;
+        flex: 100%;
+    }
+}
+
+
+.gender{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gender div{
+    display: flex;
+    flex-direction: row;
+}
+
+.gender div input:hover, .gender div label:hover{
+    cursor: pointer;
+}
+
+.gender div label{
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+/* @media (max-width: 700px) {
+    .gender div label{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+} */
+
+.education{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.education div{
+    flex: 30%;
+}
+
+@media (max-width: 700px) {
+    .education div{
+        flex: 100%;
+    }
+}
+
+h3{
+    margin: 5px 0 5px 0;
+}
+
+.marks{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+    .marks{
+        flex-direction: column;
+    }
+}
+
+.marks div{
+    display: flex;
+    flex-direction: column;
+    flex: 50%;
+}
+
+.doc{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.doc div{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+/* @media (max-width: 700px) {
+    .doc div{
+        flex: 85%;
+    }
+} */
+
+.tell{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+    padding: 5px;
+}
+
+@media (max-width: 700px) {
+    .tell{
+        flex-direction: column;
+    }
+}
+
+.tell div{
+    display: flex;
+    flex-direction: column;
+    width: 42%;
+    /* flex: 50%; */
+}
+
+@media (max-width: 700px) {
+    .tell div{
+        width: 90%;
+    }
+}
+
+.subs{
+    display:inline-block;
+    width: 50%;
+}
+
+@media (max-width: 700px) {
+    .subs{
+        width: 90%;
+    }
+}
+
+.subs input{
+    width: 5%;
+}
+
+.subs input:hover{
+    cursor: pointer;
+}
+
+.btn{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    justify-content: space-around;
+}
+
+.btn input{
+    width: 30%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.btn input:hover{
+    cursor: pointer;
+}
+
+input[type="submit"]{
+    background-color: green;
+    color: white;
+}
+
+input[type="submit"]:hover{
+    background-color: white;
+    color: green;
+    border: 1.2px solid green;
+    transition: .5s;
+}
+
+input[type="reset"]{
+    background-color: red; 
+    color: white;
+}
+
+input[type="reset"]:hover{
+    background-color: white;
+    color: red;
+    border: 1.2px solid red;
+    transition: .5s;
+}
+
+input.upload{
+    border: none;
+    border-bottom: 1px solid #5c5656 ;
+    font-size: 16px;
+    background: white;
+    border-radius: 5px;
+    outline: none;
+    width: 92%;
+    padding: 10px;
+}
+
+::-webkit-file-upload-button{
+    border: 1px solid #5c5656;
+    background: #f1f1f1;
+    padding: 5px;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+}
+
+::-webkit-file-upload-button:hover{
+    background: #dfdddd;
+    cursor: pointer;
+}
+
+.star{
+    color: red;
+}
+
+.sec{
+    display: none;
+}
+
+label::after{
+    content: "\a";
+    white-space: pre;
+}
+
+#newsletter:hover{
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.marks div div div{
+    margin-top: 10px;
+}
+
+.stop{
+    overflow-y: hidden;
+}
+
+.close-modal {
+    position: relative;
+    top: 1rem;
+    left: 1rem;
+    margin-right: 1rem;
+    font-size: 3rem;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transform: translate(-15%, -25%);
+}
+
+html body .modal .btns{
+    position: sticky ;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f1f1f1;
+    z-index: 70;
+}
+
+body .modal{
+    position: absolute;
+    /* margin-top: 4%; */
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 70%;
+    height: 90%;
+    background-color: white;
+    padding: 0px 2px 6px 2px;
+    border-radius: 5px;
+    box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    overflow-y: scroll;
+}
+
+@media (max-width: 600px) {
+    body .modal{
+        width: 98%;
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 5;
+  }
+
+.result-details{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+}
+
+.result-details fieldset{
+    width: 70%;
+}
+
+@media (max-width: 600px) {
+    .result-details fieldset{
+        width: 90%;
+    }
+}
+
+.result-details fieldset div{
+    margin: 8px 0;
+}
+
+.result-details div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 6px;
+    height: 50px;
+}
+
+.result-details div div{
+    flex: 50%;
+    justify-content: start;
+}
+
+.hidden{
+    display: none;
+}
+
+.err .errormsg{
+    display: block;
+    background-color: #f1f1f1;
+    width: 100%;
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    margin-top: 10px;
+}
+
+.err{
+    margin-top: 5px;
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+}
+
+.errormsg:after{
+    content: " ";
+    position: absolute;
+    right: 190px;
+    top: -15px;
+    border-top: none;
+    border-right: 15px solid transparent;
+    border-left: 15px solid transparent;
+    border-bottom: 15px solid black;
+}
+
+.doc div .err{
+    margin-top: 80px;
+}
+
+@media (max-width: 700px) {
+    .err{
+        margin-top: 5px;
+        width: 60%;
+    }
+    .errormsg:after{
+        right: 70px;
+    }
+}
+
+@media (max-width: 1150px) {
+    .errormsg:after{
+        right: 100px;
+    }
+}

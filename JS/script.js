@@ -126,10 +126,10 @@ function validateNo(ip) {
 function updateCol(check){
     var a=document.getElementById("newsletter");
     if(check.checked){
-        a.style.color="green";
+        a.style.color = "green";
     }
     else{
-        a.style.color="black";
+        a.style.color = "black";
     }
 }
 
