@@ -11,6 +11,17 @@
 <body onload="onLoad()">
     <center class="mt-4"><h1><u>New User Registration Form</u></h1></center>
 
+    <div id="toast-message" class="hide toast show position-fixed end-0 bottom-0 hide" style="z-index: 1000;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-bg-danger">
+            <strong class="me-auto">Error</strong>
+            <small class="text-body-dark">Now</small>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Check all the field and try again
+        </div>
+    </div>
+
     <div class="container w-100 m-auto mt-5" style="background-color: white; box-shadow: -5px -5px 5px 5px #5c5656;">
         <form class="form-floating p-2" method="get" onsubmit="return validateForm()">
             <fieldset>
@@ -161,8 +172,8 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-around flex-row-reverse" style="margin-top: 10px;">
-                    <div>
+                <div class="d-flex justify-content-around flex-row-reverse flex-wrap" style="margin-top: 10px;">
+                    <div class="flex-fill">
                         <div>
                             <div class="col-xs-12" id="secondary-marks">
                                 <label for="txtSecondaryMarks">Enter Secondary marks out of 100<span class="star">*</span>:</label>
@@ -184,7 +195,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="flex-fill">
                         <div>
                             <div class="col-xs-12" id="secondary-school-name">
                                 <label for="txtSecondarySchoolName">Enter Secondary School name<span class="star">*</span>:</label>
@@ -260,8 +271,8 @@
 
     <div class="modal">
         <div class="btns">
-            <button class="close-modal" onclick="closeModal()">&times;</button>
-            <button class="close-modal" onclick="allDone()">&#x2713;</button>
+            <button class="close-modal" onclick="closeModal()" data-toggle="tooltip" title="Close">&times;</button>
+            <button class="close-modal" onclick="allDone()" data-toggle="tooltip" title="Submit" data-bs-placement="left">&#x2713;</button>
         </div>
         <div class="result-details">
             <fieldset>

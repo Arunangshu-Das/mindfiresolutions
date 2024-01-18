@@ -236,6 +236,9 @@ function validateForm() {
         pno.addClass("is-invalid");
         flag = false;
     }
+    else{
+        pno[0].setAttribute("data-bs-original-title","");
+    }
 
     var pincode = $("#txtPincode");
 
@@ -248,6 +251,9 @@ function validateForm() {
         pincode.addClass("is-invalid")
         flag = false;
     }
+    else{
+        pincode[0].setAttribute("data-bs-original-title","");
+    }
 
     var email = $("#txtEmail").val();
     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -256,10 +262,12 @@ function validateForm() {
         var newError = $('<div class="alert alert-warning alert-dismissible fade show" role="alert">Can\'t be a Email</div>');
         var errDiv = $('<div class="err"></div>').append(newError);
         // $("#txtEmail").after(errDiv)
-        $("#txtEmail")[0].setAttribute("data-bs-original-title","Can\'t be a Email");
+        $("#txtEmail")[0].setAttribute("data-bs-original-title","Can\'t be an Email");
         $("#txtEmail").removeClass("is-valid")
         $("#txtEmail").addClass("is-invalid")
         flag = false;
+    }else{
+        $("#txtEmail")[0].setAttribute("data-bs-original-title","");
     }
 
     if (!flag) {
@@ -268,7 +276,11 @@ function validateForm() {
             left: 0,
             behavior: 'smooth',
         });
+        $("#toast-message").removeClass("hide");
         return false;
+    }
+    else{
+        $("toast-message").addClass("hide");
     }
 
     saveData();

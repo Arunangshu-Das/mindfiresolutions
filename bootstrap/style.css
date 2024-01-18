@@ -5,7 +5,12 @@
 
 ::selection{
     background-color: transparent;
-    color: #5c5656;
+    text-shadow: 0px 0px 22px black;
+    color: white;
+}
+
+.hide{
+    display: none;
 }
 
 *{
