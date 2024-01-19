@@ -15,14 +15,14 @@ namespace project1
             do
             {
                 Console.WriteLine("Enter data to add file");
-                string inputData= Console.ReadLine();
+                string inputData = Console.ReadLine();
                 using (StreamWriter writer = new StreamWriter(file,true))
                 {
                     writer.WriteLine(inputData);
                 }
                 Console.WriteLine("Do you want to add more data y/n");
                 string choice=Console.ReadLine().ToLower();
-                if(choice=="n" || choice == "no")
+                if(choice == "n" || choice == "no")
                 {
 
                     if (File.Exists(file))
@@ -37,7 +37,7 @@ namespace project1
 
                     Console.WriteLine("Do you want to add more data y/n");
                     choice = Console.ReadLine().ToLower();
-                    if(choice=="n" || choice == "no")
+                    if(choice == "n" || choice == "no")
                     {
                         break;
                     }

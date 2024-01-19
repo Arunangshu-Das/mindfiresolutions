@@ -267,6 +267,7 @@ function validateForm() {
         $("#txtEmail").addClass("is-invalid")
         flag = false;
     }else{
+        
         $("#txtEmail")[0].setAttribute("data-bs-original-title","");
     }
 
