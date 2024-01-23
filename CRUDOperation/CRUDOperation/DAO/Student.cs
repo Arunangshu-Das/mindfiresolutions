@@ -10,6 +10,11 @@ namespace CRUDOperation.DAO
 {
     public class Student :Base
     {
+        /// <summary>
+        /// Delete Data from Database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="fileName"></param>
         public void DeleteData(int id, String fileName)
         {
             SqlConnection con = null;
@@ -38,6 +43,10 @@ namespace CRUDOperation.DAO
             }
         }
 
+        /// <summary>
+        /// Display all data from Database
+        /// </summary>
+        /// <param name="fileName"></param>
         public void DisplayData(String fileName)
         {
             SqlConnection con = null;
@@ -70,7 +79,10 @@ namespace CRUDOperation.DAO
             }
         }
 
-
+        /// <summary>
+        /// Create table Student
+        /// </summary>
+        /// <param name="fileName"></param>
         public void CreateTable(String fileName)
         {
             SqlConnection con = null;
@@ -98,7 +110,13 @@ namespace CRUDOperation.DAO
             }
         }
 
-
+        /// <summary>
+        /// Insert Record into Database
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="email"></param>
+        /// <param name="salary"></param>
+        /// <param name="fileName"></param>
         public void InsertRecord(String name, String email, String salary, String fileName)
         {
             SqlConnection con = null;
@@ -131,10 +149,4 @@ namespace CRUDOperation.DAO
             }
         }
     }
-
-    /// <summary>
-    /// fggfgfg
-    /// </summary>
-       
-
 }

@@ -52,6 +52,11 @@ namespace CRUDOperation
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Insert record call in DAO
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns>Status in String</returns>
         public String insertRecord(String fileName)
         {
             Console.WriteLine("Enter name, email, salary to add file");
@@ -63,6 +68,11 @@ namespace CRUDOperation
             return "success";
         }
 
+        /// <summary>
+        /// Delete Record call in DAO
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns>Status in String</returns>
         public String DeleteRecord(String fileName)
         {
             Console.WriteLine("Enter id");
