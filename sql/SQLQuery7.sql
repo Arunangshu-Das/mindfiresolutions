@@ -1,0 +1,1 @@
+exec getStudentNameAndAllCourse @ids="1,&2,&24", @delimiter=",&";
