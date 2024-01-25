@@ -9,6 +9,10 @@ namespace CRUDOperation.DAO
 {
     public class Base
     {
+        /// <summary>
+        /// Make Connection with SQL Database
+        /// </summary>
+        /// <returns>SQLConnection</returns>
         public static SqlConnection MakeConnection()
         {
             String connection =
