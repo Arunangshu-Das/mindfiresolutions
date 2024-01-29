@@ -9,106 +9,138 @@ namespace CrudOperationInManytoMany
 {
     internal class Program
     {
-        private crudEntities dbContext = new crudEntities(); // Replace with your actual DbContext
+        //private crudEntities dbContext = new crudEntities(); 
+
+        static String fileName = "";
+
+        public enum Operation
+        {
+            ADD_STUDENT=1, 
+            DISPLAY_ALL_STUDENT, 
+            DISPLAY_STUDENT, 
+            UPDATE_STUDENT,
+            ASSIGN_STUDENT_TO_CLASS,
+            DELETE_STUDENT,
+            ADD_CLASS, 
+            DISPLAY_ALL_CLASS, 
+            UPDATE_CLASS, 
+            DELETE_CLASS,
+            ADD_COURSE, 
+            DISPLAY_ALL_COURSE, 
+            UPDATE_COURSE, 
+            ASSIGN_COURSE_TO_CLASS,
+            DELETE_COURSE,
+            REMOVE_STUDENT_TO_CLASS,
+            REMOVE_COURSE_TO_CLASS, 
+            DISPLAY_ALL_STUDENT_ASSIGNIN_CLASS,
+            DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT, 
+            DISPLAY_ALL_COURSE_ASSIGNIN_CLASS, 
+            DISPLAY_ALL_CLASS_ASSIGNIN_COURSE, 
+            EXIT
+        }
 
         static void Main(string[] args)
         {
             Program program = new Program();
             int id = 0;
 
+            fileName=DateTime.Now.ToString("yyyyMMdd")+".txt";
+
+
             do
             {
-                Console.WriteLine("\n 1. Add Student");
-                Console.WriteLine("\n 2. Display All Students");
-                Console.WriteLine("\n 3. Display Student");
-                Console.WriteLine("\n 4. Update Student");
-                Console.WriteLine("\n 5. Assign Student to class");
-                Console.WriteLine("\n 6. Delete Student");
-                Console.WriteLine("\n 7. Add Class");
-                Console.WriteLine("\n 8. Display All Class");
-                Console.WriteLine("\n 9. Update Class");
-                Console.WriteLine("\n 10. Delete class");
-                Console.WriteLine("\n 11. Add Course");
-                Console.WriteLine("\n 12. Display All Course");
-                Console.WriteLine("\n 13. Update Course");
-                Console.WriteLine("\n 14. Assign Course to class");
-                Console.WriteLine("\n 15. Delete Course");
-                Console.WriteLine("\n 16. Remove Student to class");
-                Console.WriteLine("\n 17. Remove Course to class");
-                Console.WriteLine("\n 18. Display all Students assigned in Class");
-                Console.WriteLine("\n 19. Display all Classes assigned in Student");
-                Console.WriteLine("\n 20. Display all Course assigned in Class");
-                Console.WriteLine("\n 21. Display all Classes assigned in Course");
-                Console.WriteLine("\n 22. Exit");
+                Console.WriteLine($"\n {(int)Operation.ADD_STUDENT}. Add Student");
+                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_STUDENT}. Display All Students");
+                Console.WriteLine($"\n {(int)Operation.DISPLAY_STUDENT}. Display Student");
+                Console.WriteLine($"\n {(int)Operation.UPDATE_STUDENT}. Update Student");
+                Console.WriteLine($"\n {(int)Operation.ASSIGN_STUDENT_TO_CLASS}. Assign Student to class");
+                Console.WriteLine($"\n {(int)Operation.DELETE_STUDENT}. Delete Student");
+                Console.WriteLine($"\n {(int)Operation.ADD_CLASS}. Add Class");
+                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS}. Display All Class");
+                Console.WriteLine($"\n {(int)Operation.UPDATE_CLASS}. Update Class");
+                Console.WriteLine($"\n {(int)Operation.DELETE_CLASS}. Delete class");
+                Console.WriteLine($"\n {(int)Operation.ADD_COURSE}. Add Course");
+                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_COURSE}. Display All Course");
+                Console.WriteLine($"\n {(int)Operation.UPDATE_COURSE}. Update Course");
+                Console.WriteLine($"\n {(int)Operation.ASSIGN_COURSE_TO_CLASS}. Assign Course to class");
+                Console.WriteLine($"\n {(int)Operation.DELETE_COURSE}. Delete Course");
+                Console.WriteLine($"\n {(int)Operation.REMOVE_STUDENT_TO_CLASS}. Remove Student to class");
+                Console.WriteLine($"\n {(int)Operation.REMOVE_COURSE_TO_CLASS}. Remove Course to class");
+                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_STUDENT_ASSIGNIN_CLASS}. Display all Students assigned in Class");
+                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT}. Display all Classes assigned in Student");
+                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_COURSE_ASSIGNIN_CLASS}. Display all Course assigned in Class");
+                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE}. Display all Classes assigned in Course");
+                Console.WriteLine($"\n {(int)Operation.EXIT}. Exit");
 
                 id = int.Parse(Console.ReadLine());
+                Operation inputOperation = (Operation)id; 
 
-                switch (id)
+                switch (inputOperation)
                 {
-                    case 1:
+                    case Operation.ADD_STUDENT:
                         program.AddStudent();
                         break;
-                    case 2:
+                    case Operation.DISPLAY_ALL_STUDENT:
                         program.DisplayAllStudents();
                         break;
-                    case 3:
+                    case Operation.DISPLAY_STUDENT:
                         program.DisplayStudent();
                         break;
-                    case 4:
+                    case Operation.UPDATE_STUDENT:
                         program.UpdateStudent();
                         break;
-                    case 5:
+                    case Operation.ASSIGN_STUDENT_TO_CLASS:
                         program.AssignStudentToClass();
                         break;
-                    case 6:
+                    case Operation.DELETE_STUDENT:
                         program.DeleteStudent();
                         break;
-                    case 7:
+                    case Operation.ADD_CLASS:
                         program.AddClass();
                         break;
-                    case 8:
+                    case Operation.DISPLAY_ALL_CLASS:
                         program.DisplayAllClasses();
                         break;
-                    case 9:
+                    case Operation.UPDATE_CLASS:
                         program.UpdateClass();
                         break;
-                    case 10:
+                    case Operation.DELETE_CLASS:
                         program.DeleteClass();
                         break;
-                    case 11:
+                    case Operation.ADD_COURSE:
                         program.AddCourse();
                         break;
-                    case 12:
+                    case Operation.DISPLAY_ALL_COURSE:
                         program.DisplayAllCourses();
                         break;
-                    case 13:
+                    case Operation.UPDATE_COURSE:
                         program.UpdateCourse();
                         break;
-                    case 14:
+                    case Operation.ASSIGN_COURSE_TO_CLASS:
                         program.AssignCourseToClass();
                         break;
-                    case 15:
+                    case Operation.DELETE_COURSE:
                         program.DeleteCourse();
                         break;
-                    case 16:
+                    case Operation.REMOVE_STUDENT_TO_CLASS:
                         program.RemoveStudentToClass();
                         break;
-                    case 17:
+                    case Operation.REMOVE_COURSE_TO_CLASS:
                         program.RemoveCourseToClass();
                         break;
-                    case 18:
+                    case Operation.DISPLAY_ALL_STUDENT_ASSIGNIN_CLASS:
                         program.DisplayAllStudentAssignToClass();
                         break;
-                    case 19:
+                    case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT:
                         program.DisplayAllClassAssignToStudent();
                         break;
-                    case 20:
+                    case Operation.DISPLAY_ALL_COURSE_ASSIGNIN_CLASS:
                         program.DisplayAllCourseAssignToClass();
                         break;
-                    case 21:
+                    case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE:
                         program.DisplayAllClassAssignToCourse();
                         break;
-                    case 22:
+                    case Operation.EXIT:
                         Console.WriteLine("Exiting...");
                         break;
                     default:
@@ -126,25 +158,46 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Student Name:");
             string name = Console.ReadLine();
 
-            Student newStudent = new Student
+            try
             {
-                Name = name
-            };
+                using (crudEntities dbContext = new crudEntities())
+                {
 
-            dbContext.Students.Add(newStudent);
-            dbContext.SaveChanges();
+                    Student newStudent = new Student
+                    {
+                        Name = name
+                    };
+
+                    dbContext.Students.Add(newStudent);
+                    dbContext.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.AddData(ex,fileName);
+            }
 
             Console.WriteLine("Student added successfully.");
         }
 
         private void DisplayAllStudents()
         {
-            List<Student> allStudents = dbContext.Students.ToList();
-
-            Console.WriteLine("All Students:");
-            foreach (var student in allStudents)
+            try
             {
-                Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    List<Student> allStudents = dbContext.Students.ToList();
+
+                    Console.WriteLine("All Students:");
+                    foreach (var student in allStudents)
+                    {
+                        Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -153,15 +206,25 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Student ID:");
             int studentId = int.Parse(Console.ReadLine());
 
-            Student foundStudent = dbContext.Students.Find(studentId);
+            try
+            {
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Student foundStudent = dbContext.Students.Find(studentId);
 
-            if (foundStudent != null)
-            {
-                Console.WriteLine($"ID: {foundStudent.StudentID}, Name: {foundStudent.Name}");
+                    if (foundStudent != null)
+                    {
+                        Console.WriteLine($"ID: {foundStudent.StudentID}, Name: {foundStudent.Name}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -170,21 +233,31 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Student ID:");
             int studentId = int.Parse(Console.ReadLine());
 
-            Student studentToUpdate = dbContext.Students.Find(studentId);
-
-            if (studentToUpdate != null)
+            try
             {
-                Console.WriteLine("Enter new name:");
-                string newName = Console.ReadLine();
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Student studentToUpdate = dbContext.Students.Find(studentId);
 
-                studentToUpdate.Name = newName;
-                dbContext.SaveChanges();
+                    if (studentToUpdate != null)
+                    {
+                        Console.WriteLine("Enter new name:");
+                        string newName = Console.ReadLine();
 
-                Console.WriteLine("Student updated successfully.");
+                        studentToUpdate.Name = newName;
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Student updated successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -196,26 +269,36 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class ID:");
             int classId = int.Parse(Console.ReadLine());
 
-            Student student = dbContext.Students.Find(studentId);
-            Class classObj = dbContext.Classes.Find(classId);
-
-            if (student != null && classObj != null)
+            try
             {
-                //classObj.Students.Add(student);
-
-                StudentClass studentClass = new StudentClass
+                using (crudEntities dbContext = new crudEntities())
                 {
-                    StudentID = studentId,
-                    ClassID= classId,
-                };
-                dbContext.StudentClasses.Add(studentClass);
-                dbContext.SaveChanges();
+                    Student student = dbContext.Students.Find(studentId);
+                    Class classObj = dbContext.Classes.Find(classId);
 
-                Console.WriteLine("Student assigned to class successfully.");
+                    if (student != null && classObj != null)
+                    {
+                        //classObj.Students.Add(student);
+
+                        StudentClass studentClass = new StudentClass
+                        {
+                            StudentID = studentId,
+                            ClassID = classId,
+                        };
+                        dbContext.StudentClasses.Add(studentClass);
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Student assigned to class successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student or Class not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student or Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -224,20 +307,30 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class ID:");
             int classId = int.Parse(Console.ReadLine());
 
-            Class classname = dbContext.Classes.Find(classId);
-            List<StudentClass> allStudents = dbContext.StudentClasses.Where(e=>e.ClassID== classId).ToList();
-
-            if (allStudents.Count>0)
+            try
             {
-                foreach (var item in allStudents)
+                using (crudEntities dbContext = new crudEntities())
                 {
-                    Student classObj = dbContext.Students.Find(item.StudentID);
-                    Console.WriteLine(classObj.Name + " " + classname.ClassName);
+                    Class classname = dbContext.Classes.Find(classId);
+                    List<StudentClass> allStudents = dbContext.StudentClasses.Where(e => e.ClassID == classId).ToList();
+
+                    if (allStudents.Count > 0)
+                    {
+                        foreach (var item in allStudents)
+                        {
+                            Student classObj = dbContext.Students.Find(item.StudentID);
+                            Console.WriteLine(classObj.Name + " " + classname.ClassName);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student or Class not found.");
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student or Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -245,21 +338,30 @@ namespace CrudOperationInManytoMany
         {
             Console.WriteLine("Enter Student ID:");
             int studentId = int.Parse(Console.ReadLine());
-
-            Student studentname = dbContext.Students.Find(studentId);
-            List<StudentClass> allClasses = dbContext.StudentClasses.Where(e => e.StudentID == studentId).ToList();
-
-            if (allClasses.Count > 0)
+            try
             {
-                foreach (var item in allClasses)
+                using (crudEntities dbContext = new crudEntities())
                 {
-                    Class classObj = dbContext.Classes.Find(item.ClassID);
-                    Console.WriteLine(studentname.Name + " " + classObj.ClassName);
+                    Student studentname = dbContext.Students.Find(studentId);
+                    List<StudentClass> allClasses = dbContext.StudentClasses.Where(e => e.StudentID == studentId).ToList();
+
+                    if (allClasses.Count > 0)
+                    {
+                        foreach (var item in allClasses)
+                        {
+                            Class classObj = dbContext.Classes.Find(item.ClassID);
+                            Console.WriteLine(studentname.Name + " " + classObj.ClassName);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student or Class not found.");
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student or Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -271,18 +373,28 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class ID:");
             int classId = int.Parse(Console.ReadLine());
 
-            var recordToDelete = dbContext.StudentClasses.FirstOrDefault(e => e.StudentID == studentId && e.ClassID == classId);
-
-            if (recordToDelete != null)
+            try
             {
-                dbContext.StudentClasses.Remove(recordToDelete);
-                dbContext.SaveChanges();
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    var recordToDelete = dbContext.StudentClasses.FirstOrDefault(e => e.StudentID == studentId && e.ClassID == classId);
 
-                Console.WriteLine("Student removed from class successfully.");
+                    if (recordToDelete != null)
+                    {
+                        dbContext.StudentClasses.Remove(recordToDelete);
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Student removed from class successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student or Class not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student or Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -294,26 +406,36 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class ID:");
             int classId = int.Parse(Console.ReadLine());
 
-            Course course = dbContext.Courses.Find(courseId);
-            Class classObj = dbContext.Classes.Find(classId);
-
-            if (course != null && classObj != null)
+            try
             {
-                //classObj.courses.Add(course);
-
-                CourseClass courseClass = new CourseClass
+                using (crudEntities dbContext = new crudEntities())
                 {
-                    CourseID = courseId,
-                    ClassID = classId,
-                };
-                dbContext.CourseClasses.Add(courseClass);
-                dbContext.SaveChanges();
+                    Course course = dbContext.Courses.Find(courseId);
+                    Class classObj = dbContext.Classes.Find(classId);
 
-                Console.WriteLine("Student assigned to class successfully.");
+                    if (course != null && classObj != null)
+                    {
+                        //classObj.courses.Add(course);
+
+                        CourseClass courseClass = new CourseClass
+                        {
+                            CourseID = courseId,
+                            ClassID = classId,
+                        };
+                        dbContext.CourseClasses.Add(courseClass);
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Student assigned to class successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student or Class not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student or Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -322,20 +444,30 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class ID:");
             int classId = int.Parse(Console.ReadLine());
 
-            Class classname = dbContext.Classes.Find(classId);
-            List<CourseClass> allCourses = dbContext.CourseClasses.Where(e => e.ClassID == classId).ToList();
-
-            if (allCourses.Count > 0)
+            try
             {
-                foreach (var item in allCourses)
+                using (crudEntities dbContext = new crudEntities())
                 {
-                    Course courseObj = dbContext.Courses.Find(item.CourseID);
-                    Console.WriteLine(courseObj.CourseName + " " + classname.ClassName);
+                    Class classname = dbContext.Classes.Find(classId);
+                    List<CourseClass> allCourses = dbContext.CourseClasses.Where(e => e.ClassID == classId).ToList();
+
+                    if (allCourses.Count > 0)
+                    {
+                        foreach (var item in allCourses)
+                        {
+                            Course courseObj = dbContext.Courses.Find(item.CourseID);
+                            Console.WriteLine(courseObj.CourseName + " " + classname.ClassName);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Course or Class not found.");
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Course or Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -344,20 +476,30 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Course ID:");
             int courseId = int.Parse(Console.ReadLine());
 
-            Course coursename = dbContext.Courses.Find(courseId);
-            List<CourseClass> allClasses = dbContext.CourseClasses.Where(e => e.CourseID == courseId).ToList();
-
-            if (allClasses.Count > 0)
+            try
             {
-                foreach (var item in allClasses)
+                using (crudEntities dbContext = new crudEntities())
                 {
-                    Class obj = dbContext.Classes.Find(item.ClassID);
-                    Console.WriteLine(coursename.CourseName + " " + obj.ClassName);
+                    Course coursename = dbContext.Courses.Find(courseId);
+                    List<CourseClass> allClasses = dbContext.CourseClasses.Where(e => e.CourseID == courseId).ToList();
+
+                    if (allClasses.Count > 0)
+                    {
+                        foreach (var item in allClasses)
+                        {
+                            Class obj = dbContext.Classes.Find(item.ClassID);
+                            Console.WriteLine(coursename.CourseName + " " + obj.ClassName);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Course or Class not found.");
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Course or Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -369,19 +511,29 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class ID:");
             int classId = int.Parse(Console.ReadLine());
 
-            var recordToDelete = dbContext.CourseClasses.FirstOrDefault(e=>e.CourseID == courseId && e.ClassID == classId);
-
-            if (recordToDelete != null)
+            try
             {
-                
-                dbContext.CourseClasses.Remove(recordToDelete);
-                dbContext.SaveChanges();
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    var recordToDelete = dbContext.CourseClasses.FirstOrDefault(e => e.CourseID == courseId && e.ClassID == classId);
 
-                Console.WriteLine("Student Removed from class successfully.");
+                    if (recordToDelete != null)
+                    {
+
+                        dbContext.CourseClasses.Remove(recordToDelete);
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Student Removed from class successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student or Class not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student or Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -390,18 +542,28 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Student ID:");
             int studentId = int.Parse(Console.ReadLine());
 
-            Student studentToDelete = dbContext.Students.Find(studentId);
-
-            if (studentToDelete != null)
+            try
             {
-                dbContext.Students.Remove(studentToDelete);
-                dbContext.SaveChanges();
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Student studentToDelete = dbContext.Students.Find(studentId);
 
-                Console.WriteLine("Student deleted successfully.");
+                    if (studentToDelete != null)
+                    {
+                        dbContext.Students.Remove(studentToDelete);
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Student deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Student not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -410,25 +572,45 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class Name:");
             string className = Console.ReadLine();
 
-            Class newClass = new Class
+            try
             {
-                ClassName = className
-            };
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Class newClass = new Class
+                    {
+                        ClassName = className
+                    };
 
-            dbContext.Classes.Add(newClass);
-            dbContext.SaveChanges();
+                    dbContext.Classes.Add(newClass);
+                    dbContext.SaveChanges();
 
-            Console.WriteLine("Class added successfully.");
+                    Console.WriteLine("Class added successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex, fileName);
+            }
         }
 
         private void DisplayAllClasses()
         {
-            List<Class> allClasses = dbContext.Classes.ToList();
-
-            Console.WriteLine("All Classes:");
-            foreach (var classObj in allClasses)
+            try
             {
-                Console.WriteLine($"ID: {classObj.ClassID}, Name: {classObj.ClassName}");
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    List<Class> allClasses = dbContext.Classes.ToList();
+
+                    Console.WriteLine("All Classes:");
+                    foreach (var classObj in allClasses)
+                    {
+                        Console.WriteLine($"ID: {classObj.ClassID}, Name: {classObj.ClassName}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -437,21 +619,31 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class ID:");
             int classId = int.Parse(Console.ReadLine());
 
-            Class classToUpdate = dbContext.Classes.Find(classId);
-
-            if (classToUpdate != null)
+            try
             {
-                Console.WriteLine("Enter new name:");
-                string newClassName = Console.ReadLine();
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Class classToUpdate = dbContext.Classes.Find(classId);
 
-                classToUpdate.ClassName = newClassName;
-                dbContext.SaveChanges();
+                    if (classToUpdate != null)
+                    {
+                        Console.WriteLine("Enter new name:");
+                        string newClassName = Console.ReadLine();
 
-                Console.WriteLine("Class updated successfully.");
+                        classToUpdate.ClassName = newClassName;
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Class updated successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Class not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -460,18 +652,28 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Class ID:");
             int classId = int.Parse(Console.ReadLine());
 
-            Class classToDelete = dbContext.Classes.Find(classId);
-
-            if (classToDelete != null)
+            try
             {
-                dbContext.Classes.Remove(classToDelete);
-                dbContext.SaveChanges();
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Class classToDelete = dbContext.Classes.Find(classId);
 
-                Console.WriteLine("Class deleted successfully.");
+                    if (classToDelete != null)
+                    {
+                        dbContext.Classes.Remove(classToDelete);
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Class deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Class not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Class not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -480,25 +682,45 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Course Name:");
             string courseName = Console.ReadLine();
 
-            Course newCourse = new Course
+            try
             {
-                CourseName = courseName
-            };
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Course newCourse = new Course
+                    {
+                        CourseName = courseName
+                    };
 
-            dbContext.Courses.Add(newCourse);
-            dbContext.SaveChanges();
+                    dbContext.Courses.Add(newCourse);
+                    dbContext.SaveChanges();
 
-            Console.WriteLine("Course added successfully.");
+                    Console.WriteLine("Course added successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex, fileName);
+            }
         }
 
         private void DisplayAllCourses()
         {
-            List<Course> allCourses = dbContext.Courses.ToList();
-
-            Console.WriteLine("All Courses:");
-            foreach (var course in allCourses)
+            try
             {
-                Console.WriteLine($"ID: {course.CourseID}, Name: {course.CourseName}");
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    List<Course> allCourses = dbContext.Courses.ToList();
+
+                    Console.WriteLine("All Courses:");
+                    foreach (var course in allCourses)
+                    {
+                        Console.WriteLine($"ID: {course.CourseID}, Name: {course.CourseName}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -507,21 +729,31 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Course ID:");
             int courseId = int.Parse(Console.ReadLine());
 
-            Course courseToUpdate = dbContext.Courses.Find(courseId);
-
-            if (courseToUpdate != null)
+            try
             {
-                Console.WriteLine("Enter new name:");
-                string newCourseName = Console.ReadLine();
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Course courseToUpdate = dbContext.Courses.Find(courseId);
 
-                courseToUpdate.CourseName = newCourseName;
-                dbContext.SaveChanges();
+                    if (courseToUpdate != null)
+                    {
+                        Console.WriteLine("Enter new name:");
+                        string newCourseName = Console.ReadLine();
 
-                Console.WriteLine("Course updated successfully.");
+                        courseToUpdate.CourseName = newCourseName;
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Course updated successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Course not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Course not found.");
+                Logger.AddData(ex, fileName);
             }
         }
 
@@ -530,18 +762,28 @@ namespace CrudOperationInManytoMany
             Console.WriteLine("Enter Course ID:");
             int courseId = int.Parse(Console.ReadLine());
 
-            Course courseToDelete = dbContext.Courses.Find(courseId);
-
-            if (courseToDelete != null)
+            try
             {
-                dbContext.Courses.Remove(courseToDelete);
-                dbContext.SaveChanges();
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    Course courseToDelete = dbContext.Courses.Find(courseId);
 
-                Console.WriteLine("Course deleted successfully.");
+                    if (courseToDelete != null)
+                    {
+                        dbContext.Courses.Remove(courseToDelete);
+                        dbContext.SaveChanges();
+
+                        Console.WriteLine("Course deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Course not found.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Course not found.");
+                Logger.AddData(ex, fileName);
             }
         }
     }

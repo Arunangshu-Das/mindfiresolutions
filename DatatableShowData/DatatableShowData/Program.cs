@@ -52,30 +52,26 @@ namespace DatatableShowData
                 DataTable dataTable = new DataTable();  
                 adapter.Fill(dataTable);
                 List<Student> students = null;
-                //students = dataTable.toList<Student>();
-                //foreach(DataRow row in dataTable.Rows) 
-                //{
-                //    students.Add(new Student(row["id"], row["name"], row["email"], row["salary"]));
-                //}
+                students = dataTable.ToList<Student>();
+                foreach (var item in students)
+                {
+                    item.ToString();
+                }
 
                 List<Student> student=new List<Student>();
                 Student s1 = new Student(1, "hi", "hk", "90");
                 Student s2 = new Student(2, "hij", "kk", "80");
                 Student s3 = new Student(3, "pi", "wk", "190");
-                students.Add(s1);
-                students.Add(s2);
-                students.Add(s3);
-                DataTable dt=student.toDataTable();
+                student.Add(s1);
+                student.Add(s2);
+                student.Add(s3);
+                DataTable dt = student.ToDataTable();
 
-
-                for (int i = 0; i < students.Count; i++)
+                Console.WriteLine("\n\n\n\n");
+                
+                foreach (DataRow row in dt.Rows)
                 {
-                    students[i].ToString();
-                }
-
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    students.Add(new Student(row["id"], row["name"], row["email"], row["salary"]));
+                    Console.WriteLine(row["id"]+" "+row["name"]+" "+ row["email"]+" "+ row["salary"]);
                 }
             }
             Console.ReadLine();
@@ -87,7 +83,7 @@ namespace DatatableShowData
 
             foreach (DataRow row in dataTable.Rows)
             {
-                T t= new T();
+                T t = new T();
                 foreach(var property in typeof(T).GetProperties())
                 {
                     if (dataTable.Columns.Contains(property.Name.ToLower()))
@@ -108,7 +104,7 @@ namespace DatatableShowData
 
     public static class Listify
     {
-        public static List<T> toList<T>(this DataTable dataTable) where T : class, new()
+        public static List<T> ToList<T>(this DataTable dataTable) where T : class, new()
         {
             List<T> newList = new List<T>();
 
@@ -129,7 +125,7 @@ namespace DatatableShowData
             return newList;
         }
 
-        public static DataTable toDataTable<T>(this List<T> list) where T : class, new()
+        public static DataTable ToDataTable<T>(this List<T> list) where T : class, new()
         {
             DataTable dt = new DataTable();
 
@@ -141,7 +137,7 @@ namespace DatatableShowData
 
             foreach (T item in list)
             {
-                var values = new object[Props.Length];
+                DataRow values = dt.NewRow();
                 for (int i = 0; i < Props.Length; i++)
                 {
                     //inserting property values to datatable rows
