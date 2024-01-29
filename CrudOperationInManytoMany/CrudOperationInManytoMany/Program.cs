@@ -46,109 +46,117 @@ namespace CrudOperationInManytoMany
 
             fileName=DateTime.Now.ToString("yyyyMMdd")+".txt";
 
-
-            do
+            try
             {
-                Console.WriteLine($"\n {(int)Operation.ADD_STUDENT}. Add Student");
-                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_STUDENT}. Display All Students");
-                Console.WriteLine($"\n {(int)Operation.DISPLAY_STUDENT}. Display Student");
-                Console.WriteLine($"\n {(int)Operation.UPDATE_STUDENT}. Update Student");
-                Console.WriteLine($"\n {(int)Operation.ASSIGN_STUDENT_TO_CLASS}. Assign Student to class");
-                Console.WriteLine($"\n {(int)Operation.DELETE_STUDENT}. Delete Student");
-                Console.WriteLine($"\n {(int)Operation.ADD_CLASS}. Add Class");
-                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS}. Display All Class");
-                Console.WriteLine($"\n {(int)Operation.UPDATE_CLASS}. Update Class");
-                Console.WriteLine($"\n {(int)Operation.DELETE_CLASS}. Delete class");
-                Console.WriteLine($"\n {(int)Operation.ADD_COURSE}. Add Course");
-                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_COURSE}. Display All Course");
-                Console.WriteLine($"\n {(int)Operation.UPDATE_COURSE}. Update Course");
-                Console.WriteLine($"\n {(int)Operation.ASSIGN_COURSE_TO_CLASS}. Assign Course to class");
-                Console.WriteLine($"\n {(int)Operation.DELETE_COURSE}. Delete Course");
-                Console.WriteLine($"\n {(int)Operation.REMOVE_STUDENT_TO_CLASS}. Remove Student to class");
-                Console.WriteLine($"\n {(int)Operation.REMOVE_COURSE_TO_CLASS}. Remove Course to class");
-                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_STUDENT_ASSIGNIN_CLASS}. Display all Students assigned in Class");
-                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT}. Display all Classes assigned in Student");
-                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_COURSE_ASSIGNIN_CLASS}. Display all Course assigned in Class");
-                Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE}. Display all Classes assigned in Course");
-                Console.WriteLine($"\n {(int)Operation.EXIT}. Exit");
-
-                id = int.Parse(Console.ReadLine());
-                Operation inputOperation = (Operation)id; 
-
-                switch (inputOperation)
+                do
                 {
-                    case Operation.ADD_STUDENT:
-                        program.AddStudent();
-                        break;
-                    case Operation.DISPLAY_ALL_STUDENT:
-                        program.DisplayAllStudents();
-                        break;
-                    case Operation.DISPLAY_STUDENT:
-                        program.DisplayStudent();
-                        break;
-                    case Operation.UPDATE_STUDENT:
-                        program.UpdateStudent();
-                        break;
-                    case Operation.ASSIGN_STUDENT_TO_CLASS:
-                        program.AssignStudentToClass();
-                        break;
-                    case Operation.DELETE_STUDENT:
-                        program.DeleteStudent();
-                        break;
-                    case Operation.ADD_CLASS:
-                        program.AddClass();
-                        break;
-                    case Operation.DISPLAY_ALL_CLASS:
-                        program.DisplayAllClasses();
-                        break;
-                    case Operation.UPDATE_CLASS:
-                        program.UpdateClass();
-                        break;
-                    case Operation.DELETE_CLASS:
-                        program.DeleteClass();
-                        break;
-                    case Operation.ADD_COURSE:
-                        program.AddCourse();
-                        break;
-                    case Operation.DISPLAY_ALL_COURSE:
-                        program.DisplayAllCourses();
-                        break;
-                    case Operation.UPDATE_COURSE:
-                        program.UpdateCourse();
-                        break;
-                    case Operation.ASSIGN_COURSE_TO_CLASS:
-                        program.AssignCourseToClass();
-                        break;
-                    case Operation.DELETE_COURSE:
-                        program.DeleteCourse();
-                        break;
-                    case Operation.REMOVE_STUDENT_TO_CLASS:
-                        program.RemoveStudentToClass();
-                        break;
-                    case Operation.REMOVE_COURSE_TO_CLASS:
-                        program.RemoveCourseToClass();
-                        break;
-                    case Operation.DISPLAY_ALL_STUDENT_ASSIGNIN_CLASS:
-                        program.DisplayAllStudentAssignToClass();
-                        break;
-                    case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT:
-                        program.DisplayAllClassAssignToStudent();
-                        break;
-                    case Operation.DISPLAY_ALL_COURSE_ASSIGNIN_CLASS:
-                        program.DisplayAllCourseAssignToClass();
-                        break;
-                    case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE:
-                        program.DisplayAllClassAssignToCourse();
-                        break;
-                    case Operation.EXIT:
-                        Console.WriteLine("Exiting...");
-                        break;
-                    default:
-                        Console.WriteLine("Enter a valid choice");
-                        break;
-                }
+                    Console.ForegroundColor=ConsoleColor.White;
+                    Console.WriteLine($"\n {(int)Operation.ADD_STUDENT}. Add Student");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_STUDENT}. Display All Students");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_STUDENT}. Display Student");
+                    Console.WriteLine($"\n {(int)Operation.UPDATE_STUDENT}. Update Student");
+                    Console.WriteLine($"\n {(int)Operation.ASSIGN_STUDENT_TO_CLASS}. Assign Student to class");
+                    Console.WriteLine($"\n {(int)Operation.DELETE_STUDENT}. Delete Student");
+                    Console.WriteLine($"\n {(int)Operation.ADD_CLASS}. Add Class");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS}. Display All Class");
+                    Console.WriteLine($"\n {(int)Operation.UPDATE_CLASS}. Update Class");
+                    Console.WriteLine($"\n {(int)Operation.DELETE_CLASS}. Delete class");
+                    Console.WriteLine($"\n {(int)Operation.ADD_COURSE}. Add Course");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_COURSE}. Display All Course");
+                    Console.WriteLine($"\n {(int)Operation.UPDATE_COURSE}. Update Course");
+                    Console.WriteLine($"\n {(int)Operation.ASSIGN_COURSE_TO_CLASS}. Assign Course to class");
+                    Console.WriteLine($"\n {(int)Operation.DELETE_COURSE}. Delete Course");
+                    Console.WriteLine($"\n {(int)Operation.REMOVE_STUDENT_TO_CLASS}. Remove Student to class");
+                    Console.WriteLine($"\n {(int)Operation.REMOVE_COURSE_TO_CLASS}. Remove Course to class");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_STUDENT_ASSIGNIN_CLASS}. Display all Students assigned in Class");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT}. Display all Classes assigned in Student");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_COURSE_ASSIGNIN_CLASS}. Display all Course assigned in Class");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE}. Display all Classes assigned in Course");
+                    Console.WriteLine($"\n {(int)Operation.EXIT}. Exit");
+                    id = int.Parse(Console.ReadLine());
+                    Operation inputOperation = (Operation)id;
 
-            } while (id != 22);
+                    switch (inputOperation)
+                    {
+                        case Operation.ADD_STUDENT:
+                            program.AddStudent();
+                            break;
+                        case Operation.DISPLAY_ALL_STUDENT:
+                            program.DisplayAllStudents();
+                            break;
+                        case Operation.DISPLAY_STUDENT:
+                            program.DisplayStudent();
+                            break;
+                        case Operation.UPDATE_STUDENT:
+                            program.UpdateStudent();
+                            break;
+                        case Operation.ASSIGN_STUDENT_TO_CLASS:
+                            program.AssignStudentToClass();
+                            break;
+                        case Operation.DELETE_STUDENT:
+                            program.DeleteStudent();
+                            break;
+                        case Operation.ADD_CLASS:
+                            program.AddClass();
+                            break;
+                        case Operation.DISPLAY_ALL_CLASS:
+                            program.DisplayAllClasses();
+                            break;
+                        case Operation.UPDATE_CLASS:
+                            program.UpdateClass();
+                            break;
+                        case Operation.DELETE_CLASS:
+                            program.DeleteClass();
+                            break;
+                        case Operation.ADD_COURSE:
+                            program.AddCourse();
+                            break;
+                        case Operation.DISPLAY_ALL_COURSE:
+                            program.DisplayAllCourses();
+                            break;
+                        case Operation.UPDATE_COURSE:
+                            program.UpdateCourse();
+                            break;
+                        case Operation.ASSIGN_COURSE_TO_CLASS:
+                            program.AssignCourseToClass();
+                            break;
+                        case Operation.DELETE_COURSE:
+                            program.DeleteCourse();
+                            break;
+                        case Operation.REMOVE_STUDENT_TO_CLASS:
+                            program.RemoveStudentToClass();
+                            break;
+                        case Operation.REMOVE_COURSE_TO_CLASS:
+                            program.RemoveCourseToClass();
+                            break;
+                        case Operation.DISPLAY_ALL_STUDENT_ASSIGNIN_CLASS:
+                            program.DisplayAllStudentAssignToClass();
+                            break;
+                        case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT:
+                            program.DisplayAllClassAssignToStudent();
+                            break;
+                        case Operation.DISPLAY_ALL_COURSE_ASSIGNIN_CLASS:
+                            program.DisplayAllCourseAssignToClass();
+                            break;
+                        case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE:
+                            program.DisplayAllClassAssignToCourse();
+                            break;
+                        case Operation.EXIT:
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Exiting...");
+                            break;
+                        default:
+                            Console.ForegroundColor=ConsoleColor.Red;
+                            Console.Error.WriteLine("Enter a valid choice");
+                            break;
+                    }
+
+                } while (id != 22);
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex, fileName);
+            }
 
             Console.ReadLine();
         }
