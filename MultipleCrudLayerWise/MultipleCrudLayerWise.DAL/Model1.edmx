@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="crudModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="crudModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="ClassID" />
@@ -42,8 +42,10 @@
           <Property Name="StudentID" Type="int" />
           <Property Name="ClassID" Type="int" />
         </EntityType>
-        <Association Name="FK__CourseCla__Class__59FA5E80">
-          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+        <Association Name="FK_ClassID">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CourseClass" Type="Self.CourseClass" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Class">
@@ -54,20 +56,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CourseCla__Cours__59063A47">
-          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
-          <End Role="CourseClass" Type="Self.CourseClass" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="CourseID" />
-            </Principal>
-            <Dependent Role="CourseClass">
-              <PropertyRef Name="CourseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__StudentCl__Class__5629CD9C">
-          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+        <Association Name="FK_ClassID_Student">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StudentClass" Type="Self.StudentClass" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Class">
@@ -78,8 +70,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentCl__Stude__5535A963">
-          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+        <Association Name="FK_CourseId">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseClass" Type="Self.CourseClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseClass">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentID_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StudentClass" Type="Self.StudentClass" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Student">
@@ -96,25 +104,24 @@
           <EntitySet Name="CourseClass" EntityType="Self.CourseClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentClass" EntityType="Self.StudentClass" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CourseCla__Class__59FA5E80" Association="Self.FK__CourseCla__Class__59FA5E80">
+          <AssociationSet Name="FK_ClassID" Association="Self.FK_ClassID">
             <End Role="Class" EntitySet="Class" />
             <End Role="CourseClass" EntitySet="CourseClass" />
           </AssociationSet>
-          <AssociationSet Name="FK__CourseCla__Cours__59063A47" Association="Self.FK__CourseCla__Cours__59063A47">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="CourseClass" EntitySet="CourseClass" />
-          </AssociationSet>
-          <AssociationSet Name="FK__StudentCl__Class__5629CD9C" Association="Self.FK__StudentCl__Class__5629CD9C">
+          <AssociationSet Name="FK_ClassID_Student" Association="Self.FK_ClassID_Student">
             <End Role="Class" EntitySet="Class" />
             <End Role="StudentClass" EntitySet="StudentClass" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentCl__Stude__5535A963" Association="Self.FK__StudentCl__Stude__5535A963">
+          <AssociationSet Name="FK_CourseId" Association="Self.FK_CourseId">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseClass" EntitySet="CourseClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentID_Student" Association="Self.FK_StudentID_Student">
             <End Role="Student" EntitySet="Student" />
             <End Role="StudentClass" EntitySet="StudentClass" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="crudModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
