@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultipleCrudLayerWise.Utils;
+using MultipleCrudLayerWise.models;
 
 namespace MultipleCrudLayerWise.DAL
 {
     public class Dal
     {
-        public bool AddStudent(string name, string fileName)
+        public bool AddStudent(StudentVO vo)
         {
             bool flag = false;
             try
@@ -19,7 +20,7 @@ namespace MultipleCrudLayerWise.DAL
 
                     Student newStudent = new Student
                     {
-                        Name = name
+                        Name = vo.Name
                     };
 
                     dbContext.Students.Add(newStudent);
@@ -29,36 +30,44 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
 
             return flag;
         }
 
-        public void DisplayAllStudents(string fileName)
+        public List<StudentVO> DisplayAllStudents()
         {
+            List < StudentVO > allStudentsVo = null;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
-                    List<Student> allStudents = dbContext.Students.ToList();
+                   List<Student> allStudents = dbContext.Students.ToList();
 
                     Console.WriteLine("All Students:");
+                    allStudentsVo=new List<StudentVO>();
                     foreach (var student in allStudents)
                     {
-                        Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+                        StudentVO vo = new StudentVO
+                        {
+                            Name = student.Name,
+                            StudentID = student.StudentID
+                        };
+                        allStudentsVo.Add(vo);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
+            return allStudentsVo;
         }
 
-        public bool DisplayStudent(int studentId,string fileName)
+        public StudentVO DisplayStudent(int studentId)
         {
-            bool flag = false;
+            StudentVO found = null;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
@@ -67,31 +76,32 @@ namespace MultipleCrudLayerWise.DAL
 
                     if (foundStudent != null)
                     {
-                        Console.WriteLine($"ID: {foundStudent.StudentID}, Name: {foundStudent.Name}");
-                        flag = true;
+                        found = new StudentVO();
+                        found.StudentID = foundStudent.StudentID;
+                        found.Name = foundStudent.Name;
                     }
                     
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
-            return flag;
+            return found;
         }
 
-        public bool UpdateStudent(int studentId, string newName, string fileName)
+        public bool UpdateStudent(StudentVO vo)
         {
             bool flag = false;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
-                    Student studentToUpdate = dbContext.Students.Find(studentId);
+                    Student studentToUpdate = dbContext.Students.Find(vo.StudentID);
 
                     if (studentToUpdate != null)
                     {
-                        studentToUpdate.Name = newName;
+                        studentToUpdate.Name = vo.Name;
                         dbContext.SaveChanges();
 
                         flag = true;
@@ -100,12 +110,12 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool AssignStudentToClass(int studentId, int classId, string fileName)
+        public bool AssignStudentToClass(int studentId, int classId)
         {
             bool flag = false;
             try
@@ -133,14 +143,15 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool DisplayAllStudentAssignToClass(int classId, string fileName)
+        public List<StudentClassVo> DisplayAllStudentAssignToClass(int classId)
         {
-            bool flag = false;
+            List<StudentClassVo> listvo = null;
+            StudentClassVo vo = null;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
@@ -150,52 +161,59 @@ namespace MultipleCrudLayerWise.DAL
 
                     if (allStudents.Count > 0)
                     {
+                        listvo=new List<StudentClassVo>();
                         foreach (var item in allStudents)
                         {
                             Student classObj = dbContext.Students.Find(item.StudentID);
-                            Console.WriteLine(classObj.Name + " " + classname.ClassName);
+                            vo = new StudentClassVo();
+                            vo.studentname=classObj.Name;
+                            vo.classname=classname.ClassName;
+                            listvo.Add(vo);
                         }
-                        flag = true;
                     }
                    
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
-            return flag;
+            return listvo;
         }
 
-        public bool DisplayAllClassAssignToStudent(int studentId, string fileName)
+        public List<StudentClassVo> DisplayAllClassAssignToStudent(int studentId)
         {
-            bool flag = false;
+            List<StudentClassVo> listvo = null;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
                     Student studentname = dbContext.Students.Find(studentId);
                     List<StudentClass> allClasses = dbContext.StudentClasses.Where(e => e.StudentID == studentId).ToList();
-
+                    listvo = new List<StudentClassVo>();
                     if (allClasses.Count > 0)
                     {
                         foreach (var item in allClasses)
                         {
                             Class classObj = dbContext.Classes.Find(item.ClassID);
-                            Console.WriteLine(studentname.Name + " " + classObj.ClassName);
+                            StudentClassVo vo = new StudentClassVo
+                            {
+                                classname = classObj.ClassName,
+                                studentname = studentname.Name
+                            };
+                            listvo.Add(vo);
                         }
-                        flag = true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
-            return flag;
+            return listvo;
         }
 
-        public bool RemoveStudentToClass(int studentId, int classId, string fileName)
+        public bool RemoveStudentToClass(int studentId, int classId)
         {
             bool flag = false;  
             try
@@ -216,12 +234,12 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool AssignCourseToClass(int courseId, int classId, string fileName)
+        public bool AssignCourseToClass(int courseId, int classId)
         {
             bool flag = false;
             try
@@ -249,14 +267,14 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool DisplayAllCourseAssignToClass(int classId, string fileName)
+        public List<CourseClassVo> DisplayAllCourseAssignToClass(int classId)
         {
-            bool flag = false;
+            List<CourseClassVo> courseClass = null;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
@@ -266,25 +284,30 @@ namespace MultipleCrudLayerWise.DAL
 
                     if (allCourses.Count > 0)
                     {
+                        courseClass = new List<CourseClassVo>();
                         foreach (var item in allCourses)
                         {
                             Course courseObj = dbContext.Courses.Find(item.CourseID);
-                            Console.WriteLine(courseObj.CourseName + " " + classname.ClassName);
+                            CourseClassVo vo = new CourseClassVo
+                            {
+                                coursename = courseObj.CourseName,
+                                classname = classname.ClassName
+                            };
+                            courseClass.Add(vo);
                         }
-                        flag = true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
-            return flag;
+            return courseClass;
         }
 
-        public bool DisplayAllClassAssignToCourse(int courseId, string fileName)
+        public List<CourseClassVo> DisplayAllClassAssignToCourse(int courseId)
         {
-            bool flag = false;
+            List < CourseClassVo > courseClass = null;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
@@ -294,23 +317,26 @@ namespace MultipleCrudLayerWise.DAL
 
                     if (allClasses.Count > 0)
                     {
+                        courseClass = new List<CourseClassVo>();
                         foreach (var item in allClasses)
                         {
                             Class obj = dbContext.Classes.Find(item.ClassID);
-                            Console.WriteLine(coursename.CourseName + " " + obj.ClassName);
+                            CourseClassVo vo = new CourseClassVo();
+                            vo.coursename=coursename.CourseName;
+                            vo.classname = obj.ClassName;
+                            courseClass.Add(vo);
                         }
-                        flag = true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
-            return flag; 
+            return courseClass; 
         }
 
-        public bool RemoveCourseToClass(int courseId, int classId, string fileName)
+        public bool RemoveCourseToClass(int courseId, int classId)
         {
             bool flag = false;
             try
@@ -331,19 +357,19 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool DeleteStudent(int studentId, string fileName)
+        public bool DeleteStudent(StudentVO vo)
         {
             bool flag = false;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
-                    Student studentToDelete = dbContext.Students.Find(studentId);
+                    Student studentToDelete = dbContext.Students.Find(vo.StudentID);
 
                     if (studentToDelete != null)
                     {
@@ -356,12 +382,12 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool AddClass(string className, string fileName)
+        public bool AddClass(ClassVO vo)
         {
             bool flag=false;
             try
@@ -370,7 +396,7 @@ namespace MultipleCrudLayerWise.DAL
                 {
                     Class newClass = new Class
                     {
-                        ClassName = className
+                        ClassName = vo.ClassName,
                     };
 
                     dbContext.Classes.Add(newClass);
@@ -381,14 +407,14 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool DisplayAllClasses(string fileName)
+        public List<ClassVO> DisplayAllClasses()
         {
-            bool flag = false;
+            List<ClassVO> listvo = null;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
@@ -396,32 +422,37 @@ namespace MultipleCrudLayerWise.DAL
                     List<Class> allClasses = dbContext.Classes.ToList();
 
                     Console.WriteLine("All Classes:");
+                    listvo = new List<ClassVO>();
                     foreach (var classObj in allClasses)
                     {
-                        Console.WriteLine($"ID: {classObj.ClassID}, Name: {classObj.ClassName}");
+                        ClassVO vo = new ClassVO
+                        {
+                            ClassID = classObj.ClassID,
+                            ClassName = classObj.ClassName
+                        };
+                        listvo.Add(vo);
                     }
-                    flag = true;
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
-            return flag;
+            return listvo;
         }
 
-        public bool UpdateClass(int classId, string newClassName, string fileName)
+        public bool UpdateClass(ClassVO vo)
         {
             bool flag = false;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
-                    Class classToUpdate = dbContext.Classes.Find(classId);
+                    Class classToUpdate = dbContext.Classes.Find(vo.ClassID);
 
                     if (classToUpdate != null)
                     {
-                        classToUpdate.ClassName = newClassName;
+                        classToUpdate.ClassName = vo.ClassName;
                         dbContext.SaveChanges();
 
                         flag=true;
@@ -430,19 +461,19 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool DeleteClass(int classId, string fileName)
+        public bool DeleteClass(ClassVO vo)
         {
             bool flag = false;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
-                    Class classToDelete = dbContext.Classes.Find(classId);
+                    Class classToDelete = dbContext.Classes.Find(vo.ClassID);
 
                     if (classToDelete != null)
                     {
@@ -455,12 +486,12 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool AddCourse(string courseName, string fileName)
+        public bool AddCourse(CourseVO vo)
         {
             bool flag = false;
             try
@@ -469,7 +500,7 @@ namespace MultipleCrudLayerWise.DAL
                 {
                     Course newCourse = new Course
                     {
-                        CourseName = courseName
+                        CourseName = vo.CourseName,
                     };
 
                     dbContext.Courses.Add(newCourse);
@@ -480,14 +511,14 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool DisplayAllCourses(string fileName)
+        public List<CourseVO> DisplayAllCourses()
         {
-            bool flag = false;
+            List<CourseVO> coursevo = null;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
@@ -495,35 +526,36 @@ namespace MultipleCrudLayerWise.DAL
                     List<Course> allCourses = dbContext.Courses.ToList();
 
                     Console.WriteLine("All Courses:");
+                    coursevo = new List<CourseVO>();
                     foreach (var course in allCourses)
                     {
-                        Console.WriteLine($"ID: {course.CourseID}, Name: {course.CourseName}");
+                        CourseVO vo = new CourseVO();
+                        vo.CourseName = course.CourseName;
+                        vo.CourseID = course.CourseID;
+                        coursevo.Add(vo);
                     }
-                    flag = true;
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
-            return flag;
+            return coursevo;
         }
 
-        public bool UpdateCourse(int courseId, string fileName)
+        public bool UpdateCourse(CourseVO vo)
         {
             bool flag = false;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
-                    Course courseToUpdate = dbContext.Courses.Find(courseId);
+                    Course courseToUpdate = dbContext.Courses.Find(vo.CourseID);
 
                     if (courseToUpdate != null)
                     {
-                        Console.WriteLine("Enter new name:");
-                        string newCourseName = Console.ReadLine();
 
-                        courseToUpdate.CourseName = newCourseName;
+                        courseToUpdate.CourseName = vo.CourseName;
                         dbContext.SaveChanges();
 
                         flag = true;
@@ -532,19 +564,19 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool DeleteCourse(int courseId, string fileName)
+        public bool DeleteCourse(CourseVO vo)
         {
             bool flag = false;
             try
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
-                    Course courseToDelete = dbContext.Courses.Find(courseId);
+                    Course courseToDelete = dbContext.Courses.Find(vo.CourseID);
 
                     if (courseToDelete != null)
                     {
@@ -559,7 +591,7 @@ namespace MultipleCrudLayerWise.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
             return flag;
         }

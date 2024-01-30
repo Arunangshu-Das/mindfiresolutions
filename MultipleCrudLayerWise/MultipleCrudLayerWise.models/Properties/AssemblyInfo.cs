@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DAO")]
+[assembly: AssemblyTitle("MultipleCrudLayerWise.models")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DAO")]
+[assembly: AssemblyProduct("MultipleCrudLayerWise.models")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("37e626f7-b187-421a-817f-ff91571a9e0a")]
+[assembly: Guid("f0568fbf-8f16-4d0e-8e27-bbe6e7960fcc")]
 
 // Version information for an assembly consists of the following four values:
 //

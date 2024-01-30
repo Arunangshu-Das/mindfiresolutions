@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultipleCrudLayerWise.DAL;
+using MultipleCrudLayerWise.models;
+
 
 namespace MultipleCrudLayerWise.Business
 {
@@ -11,109 +13,109 @@ namespace MultipleCrudLayerWise.Business
     {
         Dal dataAccess=new Dal();
 
-        public bool AddStudent(string name, string fileName)
+        public bool AddStudent(StudentVO vo)
         {
-            return dataAccess.AddStudent(name, fileName);
+            return dataAccess.AddStudent(vo);
         }
 
-        public void DisplayAllStudents(string fileName)
+        public List<StudentVO> DisplayAllStudents()
         {
-            dataAccess.DisplayAllStudents(fileName);
+            return dataAccess.DisplayAllStudents();
         }
 
-        public bool DisplayStudent(int studentId, string fileName)
+        public StudentVO DisplayStudent(int studentId)
         {
-            return dataAccess.DisplayStudent(studentId, fileName);
+            return dataAccess.DisplayStudent(studentId);
         }
 
-        public bool UpdateStudent(int studentId, string newName, string fileName)
+        public bool UpdateStudent(StudentVO vo)
         {
-            return dataAccess.UpdateStudent(studentId, newName, fileName);  
+            return dataAccess.UpdateStudent(vo);  
         }
 
-        public bool AssignStudentToClass(int studentId, int classId, string fileName)
+        public bool AssignStudentToClass(int studentId, int classId)
         {
-            return dataAccess.AssignStudentToClass(studentId, classId, fileName);
+            return dataAccess.AssignStudentToClass(studentId, classId);
         }
 
-        public bool DisplayAllStudentAssignToClass(int classId, string fileName)
+        public List<StudentClassVo> DisplayAllStudentAssignToClass(int classId)
         {
-            return dataAccess.DisplayAllStudentAssignToClass((int)classId, fileName);
+            return dataAccess.DisplayAllStudentAssignToClass((int)classId);
         }
 
-        public bool DisplayAllClassAssignToStudent(int studentId, string fileName)
+        public List<StudentClassVo> DisplayAllClassAssignToStudent(int studentId)
         {
-            return dataAccess.DisplayAllClassAssignToStudent(studentId,fileName);    
+            return dataAccess.DisplayAllClassAssignToStudent(studentId);    
         }
 
-        public bool RemoveStudentToClass(int studentId, int classId, string fileName)
+        public bool RemoveStudentToClass(int studentId, int classId)
         {
-            return dataAccess.RemoveStudentToClass(studentId,(int)classId,fileName);
+            return dataAccess.RemoveStudentToClass(studentId,(int)classId);
         }
 
-        public bool AssignCourseToClass(int courseId, int classId, string fileName)
+        public bool AssignCourseToClass(int courseId, int classId)
         {
-            return dataAccess.AssignCourseToClass(courseId,(int)classId,fileName);
+            return dataAccess.AssignCourseToClass(courseId,(int)classId);
         }
 
-        public bool DisplayAllCourseAssignToClass(int classId, string fileName)
+        public List<CourseClassVo> DisplayAllCourseAssignToClass(int classId)
         {
-            return dataAccess.DisplayAllCourseAssignToClass((int)classId,fileName);
+            return dataAccess.DisplayAllCourseAssignToClass((int)classId);
         }
 
-        public bool DisplayAllClassAssignToCourse(int courseId, string fileName)
+        public List<CourseClassVo> DisplayAllClassAssignToCourse(int courseId)
         {
-            return dataAccess.DisplayAllClassAssignToCourse((int)courseId,fileName);
+            return dataAccess.DisplayAllClassAssignToCourse((int)courseId);
         }
 
-        public bool RemoveCourseToClass(int courseId, int classId, string fileName)
+        public bool RemoveCourseToClass(int courseId, int classId)
         {
-            return dataAccess.RemoveCourseToClass(courseId,classId,fileName);
+            return dataAccess.RemoveCourseToClass(courseId,classId);
         }
 
-        public bool DeleteStudent(int studentId, string fileName)
+        public bool DeleteStudent(StudentVO vo)
         {
-            return dataAccess.DeleteStudent(studentId, fileName);
+            return dataAccess.DeleteStudent(vo);
         }
 
-        public bool AddClass(string className, string fileName)
+        public bool AddClass(ClassVO vo)
         {
-            return dataAccess.AddClass(className, fileName);
+            return dataAccess.AddClass(vo);
         }
 
-        public bool DisplayAllClasses(string fileName)
+        public List<ClassVO> DisplayAllClasses()
         {
-            return dataAccess.DisplayAllClasses(fileName);
+            return dataAccess.DisplayAllClasses();
         }
 
-        public bool UpdateClass(int classId, string newClassName, string fileName)
+        public bool UpdateClass(ClassVO vo)
         {
-            return dataAccess.UpdateClass(classId, newClassName,fileName);
+            return dataAccess.UpdateClass(vo);
         }
 
-        public bool DeleteClass(int classId, string fileName)
+        public bool DeleteClass(ClassVO vo)
         {
-            return dataAccess.DeleteClass(classId,fileName);
+            return dataAccess.DeleteClass(vo);
         }
 
-        public bool AddCourse(string courseName, string fileName)
+        public bool AddCourse(CourseVO vo)
         {
-            return dataAccess.AddCourse(courseName, fileName);
+            return dataAccess.AddCourse(vo);
         }
 
-        public bool DisplayAllCourses(string fileName)
+        public List<CourseVO> DisplayAllCourses()
         {
-            return dataAccess.DisplayAllCourses(fileName);
+            return dataAccess.DisplayAllCourses();
         }
 
-        public bool UpdateCourse(int courseId, string fileName)
+        public bool UpdateCourse(CourseVO vo)
         {
-            return dataAccess.UpdateCourse(courseId,fileName); 
+            return dataAccess.UpdateCourse(vo); 
         }
 
-        public bool DeleteCourse(int courseId, string fileName)
+        public bool DeleteCourse(CourseVO vo)
         {
-            return dataAccess.DeleteCourse(courseId, fileName);
+            return dataAccess.DeleteCourse(vo);
         }
     }
 }

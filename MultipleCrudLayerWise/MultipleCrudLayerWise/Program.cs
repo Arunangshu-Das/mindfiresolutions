@@ -5,16 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using MultipleCrudLayerWise.Utils;
 using MultipleCrudLayerWise.Business;
+using MultipleCrudLayerWise.models;
 using static MultipleCrudLayerWise.Utils.Class1;
+using System.Runtime.Remoting.Contexts;
 
 namespace MultipleCrudLayerWise
 {
     internal class Program
     {
+        static Service service = null;
         static void Main(string[] args)
         {
-            Service service = new Service();
+            service = new Service();
             int id = 0;
+            Program program = new Program();
 
             String fileName = DateTime.Now.ToString("yyyyMMdd") + ".txt";
 
@@ -47,105 +51,71 @@ namespace MultipleCrudLayerWise
                     Console.WriteLine($"\n {(int)Operation.EXIT}. Exit");
                     id = int.Parse(Console.ReadLine());
                     Operation inputOperation = (Operation)id;
-                    int studentId = 0;
-                    int classId = 0;
-                    string newName = null;
-                    string className= null;
-                    string newClassName = null;
 
                     switch (inputOperation)
                     {
                         case Operation.ADD_STUDENT:
-                            Console.WriteLine("Enter Student Name:");
-                            string name = Console.ReadLine();
-                            if(service.AddStudent(name, fileName)) Console.WriteLine("Student added successfully.");
-                            else Console.WriteLine("Student can't added.");
+                            program.AddStudent();
                             break;
                         case Operation.DISPLAY_ALL_STUDENT:
-                            service.DisplayAllStudents(fileName);
+                            program.DisplayAllStudent();
                             break;
                         case Operation.DISPLAY_STUDENT:
-                            Console.WriteLine("Enter Student ID:");
-                            studentId = int.Parse(Console.ReadLine());
-                            if (!service.DisplayStudent(studentId,fileName)) Console.WriteLine("Error..");
+                            program.DisplayStudent();
                             break;
                         case Operation.UPDATE_STUDENT:
-                            Console.WriteLine("Enter Student ID:");
-                            studentId = int.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter new name:");
-                            newName = Console.ReadLine();
-                            if (service.UpdateStudent(studentId,newName , fileName)) Console.WriteLine("Student updated successfully.");
-                            else Console.WriteLine("Error..");
+                            program.UpdateStudent();
                             break;
                         case Operation.ASSIGN_STUDENT_TO_CLASS:
-                            Console.WriteLine("Enter Student ID:");
-                            studentId = int.Parse(Console.ReadLine());
-
-                            Console.WriteLine("Enter Class ID:");
-                            classId = int.Parse(Console.ReadLine());
-                            if (service.AssignStudentToClass(studentId, classId, fileName)) Console.WriteLine("Student assigned to class successfully.");
-                            else Console.WriteLine("Error..");
+                            program.AssignStudentToClass();
                             break;
                         case Operation.DELETE_STUDENT:
-                            Console.WriteLine("Enter Student ID:");
-                            studentId = int.Parse(Console.ReadLine());
-                            if (service.DeleteStudent(studentId,fileName)) Console.WriteLine("Student deleted successfully.");
-                            else Console.WriteLine("Error..");
+                            program.DeleteStudent();
                             break;
                         case Operation.ADD_CLASS:
-                            Console.WriteLine("Enter Class Name:");
-                            className = Console.ReadLine();
-                            if (service.AddClass(className, fileName)) Console.WriteLine("Class added successfully.");
-                            else Console.WriteLine("Error..");
+                            program.AddClass();
                             break;
                         case Operation.DISPLAY_ALL_CLASS:
-                            if(!service.DisplayAllClasses(fileName)) Console.WriteLine("Error..");
+                            program.DisplayAllClass();
                             break;
                         case Operation.UPDATE_CLASS:
-                            Console.WriteLine("Enter Class ID:");
-                            classId = int.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter new name:");
-                            newClassName = Console.ReadLine();
-                            if (service.UpdateClass(classId, newClassName, fileName)) Console.WriteLine("Class updated successfully.");
-                            else Console.WriteLine("Error..");
+                            program.UpdateClass();
                             break;
                         case Operation.DELETE_CLASS:
-                            Console.WriteLine("Enter Class ID:");
-                            classId = int.Parse(Console.ReadLine());
-                            service.DeleteClass(classId,fileName);
+                            program.DeleteClass();
                             break;
                         case Operation.ADD_COURSE:
-                            service.AddCourse();
+                            program.AddCourse();
                             break;
                         case Operation.DISPLAY_ALL_COURSE:
-                            service.DisplayAllCourses();
+                            program.DisplayAllCourse();
                             break;
                         case Operation.UPDATE_COURSE:
-                            service.UpdateCourse();
+                            program.UpdateCourse();
                             break;
                         case Operation.ASSIGN_COURSE_TO_CLASS:
-                            service.AssignCourseToClass();
+                            program.AssignCourseToClass();
                             break;
                         case Operation.DELETE_COURSE:
-                            service.DeleteCourse();
+                            program.DeleteCourse();
                             break;
                         case Operation.REMOVE_STUDENT_TO_CLASS:
-                            service.RemoveStudentToClass();
+                            program.RemoveStudentToClass();
                             break;
                         case Operation.REMOVE_COURSE_TO_CLASS:
-                            service.RemoveCourseToClass();
+                            program.RemoveCourseToClass();
                             break;
                         case Operation.DISPLAY_ALL_STUDENT_ASSIGNIN_CLASS:
-                            service.DisplayAllStudentAssignToClass();
+                            program.DisplayAllStudentInClass();
                             break;
                         case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT:
-                            service.DisplayAllClassAssignToStudent();
+                            program.DisplayAllClassInStudent();
                             break;
                         case Operation.DISPLAY_ALL_COURSE_ASSIGNIN_CLASS:
-                            service.DisplayAllCourseAssignToClass();
+                            program.DisplayAllCourseInClass();
                             break;
                         case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE:
-                            service.DisplayAllClassAssignToCourse();
+                            program.DisplayAllClassInCourse();
                             break;
                         case Operation.EXIT:
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -161,12 +131,338 @@ namespace MultipleCrudLayerWise
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex, fileName);
+                Logger.AddData(ex);
             }
 
             Console.ReadLine();
         }
 
-    }
+
+        private void AddStudent()
+        {
+            Console.WriteLine("Enter Student Name:");
+            string name = Console.ReadLine();
+            StudentVO studentvo = new StudentVO();
+            studentvo.Name = name;
+            if (service.AddStudent(studentvo))
+            {
+                Console.WriteLine("Student added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Student can't added.");
+            }
+        }
+
+        private void DisplayAllStudent()
+        {
+            List<StudentVO> allStudents = service.DisplayAllStudents();
+            foreach (var student in allStudents)
+            {
+                Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+            }
+        }
+
+        private void DisplayStudent()
+        {
+            Console.WriteLine("Enter Student ID:");
+            int studentId = int.Parse(Console.ReadLine());
+            StudentVO foundStudent = service.DisplayStudent(studentId);
+
+            if (foundStudent != null)
+            {
+                Console.WriteLine($"ID: {foundStudent.StudentID}, Name: {foundStudent.Name}");
+            }
+        }
+
+        private void UpdateStudent()
+        {
+            Console.WriteLine("Enter Student ID:");
+            int studentId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter new name:");
+            String newName = Console.ReadLine();
+            StudentVO studentvo = new StudentVO();
+            studentvo.StudentID = studentId;
+            studentvo.Name = newName;
+            if (service.UpdateStudent(studentvo))
+            {
+                Console.WriteLine("Student updated successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void AssignStudentToClass()
+        {
+            Console.WriteLine("Enter Student ID:");
+            int studentId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter Class ID:");
+            int classId = int.Parse(Console.ReadLine());
+            if (service.AssignStudentToClass(studentId, classId))
+            {
+                Console.WriteLine("Student assigned to class successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void DeleteStudent()
+        {
+            Console.WriteLine("Enter Student ID:");
+            int studentId = int.Parse(Console.ReadLine());
+            StudentVO studentvo = new StudentVO();
+            studentvo.StudentID = studentId;
+            if (service.DeleteStudent(studentvo))
+            {
+                Console.WriteLine("Student deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void AddClass()
+        {
+            Console.WriteLine("Enter Class Name:");
+            String className = Console.ReadLine();
+            ClassVO classvo = new ClassVO();
+            classvo.ClassName = className;
+            if (service.AddClass(classvo))
+            {
+                Console.WriteLine("Class added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+        private void DisplayAllClass()
+        {
+            List<ClassVO> allClass = service.DisplayAllClasses();
+            if (allClass != null)
+            {
+                foreach (var classObj in allClass)
+                {
+                    Console.WriteLine($"ID: {classObj.ClassID}, Name: {classObj.ClassName}");
+                }
+            } else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void UpdateClass(){
+            Console.WriteLine("Enter Class ID:");
+            int classId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter new name:");
+            String newClassName = Console.ReadLine();
+            ClassVO classvo = new ClassVO();
+            classvo.ClassID = classId;
+            classvo.ClassName = newClassName;
+            if (service.UpdateClass(classvo))
+            {
+                Console.WriteLine("Class updated successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void DeleteClass()
+        {
+            Console.WriteLine("Enter Class ID:");
+            int classId = int.Parse(Console.ReadLine());
+            ClassVO classvo = new ClassVO();
+            classvo.ClassID = classId;
+            if (service.DeleteClass(classvo))
+            {
+                Console.WriteLine("Class deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void AddCourse()
+        {
+            Console.WriteLine("Enter Course Name:");
+            string courseName = Console.ReadLine();
+            CourseVO coursevo = new CourseVO();
+            coursevo.CourseName = courseName;
+            if (service.AddCourse(coursevo))
+            {
+                Console.WriteLine("Course deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void DisplayAllCourse()
+        {
+            List<CourseVO> allCourses = service.DisplayAllCourses();
+            if (allCourses != null)
+            {
+                foreach (var course in allCourses)
+                {
+                    Console.WriteLine($"ID: {course.CourseID}, Name: {course.CourseName}");
+                }
+            }
+        }
+
+        private void UpdateCourse()
+        {
+            Console.WriteLine("Enter Course ID:");
+            int courseId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter new name:");
+            string newCourseName = Console.ReadLine();
+            CourseVO coursevo = new CourseVO();
+            coursevo.CourseName = newCourseName;
+            coursevo.CourseID = courseId;
+            if (service.UpdateCourse(coursevo))
+            {
+                Console.WriteLine("Course updated successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void AssignCourseToClass()
+        {
+            Console.WriteLine("Enter Course ID:");
+            int courseId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter Class ID:");
+            int classId = int.Parse(Console.ReadLine());
+
+            if (service.AssignCourseToClass(courseId, classId))
+            {
+                Console.WriteLine("Course assigned to class successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void DeleteCourse()
+        {
+            Console.WriteLine("Enter Course ID:");
+            int courseId = int.Parse(Console.ReadLine());
+            CourseVO coursevo = new CourseVO();
+            coursevo.CourseID = courseId;
+            if (service.DeleteCourse(coursevo))
+            {
+                Console.WriteLine("Course deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Course not found.");
+            }
+        }
+
+        private void RemoveStudentToClass()
+        {
+            Console.WriteLine("Enter Student ID:");
+            int studentId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter Class ID:");
+            int classId = int.Parse(Console.ReadLine());
+            if (service.RemoveStudentToClass(studentId, classId))
+            {
+                Console.WriteLine("Student removed from class successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Error..");
+            }
+        }
+
+        private void RemoveCourseToClass()
+        {
+            Console.WriteLine("Enter Course ID:");
+            int courseId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter Class ID:");
+            int classId = int.Parse(Console.ReadLine());
+
+            if (service.RemoveCourseToClass(courseId, classId))
+            {
+                Console.WriteLine("Course Removed from class successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Course or Class not found.");
+            }
+        }
+
+        private void DisplayAllStudentInClass()
+        {
+            Console.WriteLine("Enter Class ID:");
+            int classId = int.Parse(Console.ReadLine());
+            List<StudentClassVo> allStudents = service.DisplayAllStudentAssignToClass(classId);
+            if (allStudents != null)
+            {
+                foreach (var item in allStudents)
+                {
+                    Console.WriteLine(item.studentname + " " + item.classname);
+                }
+            }
+        }
+
+        private void DisplayAllClassInStudent()
+        {
+            Console.WriteLine("Enter Student ID:");
+            int studentId = int.Parse(Console.ReadLine());
+            List<StudentClassVo> allClass = service.DisplayAllClassAssignToStudent(studentId);
+
+            if (allClass != null)
+            {
+                foreach (var item in allClass)
+                {
+                    Console.WriteLine(item.studentname+" "+item.classname);
+                }
+            }
+        }
+
+        private void DisplayAllCourseInClass()
+        {
+            Console.WriteLine("Enter Class ID:");
+            int classId = int.Parse(Console.ReadLine());
+            List<CourseClassVo> allCourses = service.DisplayAllCourseAssignToClass(classId);
+            if (allCourses != null)
+            {
+                foreach (var item in allCourses)
+                {
+                    Console.WriteLine(item.classname + " " + item.coursename);
+                }
+            }
+        }
+
+        private void DisplayAllClassInCourse()
+        {
+            Console.WriteLine("Enter Course ID:");
+            int courseId = int.Parse(Console.ReadLine());
+            List<CourseClassVo> allClass = service.DisplayAllClassAssignToCourse(courseId);
+
+            if (allClass != null)
+            {
+                foreach (var item in allClass)
+                {
+                    Console.WriteLine(item.classname + " " + item.coursename);
+                }
+            }
+        }
     }
 }

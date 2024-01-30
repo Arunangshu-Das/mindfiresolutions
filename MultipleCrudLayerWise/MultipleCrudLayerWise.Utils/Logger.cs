@@ -19,6 +19,7 @@ namespace MultipleCrudLayerWise.Utils
             {
                 writer.WriteLine(inputData);
             }
+            Console.WriteLine(inputData);
         }
     }
 }
