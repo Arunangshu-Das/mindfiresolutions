@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MultipleCrudLayerWise.Utils;
 using MultipleCrudLayerWise.models;
+using System.Runtime.Remoting.Contexts;
+using System.Data.Entity;
 
 namespace MultipleCrudLayerWise.DAL
 {
@@ -178,7 +180,7 @@ namespace MultipleCrudLayerWise.DAL
             {
                 Logger.AddData(ex);
             }
-            return listvo;
+            return listvo.OrderBy(s=>s.studentname).ToList();
         }
 
         public List<StudentClassVo> DisplayAllClassAssignToStudent(int studentId)
@@ -210,7 +212,7 @@ namespace MultipleCrudLayerWise.DAL
             {
                 Logger.AddData(ex);
             }
-            return listvo;
+            return listvo.OrderBy(s=>s.classname).ToList();
         }
 
         public bool RemoveStudentToClass(int studentId, int classId)
@@ -419,6 +421,7 @@ namespace MultipleCrudLayerWise.DAL
             {
                 using (crudEntities dbContext = new crudEntities())
                 {
+                    dbContext.Database.Log = Console.WriteLine;
                     List<Class> allClasses = dbContext.Classes.ToList();
 
                     Console.WriteLine("All Classes:");
@@ -432,6 +435,7 @@ namespace MultipleCrudLayerWise.DAL
                         };
                         listvo.Add(vo);
                     }
+                    
                 }
             }
             catch (Exception ex)
@@ -594,6 +598,68 @@ namespace MultipleCrudLayerWise.DAL
                 Logger.AddData(ex);
             }
             return flag;
+        }
+
+        public List<StudentVO> DisplayAllStudentsWithName(String str)
+        {
+            List<StudentVO> ans = null;
+            try
+            {
+                List<StudentVO> allStudentsVo = null;
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    List<Student> allStudents = dbContext.Students.ToList();
+
+                    Console.WriteLine("Students:");
+                    allStudentsVo = new List<StudentVO>();
+                    foreach (var student in allStudents)
+                    {
+                        StudentVO vo = new StudentVO
+                        {
+                            Name = student.Name,
+                            StudentID = student.StudentID
+                        };
+                        allStudentsVo.Add(vo);
+                    }
+
+                    
+                }
+                ans = (from s in allStudentsVo where s.Name.Contains(str) select s).ToList();
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }           
+            return ans;
+        }
+
+        public List<StudentVO> DisplayAllStudentsNameWise()
+        {
+            List<StudentVO> allStudentsVo = null;
+            try
+            {
+                using (crudEntities dbContext = new crudEntities())
+                {
+                    List<Student> allStudents = dbContext.Students.ToList();
+
+                    Console.WriteLine("All Students:");
+                    allStudentsVo = new List<StudentVO>();
+                    foreach (var student in allStudents)
+                    {
+                        StudentVO vo = new StudentVO
+                        {
+                            Name = student.Name,
+                            StudentID = student.StudentID
+                        };
+                        allStudentsVo.Add(vo);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return allStudentsVo.OrderBy(s=>s.Name).ThenByDescending(s=>s.StudentID).ToList();
         }
     }
 }

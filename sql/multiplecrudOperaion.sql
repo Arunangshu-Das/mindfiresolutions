@@ -31,3 +31,13 @@ create table CourseClass(
 drop table Class, Course, Student;
 
 select * from CourseClass;
+
+SELECT CONSTRAINT_NAME
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE TABLE_NAME='StudentClass';
+
+alter table StudentClass drop constraint FK__StudentCl__Class__5629CD9C;
+
+ALTER TABLE StudentClass
+ADD CONSTRAINT FK_StudentID_Student
+FOREIGN KEY (StudentID) REFERENCES Student(StudentID) on delete cascade;

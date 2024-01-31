@@ -53,6 +53,10 @@
       <Project>{f0568fbf-8f16-4d0e-8e27-bbe6e7960fcc}</Project>
       <Name>MultipleCrudLayerWise.models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MultipleCrudLayerWise.Utils\MultipleCrudLayerWise.Utils.csproj">
+      <Project>{0b932715-19e5-4045-8816-6949018720d4}</Project>
+      <Name>MultipleCrudLayerWise.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

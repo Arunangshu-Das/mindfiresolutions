@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultipleCrudLayerWise.DAL;
 using MultipleCrudLayerWise.models;
+using MultipleCrudLayerWise.Utils;
 
 
 namespace MultipleCrudLayerWise.Business
@@ -40,7 +42,9 @@ namespace MultipleCrudLayerWise.Business
 
         public List<StudentClassVo> DisplayAllStudentAssignToClass(int classId)
         {
-            return dataAccess.DisplayAllStudentAssignToClass((int)classId);
+            List<StudentClassVo> allStudent= dataAccess.DisplayAllStudentAssignToClass((int)classId);
+            Csv.ToDataTable(allStudent);
+            return allStudent;
         }
 
         public List<StudentClassVo> DisplayAllClassAssignToStudent(int studentId)
@@ -116,6 +120,16 @@ namespace MultipleCrudLayerWise.Business
         public bool DeleteCourse(CourseVO vo)
         {
             return dataAccess.DeleteCourse(vo);
+        }
+
+        public List<StudentVO> DisplayAllStudentsWithName(String str)
+        {
+            return dataAccess.DisplayAllStudentsWithName(str);
+        }
+
+        public List<StudentVO> DisplayAllStudentsNameWise()
+        {
+            return dataAccess.DisplayAllStudentsNameWise();
         }
     }
 }

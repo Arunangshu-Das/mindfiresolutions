@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MultipleCrudLayerWise.Utils;
 using MultipleCrudLayerWise.Business;
 using MultipleCrudLayerWise.models;
-using static MultipleCrudLayerWise.Utils.Class1;
+using static MultipleCrudLayerWise.Utils.Enums;
 using System.Runtime.Remoting.Contexts;
 
 namespace MultipleCrudLayerWise
@@ -48,9 +48,19 @@ namespace MultipleCrudLayerWise
                     Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS_ASSIGNIN_STUDENT}. Display all Classes assigned in Student");
                     Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_COURSE_ASSIGNIN_CLASS}. Display all Course assigned in Class");
                     Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE}. Display all Classes assigned in Course");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_STUDENT_BY_KEYWORD}. Display all Student by keyword");
+                    Console.WriteLine($"\n {(int)Operation.DISPLAY_ALL_STUDENT_NAME_WISE}. Display all Student order by Name");
                     Console.WriteLine($"\n {(int)Operation.EXIT}. Exit");
-                    id = int.Parse(Console.ReadLine());
-                    Operation inputOperation = (Operation)id;
+                    Operation inputOperation=(Operation)(1);
+                    try {
+                        id = int.Parse(Console.ReadLine());
+                        inputOperation = (Operation)id;
+                    }
+                    catch(Exception ex)
+                    {
+                        Logger.AddData(ex);
+                        continue;
+                    }
 
                     switch (inputOperation)
                     {
@@ -117,6 +127,12 @@ namespace MultipleCrudLayerWise
                         case Operation.DISPLAY_ALL_CLASS_ASSIGNIN_COURSE:
                             program.DisplayAllClassInCourse();
                             break;
+                        case Operation.DISPLAY_ALL_STUDENT_BY_KEYWORD:
+                            program.DisplayAllStudentsWithName();
+                            break;
+                        case Operation.DISPLAY_ALL_STUDENT_NAME_WISE:
+                            program.DisplayAllStudentsNameWise();
+                            break;
                         case Operation.EXIT:
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Exiting...");
@@ -127,7 +143,7 @@ namespace MultipleCrudLayerWise
                             break;
                     }
 
-                } while (id != 22);
+                } while (id != 24);
             }
             catch (Exception ex)
             {
@@ -136,7 +152,6 @@ namespace MultipleCrudLayerWise
 
             Console.ReadLine();
         }
-
 
         private void AddStudent()
         {
@@ -462,6 +477,26 @@ namespace MultipleCrudLayerWise
                 {
                     Console.WriteLine(item.classname + " " + item.coursename);
                 }
+            }
+        }
+
+        private void DisplayAllStudentsWithName()
+        {
+            Console.WriteLine("Enter keyword");
+            string str = Console.ReadLine();
+            List<StudentVO> allStudents = service.DisplayAllStudentsWithName(str);
+            foreach (var student in allStudents)
+            {
+                Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+            }
+        }
+
+        private void DisplayAllStudentsNameWise()
+        {
+            List<StudentVO> allStudents = service.DisplayAllStudentsNameWise();
+            foreach (var student in allStudents)
+            {
+                Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
             }
         }
     }
