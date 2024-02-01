@@ -44,6 +44,7 @@ namespace MultipleCrudLayerWise.Business
         {
             List<StudentClassVo> allStudent= dataAccess.DisplayAllStudentAssignToClass((int)classId);
             Csv.ToDataTable(allStudent);
+            Excel.ToDataTable(allStudent);
             return allStudent;
         }
 
