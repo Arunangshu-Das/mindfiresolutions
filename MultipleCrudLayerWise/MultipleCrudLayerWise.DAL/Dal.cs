@@ -191,9 +191,9 @@ namespace MultipleCrudLayerWise.DAL
                 {
                     Student studentname = dbContext.Students.Find(studentId);
                     List<StudentClass> allClasses = dbContext.StudentClasses.Where(e => e.StudentID == studentId).ToList();
-                    listvo = new List<StudentClassVo>();
                     if (allClasses.Count > 0)
                     {
+                        listvo = new List<StudentClassVo>();
                         foreach (var item in allClasses)
                         {
                             Class classObj = dbContext.Classes.Find(item.ClassID);
@@ -211,7 +211,7 @@ namespace MultipleCrudLayerWise.DAL
             {
                 Logger.AddData(ex);
             }
-            return listvo.OrderBy(s=>s.classname).ToList();
+            return listvo;
         }
 
         public bool RemoveStudentToClass(int studentId, int classId)
