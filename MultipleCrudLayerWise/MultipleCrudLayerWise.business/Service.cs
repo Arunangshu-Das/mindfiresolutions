@@ -13,7 +13,7 @@ namespace MultipleCrudLayerWise.Business
 {
     public class Service
     {
-        Dal dataAccess=new Dal();
+        readonly Dal dataAccess=new Dal();
 
         public bool AddStudent(StudentVO vo)
         {
@@ -43,8 +43,6 @@ namespace MultipleCrudLayerWise.Business
         public List<StudentClassVo> DisplayAllStudentAssignToClass(int classId)
         {
             List<StudentClassVo> allStudent= dataAccess.DisplayAllStudentAssignToClass((int)classId);
-            Csv.ToDataTable(allStudent);
-            Excel.ToDataTable(allStudent);
             return allStudent;
         }
 

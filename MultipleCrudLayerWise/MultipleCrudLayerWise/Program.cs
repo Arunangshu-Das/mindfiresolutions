@@ -176,6 +176,7 @@ namespace MultipleCrudLayerWise
             {
                 Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
             }
+            Export(allStudents);
         }
 
         private void DisplayStudent()
@@ -266,6 +267,7 @@ namespace MultipleCrudLayerWise
                 {
                     Console.WriteLine($"ID: {classObj.ClassID}, Name: {classObj.ClassName}");
                 }
+                Export(allClass);
             } else
             {
                 Console.WriteLine("Error..");
@@ -331,6 +333,7 @@ namespace MultipleCrudLayerWise
                 {
                     Console.WriteLine($"ID: {course.CourseID}, Name: {course.CourseName}");
                 }
+                Export(allCourses);
             }
         }
 
@@ -433,6 +436,11 @@ namespace MultipleCrudLayerWise
                 {
                     Console.WriteLine(item.studentname + " " + item.classname);
                 }
+                Export(allStudents);
+            }
+            else
+            {
+                Console.WriteLine("Nothing found!!");
             }
         }
 
@@ -448,6 +456,11 @@ namespace MultipleCrudLayerWise
                 {
                     Console.WriteLine(item.studentname+" "+item.classname);
                 }
+                Export(allClass);
+            }
+            else
+            {
+                Console.WriteLine("Nothing found!!");
             }
         }
 
@@ -462,6 +475,11 @@ namespace MultipleCrudLayerWise
                 {
                     Console.WriteLine(item.classname + " " + item.coursename);
                 }
+                Export(allCourses);
+            }
+            else
+            {
+                Console.WriteLine("Nothing found!!");
             }
         }
 
@@ -477,6 +495,11 @@ namespace MultipleCrudLayerWise
                 {
                     Console.WriteLine(item.classname + " " + item.coursename);
                 }
+                Export(allClass);
+            }
+            else
+            {
+                Console.WriteLine("Nothing found!!");
             }
         }
 
@@ -485,18 +508,53 @@ namespace MultipleCrudLayerWise
             Console.WriteLine("Enter keyword");
             string str = Console.ReadLine();
             List<StudentVO> allStudents = service.DisplayAllStudentsWithName(str);
-            foreach (var student in allStudents)
+            if (allStudents != null)
             {
-                Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+                foreach (var student in allStudents)
+                {
+                    Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+                }
+                Export(allStudents);
+            }
+            else
+            {
+                Console.WriteLine("Nothing found!!");
             }
         }
 
         private void DisplayAllStudentsNameWise()
         {
             List<StudentVO> allStudents = service.DisplayAllStudentsNameWise();
-            foreach (var student in allStudents)
+            if (allStudents != null)
             {
-                Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+                foreach (var student in allStudents)
+                {
+                    Console.WriteLine($"ID: {student.StudentID}, Name: {student.Name}");
+                }
+                Export(allStudents);
+            }
+            else
+            {
+                Console.WriteLine("Nothing found!!");
+            }
+        }
+
+        public static void Export<T>(List<T> list) where T : class, new()
+        {
+            Console.WriteLine("Export data ? \n 1.CSV \n 2.Excel \n 3. No");
+            int choice = 0;
+            try
+            {
+                choice = int.Parse(Console.ReadLine());
+            }
+            catch (Exception ex) { Logger.AddData(ex); }
+            if (choice == 1)
+            {
+                Csv.ToDataTable(list);
+            }
+            else if (choice == 2)
+            {
+                Excel.ToDataTable(list);
             }
         }
     }

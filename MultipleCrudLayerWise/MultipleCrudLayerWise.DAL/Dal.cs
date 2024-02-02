@@ -47,7 +47,6 @@ namespace MultipleCrudLayerWise.DAL
                 {
                    List<Student> allStudents = dbContext.Students.ToList();
 
-                    Console.WriteLine("All Students:");
                     allStudentsVo=new List<StudentVO>();
                     foreach (var student in allStudents)
                     {
@@ -180,7 +179,7 @@ namespace MultipleCrudLayerWise.DAL
             {
                 Logger.AddData(ex);
             }
-            return listvo.OrderBy(s=>s.studentname).ToList();
+            return listvo;
         }
 
         public List<StudentClassVo> DisplayAllClassAssignToStudent(int studentId)
@@ -228,8 +227,6 @@ namespace MultipleCrudLayerWise.DAL
                     {
                         dbContext.StudentClasses.Remove(recordToDelete);
                         dbContext.SaveChanges();
-
-                        Console.WriteLine("Student removed from class successfully.");
                         flag = true;
                     }
                 }
@@ -424,7 +421,6 @@ namespace MultipleCrudLayerWise.DAL
                     dbContext.Database.Log = Console.WriteLine;
                     List<Class> allClasses = dbContext.Classes.ToList();
 
-                    Console.WriteLine("All Classes:");
                     listvo = new List<ClassVO>();
                     foreach (var classObj in allClasses)
                     {
@@ -587,7 +583,6 @@ namespace MultipleCrudLayerWise.DAL
                         dbContext.Courses.Remove(courseToDelete);
                         dbContext.SaveChanges();
 
-                        Console.WriteLine("Course deleted successfully.");
                         flag = true;
                     }
                     
@@ -610,7 +605,6 @@ namespace MultipleCrudLayerWise.DAL
                 {
                     List<Student> allStudents = dbContext.Students.ToList();
 
-                    Console.WriteLine("Students:");
                     allStudentsVo = new List<StudentVO>();
                     foreach (var student in allStudents)
                     {
@@ -642,7 +636,6 @@ namespace MultipleCrudLayerWise.DAL
                 {
                     List<Student> allStudents = dbContext.Students.ToList();
 
-                    Console.WriteLine("All Students:");
                     allStudentsVo = new List<StudentVO>();
                     foreach (var student in allStudents)
                     {
