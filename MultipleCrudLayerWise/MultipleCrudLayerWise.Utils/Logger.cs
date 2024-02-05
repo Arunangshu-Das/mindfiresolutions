@@ -21,7 +21,7 @@ namespace MultipleCrudLayerWise.Utils
                 file = file + "\\" + fileName;
                 using (StreamWriter writer = new StreamWriter(file, true))
                 {
-                    writer.WriteLine(inputData);
+                    writer.WriteLine(inputData.ToString());
                 }
                 Console.WriteLine(inputData);
                 SqlConnection con = null;
