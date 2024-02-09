@@ -11,7 +11,7 @@ namespace MakingUserControls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            notes.IdValue = Request.QueryString["id"];
         }
     }
 }

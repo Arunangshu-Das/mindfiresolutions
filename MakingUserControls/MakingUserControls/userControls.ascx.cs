@@ -23,7 +23,6 @@ namespace MakingUserControls
                 // By default, sort by first column in ascending order
                 ViewState["SortExpression"] = "id";
                 ViewState["SortDirection"] = "ASC";
-                IdValue = Request.QueryString["id"].ToString();
                 BindGridView();
             }
         }
@@ -48,7 +47,6 @@ namespace MakingUserControls
                 cmd.CommandText = "DELETE FROM [usernote] WHERE [id]=@id";
                 cmd.Parameters.AddWithValue("@id", id); // You need to replace YourSelectedStudentID with the actual StudentID of the record you want to delete
                 cmd.ExecuteNonQuery();
-                Response.Write("<script>alert('Deletion Operation Was Successfull');</script>");
             }
 
             // Then rebind the GridView
@@ -76,11 +74,13 @@ namespace MakingUserControls
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = "UPDATE [usernote] SET [note]=@note WHERE [id]=@id";
                     cmd.Parameters.AddWithValue("@note", note);
+                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
                     Response.Write("<script>alert('Update Operation Was Successfull');</script>");
                 }
                 // Then rebind the GridView
             }
+            GridView1.EditIndex = -1;
             BindGridView();
         }
 
@@ -97,14 +97,15 @@ namespace MakingUserControls
                 con.Open();
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO usernote (note, noteid, notetype, datetime) VALUES (@note, @noteid, @notetype, @datetime)";
-                cmd.Parameters.AddWithValue("@name", Textarea1.Value);
+                cmd.CommandText = "INSERT INTO usernote (note, noteid, notetype, datetimes) VALUES (@note, @noteid, @notetype, @datetime)";
+                cmd.Parameters.AddWithValue("@note", Textarea1.Value);
                 cmd.Parameters.AddWithValue("@noteid", IdValue);
-                cmd.Parameters.AddWithValue("@notetype", type);
+                cmd.Parameters.AddWithValue("@notetype", Name);
                 cmd.Parameters.AddWithValue("@datetime", DateTime.Now);
                 cmd.ExecuteNonQuery();
                 Response.Write("Done!!");
             }
+            Textarea1.Value = "";
             BindGridView();
         }
 
@@ -149,14 +150,14 @@ namespace MakingUserControls
             int startRowIndex = (currentPageIndex * pageSize) + 1;
             int endRowIndex = startRowIndex + pageSize - 1;
 
-            string query = $"SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY [{sortExpression}] {sortDirection}) AS RowNum, * FROM [usernote]) AS Temp WHERE notetype=@notetype RowNum BETWEEN @StartRowIndex AND @EndRowIndex";
+            string query = $"SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY [{sortExpression}] {sortDirection}) AS RowNum, * FROM [usernote] WHERE notetype=@notetype) AS Temp WHERE notetype=@notetype and RowNum BETWEEN @StartRowIndex AND @EndRowIndex";
 
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@StartRowIndex", startRowIndex);
-                    cmd.Parameters.AddWithValue("@notetype", type);
+                    cmd.Parameters.AddWithValue("@notetype", Name);
                     cmd.Parameters.AddWithValue("@EndRowIndex", endRowIndex);
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
@@ -179,7 +180,8 @@ namespace MakingUserControls
                 con.Open();
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(*) FROM usernote;";
+                cmd.CommandText = "SELECT COUNT(*) FROM usernote where notetype=@notetype;";
+                cmd.Parameters.AddWithValue("@notetype", Name);
                 totalCount = (int)cmd.ExecuteScalar();
             }
             return totalCount;
