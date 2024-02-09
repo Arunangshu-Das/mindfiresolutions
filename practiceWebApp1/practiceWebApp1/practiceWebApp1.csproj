@@ -122,8 +122,11 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="FirstForm.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="PageCycle.aspx" />
     <Content Include="Practice.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -154,7 +157,14 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="DataListExample.aspx" />
+    <Content Include="SecondForm.aspx" />
     <Content Include="Sum.aspx" />
+    <Content Include="Registrationform.aspx" />
+    <Content Include="UserControl.aspx" />
+    <Content Include="ViewState.aspx" />
+    <Content Include="PostBack.aspx" />
+    <Content Include="GridViews.aspx" />
+    <Content Include="WebUserControl1.ascx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -183,6 +193,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
+    <Content Include="Validation.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -212,8 +223,29 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FirstForm.aspx.cs">
+      <DependentUpon>FirstForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FirstForm.aspx.designer.cs">
+      <DependentUpon>FirstForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="PageCycle.aspx.cs">
+      <DependentUpon>PageCycle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageCycle.aspx.designer.cs">
+      <DependentUpon>PageCycle.aspx</DependentUpon>
     </Compile>
     <Compile Include="Practice.aspx.cs">
       <DependentUpon>Practice.aspx</DependentUpon>
@@ -223,6 +255,13 @@
       <DependentUpon>Practice.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecondForm.aspx.cs">
+      <DependentUpon>SecondForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SecondForm.aspx.designer.cs">
+      <DependentUpon>SecondForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -236,6 +275,20 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Validation.aspx.cs">
+      <DependentUpon>Validation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation.aspx.designer.cs">
+      <DependentUpon>Validation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewState.aspx.cs">
+      <DependentUpon>ViewState.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewState.aspx.designer.cs">
+      <DependentUpon>ViewState.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -257,6 +310,41 @@
     </Compile>
     <Compile Include="Sum.aspx.designer.cs">
       <DependentUpon>Sum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registrationform.aspx.cs">
+      <DependentUpon>Registrationform.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registrationform.aspx.designer.cs">
+      <DependentUpon>Registrationform.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl.aspx.cs">
+      <DependentUpon>UserControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl.aspx.designer.cs">
+      <DependentUpon>UserControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PostBack.aspx.cs">
+      <DependentUpon>PostBack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PostBack.aspx.designer.cs">
+      <DependentUpon>PostBack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GridViews.aspx.cs">
+      <DependentUpon>GridViews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridViews.aspx.designer.cs">
+      <DependentUpon>GridViews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebUserControl1.ascx.cs">
+      <DependentUpon>WebUserControl1.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebUserControl1.ascx.designer.cs">
+      <DependentUpon>WebUserControl1.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
