@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DemoUserManagaementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AddressDetails">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="AddressType" Type="int" />
+          <Property Name="Country" Type="varchar" MaxLength="255" />
+          <Property Name="StateField" Type="varchar" MaxLength="255" />
+          <Property Name="AddressField" Type="varchar" MaxLength="255" />
+          <Property Name="Pincode" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="StateName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="FatherFirstName" Type="varchar" MaxLength="255" />
+          <Property Name="FatherMiddleName" Type="varchar" MaxLength="255" />
+          <Property Name="FatherLastName" Type="varchar" MaxLength="255" />
+          <Property Name="MotherFirstName" Type="varchar" MaxLength="255" />
+          <Property Name="MotherMiddleName" Type="varchar" MaxLength="255" />
+          <Property Name="MotherLastName" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="15" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="HighestEducation" Type="varchar" MaxLength="255" />
+          <Property Name="Branch" Type="varchar" MaxLength="255" />
+          <Property Name="YearOfPassout" Type="varchar" MaxLength="255" />
+          <Property Name="SecondarySchoolName" Type="varchar" MaxLength="255" />
+          <Property Name="HigherSecondarySchoolName" Type="varchar" MaxLength="255" />
+          <Property Name="BTechCollegeName" Type="varchar" MaxLength="255" />
+          <Property Name="MTechCollegeName" Type="varchar" MaxLength="255" />
+          <Property Name="SecondaryMarks" Type="varchar" MaxLength="255" />
+          <Property Name="HigherSecondaryMarks" Type="varchar" MaxLength="255" />
+          <Property Name="BTechMarks" Type="varchar" MaxLength="255" />
+          <Property Name="MTechMarks" Type="varchar" MaxLength="255" />
+          <Property Name="ProfilePhoto" Type="varbinary(max)" />
+          <Property Name="Aadharcard" Type="varbinary(max)" />
+          <Property Name="MyResume" Type="varbinary(max)" />
+          <Property Name="AboutMyself" Type="varchar" MaxLength="255" />
+          <Property Name="Hobbies" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__State__CountryId__3D5E1FD2">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DemoUserManagaementModelStoreContainer">
+          <EntitySet Name="AddressDetails" EntityType="Self.AddressDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__State__CountryId__3D5E1FD2" Association="Self.FK__State__CountryId__3D5E1FD2">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DemoUserManagaementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AddressDetail">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="AddressType" Type="Int32" />
+          <Property Name="Country" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="StateField" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="AddressField" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Pincode" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="CountryName" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="States" Relationship="Self.FK__State__CountryId__3D5E1FD2" FromRole="Country" ToRole="State" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="StateName" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__State__CountryId__3D5E1FD2" FromRole="State" ToRole="Country" />
+        </EntityType>
+        <Association Name="FK__State__CountryId__3D5E1FD2">
+          <End Type="Self.Country" Multiplicity="0..1" Role="Country" />
+          <End Type="Self.State" Multiplicity="*" Role="State" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DemoUserManagaementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AddressDetails" EntityType="Self.AddressDetail" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <AssociationSet Name="FK__State__CountryId__3D5E1FD2" Association="Self.FK__State__CountryId__3D5E1FD2">
+            <End EntitySet="Countries" Role="Country" />
+            <End EntitySet="States" Role="State" />
+          </AssociationSet>
+          <EntitySet Name="UserDetails" EntityType="DemoUserManagaementModel.UserDetail" />
+        </EntityContainer>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FatherFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FatherMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FatherLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MotherFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MotherMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MotherLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="HighestEducation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Branch" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="YearOfPassout" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SecondarySchoolName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HigherSecondarySchoolName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BTechCollegeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MTechCollegeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HigherSecondaryMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BTechMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MTechMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Aadharcard" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="MyResume" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AboutMyself" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Hobbies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DemoUserManagaementModelStoreContainer" CdmEntityContainer="DemoUserManagaementEntities">
+          <EntitySetMapping Name="AddressDetails">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.AddressDetail">
+              <MappingFragment StoreEntitySet="AddressDetails">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AddressType" ColumnName="AddressType" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="StateField" ColumnName="StateField" />
+                <ScalarProperty Name="AddressField" ColumnName="AddressField" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="Hobbies" ColumnName="Hobbies" />
+                <ScalarProperty Name="AboutMyself" ColumnName="AboutMyself" />
+                <ScalarProperty Name="MyResume" ColumnName="MyResume" />
+                <ScalarProperty Name="Aadharcard" ColumnName="Aadharcard" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="MTechMarks" ColumnName="MTechMarks" />
+                <ScalarProperty Name="BTechMarks" ColumnName="BTechMarks" />
+                <ScalarProperty Name="HigherSecondaryMarks" ColumnName="HigherSecondaryMarks" />
+                <ScalarProperty Name="SecondaryMarks" ColumnName="SecondaryMarks" />
+                <ScalarProperty Name="MTechCollegeName" ColumnName="MTechCollegeName" />
+                <ScalarProperty Name="BTechCollegeName" ColumnName="BTechCollegeName" />
+                <ScalarProperty Name="HigherSecondarySchoolName" ColumnName="HigherSecondarySchoolName" />
+                <ScalarProperty Name="SecondarySchoolName" ColumnName="SecondarySchoolName" />
+                <ScalarProperty Name="YearOfPassout" ColumnName="YearOfPassout" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="HighestEducation" ColumnName="HighestEducation" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MotherLastName" ColumnName="MotherLastName" />
+                <ScalarProperty Name="MotherMiddleName" ColumnName="MotherMiddleName" />
+                <ScalarProperty Name="MotherFirstName" ColumnName="MotherFirstName" />
+                <ScalarProperty Name="FatherLastName" ColumnName="FatherLastName" />
+                <ScalarProperty Name="FatherMiddleName" ColumnName="FatherMiddleName" />
+                <ScalarProperty Name="FatherFirstName" ColumnName="FatherFirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
