@@ -21,7 +21,7 @@ namespace DemoUserManagaement
             if (!IsPostBack)
             {
                 // By default, sort by first column in ascending order
-                ViewState["SortExpression"] = "id";
+                ViewState["SortExpression"] = "NoteID";
                 ViewState["SortDirection"] = "ASC";
                 BindGridView();
             }
@@ -33,25 +33,6 @@ namespace DemoUserManagaement
             BindGridView(); // Call a method to rebind the GridView
         }
 
-        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            // Get the StudentID of the row being deleted
-            int id = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
-            // Delete the record from your data source using the studentID
-
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "DELETE FROM [usernote] WHERE [id]=@id";
-                cmd.Parameters.AddWithValue("@id", id); // You need to replace YourSelectedStudentID with the actual StudentID of the record you want to delete
-                cmd.ExecuteNonQuery();
-            }
-
-            // Then rebind the GridView
-            BindGridView();
-        }
 
         protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {

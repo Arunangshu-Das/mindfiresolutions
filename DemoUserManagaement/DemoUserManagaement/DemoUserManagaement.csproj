@@ -255,7 +255,6 @@
     </Compile>
     <Compile Include="Notes.ascx.cs">
       <DependentUpon>Notes.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Notes.ascx.designer.cs">
       <DependentUpon>Notes.ascx</DependentUpon>

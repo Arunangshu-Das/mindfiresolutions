@@ -27,12 +27,24 @@ namespace DemoUserManagaement.Business
             return dataAccess.AllStates(id);
         }
 
-        public List<UserInfo> Allusers()
+        public List<UserInfo> Allusers(string sortExpression, string sortDirection, int startRowIndex, int maximumRows)
         {
-            return dataAccess.Allusers();
+            return dataAccess.Allusers(sortExpression,sortDirection,startRowIndex,maximumRows);
         }
 
+        public List<CountryName> CountryNames()
+        {
+            return dataAccess.CountryNames();
+        }
 
+        public int Lenusers()
+        {
+            return dataAccess.Lenusers();
+        }
 
+        public bool UserUpdate(UserInfo userInfo)
+        {
+            return dataAccess.UserUpdate(userInfo);
+        }
     }
 }

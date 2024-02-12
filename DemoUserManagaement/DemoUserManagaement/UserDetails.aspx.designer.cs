@@ -24,6 +24,15 @@ namespace DemoUserManagaement
         protected global::System.Web.UI.HtmlControls.HtmlForm formMain;
 
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+
+        /// <summary>
         /// lblFirstName control.
         /// </summary>
         /// <remarks>
@@ -249,22 +258,40 @@ namespace DemoUserManagaement
         protected global::System.Web.UI.WebControls.Panel Panel1;
 
         /// <summary>
-        /// CountryCurrent control.
+        /// CurrentcountryPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CountryCurrent;
+        protected global::System.Web.UI.UpdatePanel CurrentcountryPanel;
 
         /// <summary>
-        /// StateCurrent control.
+        /// ddlCurrentCountryName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList StateCurrent;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCurrentCountryName;
+
+        /// <summary>
+        /// CurrentstatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel CurrentstatePanel;
+
+        /// <summary>
+        /// ddlCurrentStateName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCurrentStateName;
 
         /// <summary>
         /// txtAddressCurrent control.
@@ -312,22 +339,40 @@ namespace DemoUserManagaement
         protected global::System.Web.UI.WebControls.CheckBox checkboxSubscribe;
 
         /// <summary>
-        /// CountryPermarent control.
+        /// PermanentcountryPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CountryPermarent;
+        protected global::System.Web.UI.UpdatePanel PermanentcountryPanel;
 
         /// <summary>
-        /// StatePermarent control.
+        /// ddlPermanentCountryName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList StatePermarent;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPermanentCountryName;
+
+        /// <summary>
+        /// PermanentstatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel PermanentstatePanel;
+
+        /// <summary>
+        /// ddlPermanentStateName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPermanentStateName;
 
         /// <summary>
         /// txtAddressPermarent control.
@@ -517,6 +562,24 @@ namespace DemoUserManagaement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHobbies;
+
+        /// <summary>
+        /// PermarentAddressId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PermarentAddressId;
+
+        /// <summary>
+        /// CurrentAddressId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CurrentAddressId;
 
         /// <summary>
         /// pnlButtons control.

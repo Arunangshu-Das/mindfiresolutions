@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="DemoUserManagaementModel.State" PointX="3" PointY="0.875" Width="1.5" IsExpanded="true" />
         <AssociationConnector ManuallyRouted="false" Association="DemoUserManagaementModel.FK__State__CountryId__3D5E1FD2" />
         <EntityTypeShape EntityType="DemoUserManagaementModel.UserDetail" Width="2.375" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DemoUserManagaementModel.Note" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

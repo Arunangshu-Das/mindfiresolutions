@@ -7,11 +7,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DemoUserManagaement.Model;
+using DemoUserManagaement.Business;
 
 namespace DemoUserManagaement
 {
     public partial class Users : System.Web.UI.Page
     {
+
+        Service service = new Service();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -25,8 +29,10 @@ namespace DemoUserManagaement
 
         protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            GridView1.EditIndex = e.NewEditIndex;
-            BindGridView(); // Call a method to rebind the GridView
+            //GridView1.EditIndex = e.NewEditIndex;
+            //BindGridView(); // Call a method to rebind the GridView
+            Response.Redirect("UserDetails?id=" + GridView1.DataKeys[e.NewEditIndex].Values["UserID"]);
+
         }
 
 
@@ -46,19 +52,8 @@ namespace DemoUserManagaement
         {
             string sortExpression = e.SortExpression;
             string sortDirection = ViewState["SortDirection"].ToString();
-
-            if (sortExpression == ViewState["SortExpression"].ToString())
-            {
-                sortDirection = sortDirection == "ASC" ? "DESC" : "ASC";
-            }
-            else
-            {
-                sortDirection = "ASC";
-            }
-
-            // Save sort expression and direction to ViewState
             ViewState["SortExpression"] = sortExpression;
-            ViewState["SortDirection"] = sortDirection;
+            ViewState["SortDirection"] = sortDirection == "ASC" ? "DESC" : "ASC";
 
             BindGridView();
         }
@@ -79,42 +74,15 @@ namespace DemoUserManagaement
 
             GridView1.VirtualItemCount = totalCount;
 
-            // Calculate start and end row indexes based on pagination
-            int startRowIndex = (currentPageIndex * pageSize) + 1;
-            int endRowIndex = startRowIndex + pageSize - 1;
-
-            string query = $"SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY [{sortExpression}] {sortDirection}) AS RowNum, * FROM [UserDetails]) AS Temp WHERE RowNum BETWEEN @StartRowIndex AND @EndRowIndex";
-
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@StartRowIndex", startRowIndex);
-                    cmd.Parameters.AddWithValue("@EndRowIndex", endRowIndex);
-
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
-
-                        GridView1.DataSource = dt;
-                        GridView1.DataBind();
-                    }
-                }
-            }
+            GridView1.DataSource = service.Allusers(sortExpression, sortDirection, currentPageIndex * pageSize, pageSize);
+            GridView1.DataBind();
         }
+
 
         private int GetTotalCount()
         {
             int totalCount = 0;
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(*) FROM UserDetails;";
-                totalCount = (int)cmd.ExecuteScalar();
-            }
+            totalCount = service.Lenusers();
             return totalCount;
         }
     }

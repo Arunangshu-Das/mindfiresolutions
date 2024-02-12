@@ -6,15 +6,16 @@
 <head runat="server">
     <title></title>
     <webopt:BundleReference runat="server" Path="~/Content/css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="Scripts/script.js" />
+    <script src="Scripts/script.js" type="text/javascript"></script>
 </head>
 <body>
-    <form id="formMain" runat="server" onsubmit="return validateForm()">
+    <form id="formMain" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="container w-100 m-auto mt-5" style="background-color: white; box-shadow: -5px -5px 5px 5px #5c5656;">
 
             <fieldset>
@@ -154,31 +155,45 @@
                 </legend>
 
                 <div class="row">
-                    <div class="col-xs-12 col-sm-3">
-                        <label for="ddlCountry">Enter Country<span class="star">*</span>:</label>
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text" id="addon-wrapping"><i class="bi bi-building-fill"></i></span>
-                            <asp:DropDownList ID="CountryCurrent" runat="server" CssClass="form-select" DataValueField="Value" DataTextField="Text" data-take="input">
-                                <asp:ListItem Text="India" Value="India" />
-                                <asp:ListItem Text="USA" Value="USA" />
-                                <asp:ListItem Text="UK" Value="UK" />
-                                <asp:ListItem Text="Singapore" Value="Singapore" />
-                            </asp:DropDownList>
-                        </div>
+
+                    <div class="col-md-4">
+                        <asp:UpdatePanel ID="CurrentcountryPanel" runat="server">
+                            <ContentTemplate>
+                                <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlCurrentCountryName">Country</asp:Label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                                    <asp:DropDownList runat="server" ClientIDMode="Static" ID="ddlCurrentCountryName" CssClass="form-select"
+                                        DataToggle="tooltip" Title="Select your country" DataLabel="Country" AutoPostBack="true"
+                                        OnSelectedIndexChanged="DdlCurrentCountryName_SelectedIndexChanged">
+                                        <asp:ListItem Text="--Select Your Country--" Value=""></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCurrentCountryName"
+                                    ErrorMessage="Please select your country" ForeColor="Red"></asp:RequiredFieldValidator>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="ddlCurrentCountryName" EventName="SelectedIndexChanged" />
+                            </Triggers>
+
+                        </asp:UpdatePanel>
                     </div>
 
-                    <div class="col-xs-12 col-sm-3">
-                        <label for="ddlState">Enter State<span class="star">*</span>:</label>
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text" id="addon-wrapping"><i class="bi bi-shop"></i></span>
-                            <asp:DropDownList ID="StateCurrent" runat="server" CssClass="form-select" DataValueField="Value" DataTextField="Text" data-take="input">
-                                <asp:ListItem Text="Odisha" Value="Odisha" />
-                                <asp:ListItem Text="Mumbai" Value="Mumbai" />
-                                <asp:ListItem Text="Bangalore" Value="Bangalore" />
-                                <asp:ListItem Text="Delhi" Value="Delhi" />
-                                <asp:ListItem Text="West Bengal" Value="WestBengal" />
-                            </asp:DropDownList>
-                        </div>
+                    <div class="col-md-4">
+                        <asp:UpdatePanel ID="CurrentstatePanel" runat="server">
+                            <ContentTemplate>
+                                <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlCurrentStateName">State</asp:Label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="state-icon"><i class="bi bi-geo-alt-fill"></i></span>
+                                    <asp:DropDownList runat="server" ClientIDMode="Static" ID="ddlCurrentStateName" CssClass="form-select"
+                                        DataToggle="tooltip" Title="Select your state" DataLabel="State"
+                                        AutoPostBack="true">
+                                        <asp:ListItem Text="--Select Your State--" Value=""></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlCurrentStateName"
+                                    ErrorMessage="Please select your state" ForeColor="Red"></asp:RequiredFieldValidator>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
 
                     <div class="col-xs-12 col-sm-3">
@@ -203,38 +218,52 @@
             <asp:Panel ID="Panel2" runat="server">
                 <legend>
                     <h3>Permarent Address Details</h3>
-                </legend> 
+                </legend>
 
                 <asp:Panel ID="pnlSubscribe" runat="server" CssClass="ml-5 mt-3">
-                    <h3><asp:CheckBox ID="checkboxSubscribe" runat="server" CssClass="ml-5" Text="Both Address are common" AutoPostBack="true" OnCheckedChanged="Copy_Address" OnClientClick="return Copy_Address();" /></h3>
+                    <h3>
+                        <asp:CheckBox ID="checkboxSubscribe" runat="server" CssClass="ml-5" Text="Both Address are common" AutoPostBack="true" onchange="toggle" /></h3>
                 </asp:Panel>
 
                 <div class="row">
-                    <div class="col-xs-12 col-sm-3">
-                        <label for="ddlCountry">Enter Country<span class="star">*</span>:</label>
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text" id="addon-wrapping"><i class="bi bi-building-fill"></i></span>
-                            <asp:DropDownList ID="CountryPermarent" runat="server" CssClass="form-select" DataValueField="Value" DataTextField="Text" data-take="input">
-                                <asp:ListItem Text="India" Value="India" />
-                                <asp:ListItem Text="USA" Value="USA" />
-                                <asp:ListItem Text="UK" Value="UK" />
-                                <asp:ListItem Text="Singapore" Value="Singapore" />
-                            </asp:DropDownList>
-                        </div>
+                    <div class="col-md-4">
+                        <asp:UpdatePanel ID="PermanentcountryPanel" runat="server">
+                            <ContentTemplate>
+                                <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlPermanentCountryName">Country</asp:Label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                                    <asp:DropDownList runat="server" ClientIDMode="Static" ID="ddlPermanentCountryName" CssClass="form-select"
+                                        DataToggle="tooltip" Title="Select your country" DataLabel="Country" AutoPostBack="true"
+                                        OnSelectedIndexChanged="DdlPermanentCountryName_SelectedIndexChanged">
+                                        <asp:ListItem Text="--Select Your Country--" Value=""></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlPermanentCountryName"
+                                    ErrorMessage="Please select your country" ForeColor="Red"></asp:RequiredFieldValidator>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="ddlPermanentCountryName" EventName="SelectedIndexChanged" />
+                            </Triggers>
+
+                        </asp:UpdatePanel>
                     </div>
 
-                    <div class="col-xs-12 col-sm-3">
-                        <label for="ddlState">Enter State<span class="star">*</span>:</label>
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text" id="addon-wrapping"><i class="bi bi-shop"></i></span>
-                            <asp:DropDownList ID="StatePermarent" runat="server" CssClass="form-select" DataValueField="Value" DataTextField="Text" data-take="input">
-                                <asp:ListItem Text="Odisha" Value="Odisha" />
-                                <asp:ListItem Text="Mumbai" Value="Mumbai" />
-                                <asp:ListItem Text="Bangalore" Value="Bangalore" />
-                                <asp:ListItem Text="Delhi" Value="Delhi" />
-                                <asp:ListItem Text="West Bengal" Value="WestBengal" />
-                            </asp:DropDownList>
-                        </div>
+                    <div class="col-md-4">
+                        <asp:UpdatePanel ID="PermanentstatePanel" runat="server">
+                            <ContentTemplate>
+                                <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlPermanentStateName">State</asp:Label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="state-icon"><i class="bi bi-geo-alt-fill"></i></span>
+                                    <asp:DropDownList runat="server" ClientIDMode="Static" ID="ddlPermanentStateName" CssClass="form-select"
+                                        DataToggle="tooltip" Title="Select your state" DataLabel="State"
+                                        AutoPostBack="true">
+                                        <asp:ListItem Text="--Select Your State--" Value=""></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlPermanentStateName"
+                                    ErrorMessage="Please select your state" ForeColor="Red"></asp:RequiredFieldValidator>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
 
                     <div class="col-xs-12 col-sm-3">
@@ -420,6 +449,13 @@
                 </fieldset>
             </asp:Panel>
 
+            
+<asp:TextBox ID="PermarentAddressId" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="100" oninput="validateNo(this)" data-take="input" hidden="True"></asp:TextBox>
+
+
+
+<asp:TextBox ID="CurrentAddressId" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="100" oninput="validateNo(this)" data-take="input" hidden="True"></asp:TextBox>
+
             <asp:Panel ID="pnlButtons" runat="server" CssClass="container d-flex w-100 justify-content-between flex-wrap">
                 <asp:Button ID="btnSubmit" runat="server" ClientIDMode="Static" CssClass="col-xs-12 col-sm-4 m-auto btn btn-outline-success" Text="Submit Form" OnClientClick="return validateForm();" OnClick="BtnSubmit_Click" />
                 <asp:Button ID="btnReset" runat="server" ClientIDMode="Static" CssClass="col-xs-12 col-sm-4 m-auto btn btn-outline-danger" Text="Reset Form" OnClientClick="resetForm();" CausesValidation="False" />
@@ -428,7 +464,7 @@
         </div>
     </form>
 
-<%--    <asp:PlaceHolder runat="server">
+    <%--    <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/script.js") %>
     </asp:PlaceHolder>--%>
 </body>

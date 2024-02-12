@@ -1,4 +1,6 @@
+
 $(document).ready(function () {
+    return;
     updateStates();
 
     $('#m-tech-marks, #b-tech-marks, #higher-secondary-marks, #higher-secondary-school-name, #b-tech-college-name, #m-tech-college-name').css('display', 'none');
@@ -302,4 +304,61 @@ const checkFieldsChangeOrNot=function(e){
         element.next().remove();
      }
     element.removeClass("is-invalid")
+}
+
+
+
+
+function toggleCurrentAddress() {
+    var chkSameAsPermanent = document.getElementById('<%= checkboxSubscribe.ClientID %>');
+
+    var txtCurrentVillage = document.getElementById('<%= txtCurrentVillage.ClientID %>');
+    var txtCurrentPoliceStation = document.getElementById('<%= txtCurrentPoliceStation.ClientID %>');
+    var txtCurrentPostOffice = document.getElementById('<%= txtCurrentPostOffice.ClientID %>');
+    var txtCurrentStreetAddress = document.getElementById('<%= txtCurrentStreetAddress.ClientID %>');
+    var txtCurrentCity = document.getElementById('<%= txtCurrentCity.ClientID %>');
+    var txtCurrentHouseNumber = document.getElementById('<%= txtCurrentHouseNumber.ClientID %>');
+    var txtCurrentPincode = document.getElementById('<%= txtCurrentPincode.ClientID %>');
+    var ddlCurrentCountryName = document.getElementById('<%= ddlCurrentCountryName.ClientID %>');
+    var ddlCurrentStateName = document.getElementById('<%= ddlCurrentStateName.ClientID %>');
+
+    var txtPermanentVillage = document.getElementById('<%= txtPermanentVillage.ClientID %>');
+    var txtPermanentPoliceStation = document.getElementById('<%= txtPermanentPoliceStation.ClientID %>');
+    var txtPermanentPostOffice = document.getElementById('<%= txtPermanentPostOffice.ClientID %>');
+    var txtPermanentStreetAddress = document.getElementById('<%= txtPermanentStreetAddress.ClientID %>');
+    var txtPermanentCity = document.getElementById('<%= txtPermanentCity.ClientID %>');
+    var txtPermanentHouseNumber = document.getElementById('<%= txtPermanentHouseNumber.ClientID %>');
+    var txtPermanentPinCode = document.getElementById('<%= txtPermanentPinCode.ClientID %>');
+    var ddlPermanentCountryName = document.getElementById('<%= ddlPermanentCountryName.ClientID %>');
+    var ddlPermanentStateName = document.getElementById('<%= ddlPermanentStateName.ClientID %>');
+
+    if (chkSameAsPermanent.checked) {
+        txtCurrentVillage.value = txtPermanentVillage.value;
+        txtCurrentPoliceStation.value = txtPermanentPoliceStation.value;
+        txtCurrentPostOffice.value = txtPermanentPostOffice.value;
+        txtCurrentStreetAddress.value = txtPermanentStreetAddress.value;
+        txtCurrentCity.value = txtPermanentCity.value;
+        txtCurrentHouseNumber.value = txtPermanentHouseNumber.value;
+        txtCurrentPincode.value = txtPermanentPinCode.value;
+        ddlCurrentCountryName.value = ddlPermanentCountryName.value;
+        ddlCurrentCountryName.options[ddlCurrentCountryName.selectedIndex].text = ddlPermanentCountryName.options[ddlPermanentCountryName.selectedIndex].text;
+        __doPostBack('<%= ddlCurrentCountryName.UniqueID %>', '');
+        ddlCurrentStateName.value = ddlPermanentStateName.value;
+        ddlCurrentStateName.options[ddlCurrentStateName.selectedIndex].text = ddlPermanentStateName.options[ddlPermanentStateName.selectedIndex].text;
+        __doPostBack('<%= ddlCurrentStateName.UniqueID %>', '');
+    }
+    else {
+        txtCurrentVillage.value = '';
+        txtCurrentPoliceStation.value = '';
+        txtCurrentPostOffice.value = '';
+        txtCurrentStreetAddress.value = '';
+        txtCurrentCity.value = '';
+        txtCurrentHouseNumber.value = '';
+        txtCurrentPincode.value = '';
+        ddlCurrentCountryName.value = '';
+        ddlCurrentStateName.value = '';
+    }
+    document.getElementById('<%= ddlPermanentCountryName.ClientID %>').addEventListener('change', function () {
+        toggleCurrentAddress();
+    });
 }
