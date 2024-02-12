@@ -77,7 +77,6 @@ namespace DemoUserManagaement
             PermarentAddressId.Text = Convert.ToString(user.PermarentAddressID);
             CurrentAddressId.Text = Convert.ToString(user.CurrentAddressID);
 
-            // Gender: Assuming radioMale and radioFemale are RadioButton controls
             if (user.Gender == "Male") radioMale.Checked=true;
             else radioFemale.Checked=true;
 

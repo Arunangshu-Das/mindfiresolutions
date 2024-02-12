@@ -431,11 +431,34 @@ namespace DemoUserManagaement.DAL
 
         public bool NoteSave(NotesInfo noteinfo)
         {
+            bool flag = false;
             using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
             {
-
+                Note n = new Note
+                {
+                    TimeStamp = BitConverter.GetBytes(DateTime.Now.Ticks),
+                    NoteText = noteinfo.NoteText,
+                    ObjectID = noteinfo.ObjectID,
+                    ObjectType = "1",
+                };
+                context.Notes.Add(n);
+                context.SaveChanges();
+                flag = true;
             }
+            return flag;
         }
 
+        public bool UpdateNote(NotesInfo noteinfo)
+        {
+            bool flag = false;
+            using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+            {
+                Note n = context.Notes.Find(noteinfo);
+                n.NoteText=noteinfo.NoteText;
+                context.SaveChanges();
+                flag = true;
+            }
+            return flag;
+        }
     }
 }

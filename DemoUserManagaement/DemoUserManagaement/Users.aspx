@@ -17,7 +17,7 @@
             AllowCustomPaging="True"
             OnPageIndexChanging="GridView1_PageIndexChanging"
             OnSorting="SortingGridView"
-            PageSize="1"
+            PageSize="3"
             DataKeyNames="UserID"
             OnRowEditing="GridView1_RowEditing"
             OnRowUpdating="GridView1_RowUpdating"

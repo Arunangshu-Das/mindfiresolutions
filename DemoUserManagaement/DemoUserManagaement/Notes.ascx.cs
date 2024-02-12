@@ -7,11 +7,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DemoUserManagaement.Model;
+using DemoUserManagaement.Business;
 
 namespace DemoUserManagaement
 {
     public partial class Notes : System.Web.UI.UserControl
     {
+
+        Service service = new Service();
         public string IdValue { get; set; }
 
         public string Name { get; set; }
@@ -73,19 +77,12 @@ namespace DemoUserManagaement
 
         protected void InsertButton(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
+            NotesInfo n = new NotesInfo
             {
-                con.Open();
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO usernote (note, noteid, notetype, datetimes) VALUES (@note, @noteid, @notetype, @datetime)";
-                cmd.Parameters.AddWithValue("@note", Textarea1.Value);
-                cmd.Parameters.AddWithValue("@noteid", IdValue);
-                cmd.Parameters.AddWithValue("@notetype", Name);
-                cmd.Parameters.AddWithValue("@datetime", DateTime.Now);
-                cmd.ExecuteNonQuery();
-                Response.Write("Done!!");
-            }
+                NoteText = Textarea1.Value,
+                ObjectID = Convert.ToInt32(IdValue),
+            };
+            service.NoteSave(n);
             Textarea1.Value = "";
             BindGridView();
         }

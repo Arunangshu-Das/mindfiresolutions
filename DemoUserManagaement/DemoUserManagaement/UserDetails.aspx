@@ -156,7 +156,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-4">
+                    <div class="col-xs-12 col-sm-4">
                         <asp:UpdatePanel ID="CurrentcountryPanel" runat="server">
                             <ContentTemplate>
                                 <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlCurrentCountryName">Country</asp:Label>
@@ -178,7 +178,7 @@
                         </asp:UpdatePanel>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-xs-12 col-sm-4">
                         <asp:UpdatePanel ID="CurrentstatePanel" runat="server">
                             <ContentTemplate>
                                 <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlCurrentStateName">State</asp:Label>
@@ -226,7 +226,7 @@
                 </asp:Panel>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-xs-12 col-sm-4">
                         <asp:UpdatePanel ID="PermanentcountryPanel" runat="server">
                             <ContentTemplate>
                                 <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlPermanentCountryName">Country</asp:Label>
@@ -248,7 +248,7 @@
                         </asp:UpdatePanel>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-xs-12 col-sm-4">
                         <asp:UpdatePanel ID="PermanentstatePanel" runat="server">
                             <ContentTemplate>
                                 <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlPermanentStateName">State</asp:Label>

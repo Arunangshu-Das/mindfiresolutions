@@ -30,7 +30,7 @@
                 OnRowUpdating="GridView1_RowUpdating"
                 OnRowCancelingEdit="GridView1_RowCancelingEdit">
                 <Columns>
-
+                     
                     <asp:TemplateField HeaderText="NoteID" SortExpression="NoteID">
 
                         <EditItemTemplate>

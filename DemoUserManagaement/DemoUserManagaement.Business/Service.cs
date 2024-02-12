@@ -46,5 +46,10 @@ namespace DemoUserManagaement.Business
         {
             return dataAccess.UserUpdate(userInfo);
         }
+
+        public bool NoteSave(NotesInfo noteinfo)
+        {
+            return dataAccess.NoteSave(noteinfo);
+        }
     }
 }

@@ -19,5 +19,6 @@ namespace DemoUserManagaement.DAL
         public string ObjectType { get; set; }
         public string NoteText { get; set; }
         public byte[] TimeStamp { get; set; }
+
     }
 }
