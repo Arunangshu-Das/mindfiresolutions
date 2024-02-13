@@ -263,6 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="upload\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -283,6 +284,10 @@
     <ProjectReference Include="..\DemoUserManagaement.Model\DemoUserManagaement.Model.csproj">
       <Project>{d1ecf44b-430e-469b-b5fd-f743698b1e46}</Project>
       <Name>DemoUserManagaement.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoUserManagaement.Utils\DemoUserManagaement.Utils.csproj">
+      <Project>{e0180292-8ef5-4205-a804-f629aea4ff37}</Project>
+      <Name>DemoUserManagaement.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

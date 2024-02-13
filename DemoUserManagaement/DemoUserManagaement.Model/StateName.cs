@@ -8,6 +8,7 @@ namespace DemoUserManagaement.Model
 {
     public class StateName
     {
+        public int StateId { get; set; }
         public string StateNames { get; set; }   
     }
 }

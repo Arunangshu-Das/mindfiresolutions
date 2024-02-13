@@ -12,8 +12,7 @@
           <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
           <Property Name="AddressType" Type="int" />
-          <Property Name="Country" Type="varchar" MaxLength="255" />
-          <Property Name="StateField" Type="varchar" MaxLength="255" />
+          <Property Name="StateId" Type="int" />
           <Property Name="AddressField" Type="varchar" MaxLength="255" />
           <Property Name="Pincode" Type="varchar" MaxLength="255" />
         </EntityType>
@@ -30,9 +29,9 @@
           </Key>
           <Property Name="NoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ObjectID" Type="int" />
-          <Property Name="ObjectType" Type="varchar" MaxLength="255" />
+          <Property Name="ObjectType" Type="int" />
           <Property Name="NoteText" Type="text" />
-          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -71,9 +70,12 @@
           <Property Name="HigherSecondaryMarks" Type="varchar" MaxLength="255" />
           <Property Name="BTechMarks" Type="varchar" MaxLength="255" />
           <Property Name="MTechMarks" Type="varchar" MaxLength="255" />
-          <Property Name="ProfilePhoto" Type="varbinary(max)" />
-          <Property Name="Aadharcard" Type="varbinary(max)" />
-          <Property Name="MyResume" Type="varbinary(max)" />
+          <Property Name="ProfilePhoto" Type="varchar" MaxLength="255" />
+          <Property Name="Aadharcard" Type="varchar" MaxLength="255" />
+          <Property Name="MyResume" Type="varchar" MaxLength="255" />
+          <Property Name="GuidProfilePhoto" Type="varchar" MaxLength="255" />
+          <Property Name="GuidAadharcard" Type="varchar" MaxLength="255" />
+          <Property Name="GuidMyResume" Type="varchar" MaxLength="255" />
           <Property Name="AboutMyself" Type="varchar" MaxLength="255" />
           <Property Name="Hobbies" Type="varchar(max)" />
         </EntityType>
@@ -104,18 +106,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DemoUserManagaementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AddressDetail">
-          <Key>
-            <PropertyRef Name="AddressID" />
-          </Key>
-          <Property Name="AddressID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="AddressType" Type="Int32" />
-          <Property Name="Country" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="StateField" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="AddressField" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="Pincode" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-        </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="CountryId" />
@@ -146,16 +136,37 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DemoUserManagaementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AddressDetails" EntityType="Self.AddressDetail" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="States" EntityType="Self.State" />
           <AssociationSet Name="FK__State__CountryId__3D5E1FD2" Association="Self.FK__State__CountryId__3D5E1FD2">
             <End EntitySet="Countries" Role="Country" />
             <End EntitySet="States" Role="State" />
           </AssociationSet>
-          <EntitySet Name="UserDetails" EntityType="DemoUserManagaementModel.UserDetail" />
           <EntitySet Name="Notes" EntityType="DemoUserManagaementModel.Note" />
+          <EntitySet Name="AddressDetails" EntityType="DemoUserManagaementModel.AddressDetail" />
+          <EntitySet Name="UserDetails" EntityType="DemoUserManagaementModel.UserDetail" />
         </EntityContainer>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteID" />
+          </Key>
+          <Property Name="NoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" />
+          <Property Name="ObjectType" Type="Int32" />
+          <Property Name="NoteText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AddressDetail">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="AddressType" Type="Int32" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="AddressField" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Pincode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="UserDetail">
           <Key>
             <PropertyRef Name="UserID" />
@@ -185,21 +196,14 @@
           <Property Name="HigherSecondaryMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="BTechMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="MTechMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Aadharcard" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="MyResume" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProfilePhoto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Aadharcard" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MyResume" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="GuidProfilePhoto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="GuidAadharcard" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="GuidMyResume" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AboutMyself" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Hobbies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Note">
-          <Key>
-            <PropertyRef Name="NoteID" />
-          </Key>
-          <Property Name="NoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ObjectID" Type="Int32" />
-          <Property Name="ObjectType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NoteText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -207,19 +211,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DemoUserManagaementModelStoreContainer" CdmEntityContainer="DemoUserManagaementEntities">
-          <EntitySetMapping Name="AddressDetails">
-            <EntityTypeMapping TypeName="DemoUserManagaementModel.AddressDetail">
-              <MappingFragment StoreEntitySet="AddressDetails">
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="AddressType" ColumnName="AddressType" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="StateField" ColumnName="StateField" />
-                <ScalarProperty Name="AddressField" ColumnName="AddressField" />
-                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Countries">
             <EntityTypeMapping TypeName="DemoUserManagaementModel.Country">
               <MappingFragment StoreEntitySet="Country">
@@ -237,11 +228,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.Note">
+              <MappingFragment StoreEntitySet="Note">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddressDetails">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.AddressDetail">
+              <MappingFragment StoreEntitySet="AddressDetails">
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="AddressField" ColumnName="AddressField" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="AddressType" ColumnName="AddressType" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserDetails">
             <EntityTypeMapping TypeName="DemoUserManagaementModel.UserDetail">
               <MappingFragment StoreEntitySet="UserDetails">
                 <ScalarProperty Name="Hobbies" ColumnName="Hobbies" />
                 <ScalarProperty Name="AboutMyself" ColumnName="AboutMyself" />
+                <ScalarProperty Name="GuidMyResume" ColumnName="GuidMyResume" />
+                <ScalarProperty Name="GuidAadharcard" ColumnName="GuidAadharcard" />
+                <ScalarProperty Name="GuidProfilePhoto" ColumnName="GuidProfilePhoto" />
                 <ScalarProperty Name="MyResume" ColumnName="MyResume" />
                 <ScalarProperty Name="Aadharcard" ColumnName="Aadharcard" />
                 <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
@@ -270,17 +287,6 @@
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Notes">
-            <EntityTypeMapping TypeName="DemoUserManagaementModel.Note">
-              <MappingFragment StoreEntitySet="Note">
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
-                <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
-                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
-                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

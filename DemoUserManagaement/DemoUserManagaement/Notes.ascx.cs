@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DemoUserManagaement.Model;
 using DemoUserManagaement.Business;
+using DemoUserManagaement.Utils;
 
 namespace DemoUserManagaement
 {
@@ -77,91 +78,75 @@ namespace DemoUserManagaement
 
         protected void InsertButton(object sender, EventArgs e)
         {
-            NotesInfo n = new NotesInfo
+            try
             {
-                NoteText = Textarea1.Value,
-                ObjectID = Convert.ToInt32(IdValue),
-            };
-            service.NoteSave(n);
-            Textarea1.Value = "";
-            BindGridView();
-        }
-
-        protected void SortingGridView(object sender, GridViewSortEventArgs e)
-        {
-            string sortExpression = e.SortExpression;
-            string sortDirection = ViewState["SortDirection"].ToString();
-
-            if (sortExpression == ViewState["SortExpression"].ToString())
-            {
-                sortDirection = sortDirection == "ASC" ? "DESC" : "ASC";
+                NotesInfo n = new NotesInfo
+                {
+                    NoteText = Textarea1.Value,
+                    ObjectID = Convert.ToInt32(IdValue),
+                };
+                service.NoteSave(n);
+                Textarea1.Value = "";
+                BindGridView();
             }
-            else
+            catch (Exception ex)
             {
-                sortDirection = "ASC";
+                Logger.AddData(ex);
             }
-
-            // Save sort expression and direction to ViewState
-            ViewState["SortExpression"] = sortExpression;
-            ViewState["SortDirection"] = sortDirection;
-
-            BindGridView();
         }
 
-        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GridView1.PageIndex = e.NewPageIndex;
-            BindGridView();
-        }
+        //protected void SortingGridView(object sender, GridViewSortEventArgs e)
+        //{
+        //    string sortExpression = e.SortExpression;
+        //    string sortDirection = ViewState["SortDirection"].ToString();
+
+        //    if (sortExpression == ViewState["SortExpression"].ToString())
+        //    {
+        //        sortDirection = sortDirection == "ASC" ? "DESC" : "ASC";
+        //    }
+        //    else
+        //    {
+        //        sortDirection = "ASC";
+        //    }
+
+        //    // Save sort expression and direction to ViewState
+        //    ViewState["SortExpression"] = sortExpression;
+        //    ViewState["SortDirection"] = sortDirection;
+
+        //    BindGridView();
+        //}
+
+        
 
         private void BindGridView()
         {
-            int currentPageIndex = GridView1.PageIndex;
-            int pageSize = GridView1.PageSize;
-            string sortExpression = ViewState["SortExpression"].ToString();
-            string sortDirection = ViewState["SortDirection"].ToString();
-            int totalCount = GetTotalCount();
-
-            GridView1.VirtualItemCount = totalCount;
-
-            // Calculate start and end row indexes based on pagination
-            int startRowIndex = (currentPageIndex * pageSize) + 1;
-            int endRowIndex = startRowIndex + pageSize - 1;
-
-            string query = $"SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY [{sortExpression}] {sortDirection}) AS RowNum, * FROM [usernote] WHERE notetype=@notetype) AS Temp WHERE notetype=@notetype and RowNum BETWEEN @StartRowIndex AND @EndRowIndex";
-
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@StartRowIndex", startRowIndex);
-                    cmd.Parameters.AddWithValue("@notetype", Name);
-                    cmd.Parameters.AddWithValue("@EndRowIndex", endRowIndex);
+                int currentPageIndex = GridView1.PageIndex;
+                int pageSize = GridView1.PageSize;
+                string sortExpression = ViewState["SortExpression"].ToString();
+                string sortDirection = ViewState["SortDirection"].ToString();
+                int totalCount = GetTotalCount(IdValue);
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
+                GridView1.VirtualItemCount = totalCount;
 
-                        GridView1.DataSource = dt;
-                        GridView1.DataBind();
-                    }
-                }
+                // Calculate start and end row indexes based on pagination
+                int startRowIndex = (currentPageIndex * pageSize) + 1;
+                int endRowIndex = startRowIndex + pageSize - 1;
+
+                GridView1.DataSource = service.NotesInfos(sortExpression, sortDirection, currentPageIndex * pageSize, pageSize, Convert.ToInt32(IdValue));
+                GridView1.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
             }
         }
 
-        private int GetTotalCount()
+        private int GetTotalCount(String id)
         {
             int totalCount = 0;
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(*) FROM usernote where notetype=@notetype;";
-                cmd.Parameters.AddWithValue("@notetype", Name);
-                totalCount = (int)cmd.ExecuteScalar();
-            }
+            totalCount = service.LenNotes(Convert.ToInt32(id));
             return totalCount;
         }
 

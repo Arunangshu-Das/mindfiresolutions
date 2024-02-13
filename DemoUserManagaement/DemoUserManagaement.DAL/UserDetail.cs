@@ -39,9 +39,12 @@ namespace DemoUserManagaement.DAL
         public string HigherSecondaryMarks { get; set; }
         public string BTechMarks { get; set; }
         public string MTechMarks { get; set; }
-        public byte[] ProfilePhoto { get; set; }
-        public byte[] Aadharcard { get; set; }
-        public byte[] MyResume { get; set; }
+        public string ProfilePhoto { get; set; }
+        public string Aadharcard { get; set; }
+        public string MyResume { get; set; }
+        public string GuidProfilePhoto { get; set; }
+        public string GuidAadharcard { get; set; }
+        public string GuidMyResume { get; set; }
         public string AboutMyself { get; set; }
         public string Hobbies { get; set; }
     }

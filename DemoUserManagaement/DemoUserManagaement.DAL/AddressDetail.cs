@@ -17,8 +17,7 @@ namespace DemoUserManagaement.DAL
         public int AddressID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> AddressType { get; set; }
-        public string Country { get; set; }
-        public string StateField { get; set; }
+        public Nullable<int> StateId { get; set; }
         public string AddressField { get; set; }
         public string Pincode { get; set; }
     }

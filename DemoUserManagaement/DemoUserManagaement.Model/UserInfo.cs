@@ -35,14 +35,20 @@ namespace DemoUserManagaement.Model
         public string HigherSecondaryMarks { get; set; }
         public string BTechMarks { get; set; }
         public string MTechMarks { get; set; }
-        public byte[] ProfilePhoto { get; set; }
-        public byte[] Aadharcard { get; set; }
-        public byte[] MyResume { get; set; }
+        public string ProfilePhoto { get; set; }
+        public string Aadharcard { get; set; }
+        public string MyResume { get; set; }
         public string AboutMyself { get; set; }
+
+        public string GuidProfilePhoto { get; set; }
+        public string GuidAadharcard { get; set; }
+        public string GuidMyResume { get; set; }
         public string Hobbies { get; set; }
 
         // AddressDetails fields
         public int PermarentAddressID { get; set; }
+
+        public int PermarentStateId {  get; set; }
         public int PermarentAddressType { get; set; }
         public string PermarentCountry { get; set; }
         public string PermarentStateField { get; set; }
@@ -50,6 +56,8 @@ namespace DemoUserManagaement.Model
         public string PermarentPincode { get; set; }
 
         public int CurrentAddressID { get; set; }
+
+        public int CurrentStateId { get; set; }
         public int CurrentAddressType { get; set; }
         public string CurrentCountry { get; set; }
         public string CurrentStateField { get; set; }

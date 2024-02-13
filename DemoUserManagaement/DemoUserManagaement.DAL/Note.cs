@@ -16,9 +16,8 @@ namespace DemoUserManagaement.DAL
     {
         public int NoteID { get; set; }
         public Nullable<int> ObjectID { get; set; }
-        public string ObjectType { get; set; }
+        public Nullable<int> ObjectType { get; set; }
         public string NoteText { get; set; }
-        public byte[] TimeStamp { get; set; }
-
+        public Nullable<System.DateTime> TimeStamp { get; set; }
     }
 }

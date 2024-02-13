@@ -11,6 +11,6 @@ namespace DemoUserManagaement.Model
         public int NoteID { get; set; }
         public int ObjectID { get; set; }
         public string NoteText { get; set; }
-        public byte[] TimeStamp { get; set; }
+        public System.DateTime TimeStamp { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace DemoUserManagaement.Model
 {
     public class CountryName
     {
+        public int CountryId { get; set; }
         public string CountryNames { get; set; }
     }
 }

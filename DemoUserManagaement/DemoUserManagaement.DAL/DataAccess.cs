@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees;
+using System.Data.Entity.Infrastructure.Interception;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using DemoUserManagaement.Model;
+using DemoUserManagaement.Utils;
 
 namespace DemoUserManagaement.DAL
 {
@@ -15,67 +17,77 @@ namespace DemoUserManagaement.DAL
         public bool UserSave(UserInfo userInfo)
         {
             bool flag = false;
-            using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+            try
             {
-                UserDetail userDetail = new UserDetail
+                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
                 {
-                    FirstName = userInfo.FirstName,
-                    MiddleName = userInfo.MiddleName,
-                    LastName = userInfo.LastName,
-                    FatherFirstName = userInfo.FatherFirstName,
-                    MotherFirstName = userInfo.MotherFirstName,
-                    FatherMiddleName = userInfo.FatherMiddleName,
-                    MotherMiddleName = userInfo.MotherMiddleName,
-                    FatherLastName = userInfo.FatherLastName,
-                    MotherLastName = userInfo.MotherLastName,
-                    Email = userInfo.Email,
-                    ContactNumber = userInfo.ContactNumber,
-                    Gender = userInfo.Gender,
-                    DateOfBirth = userInfo.DateOfBirth,
-                    HighestEducation = userInfo.HighestEducation,
-                    Branch = userInfo.Branch,
-                    YearOfPassout = userInfo.YearOfPassout,
-                    SecondarySchoolName = userInfo.SecondarySchoolName,
-                    HigherSecondarySchoolName = userInfo.HigherSecondarySchoolName,
-                    BTechCollegeName = userInfo.BTechCollegeName,
-                    MTechCollegeName = userInfo.MTechCollegeName,
-                    SecondaryMarks = userInfo.SecondaryMarks,
-                    HigherSecondaryMarks = userInfo.HigherSecondaryMarks,
-                    BTechMarks = userInfo.BTechMarks,
-                    MTechMarks = userInfo.MTechMarks,
-                    Hobbies = userInfo.Hobbies,
-                    ProfilePhoto = userInfo.ProfilePhoto,
-                    Aadharcard = userInfo.Aadharcard,
-                    MyResume = userInfo.MyResume,
-                    AboutMyself = userInfo.AboutMyself,
-                };
-                context.UserDetails.Add(userDetail);
-                context.SaveChanges();
-                int userid = userDetail.UserID;
-                AddressDetail currentaddress = new AddressDetail
-                {
-                    UserID = userid,
-                    AddressType = 1,
-                    Country = userInfo.CurrentCountry,
-                    StateField = userInfo.CurrentStateField,
-                    AddressField = userInfo.CurrentAddressField,
-                    Pincode = userInfo.CurrentPincode,
-                };
+                    UserDetail userDetail = new UserDetail
+                    {
+                        FirstName = userInfo.FirstName,
+                        MiddleName = userInfo.MiddleName,
+                        LastName = userInfo.LastName,
+                        FatherFirstName = userInfo.FatherFirstName,
+                        MotherFirstName = userInfo.MotherFirstName,
+                        FatherMiddleName = userInfo.FatherMiddleName,
+                        MotherMiddleName = userInfo.MotherMiddleName,
+                        FatherLastName = userInfo.FatherLastName,
+                        MotherLastName = userInfo.MotherLastName,
+                        Email = userInfo.Email,
+                        ContactNumber = userInfo.ContactNumber,
+                        Gender = userInfo.Gender,
+                        DateOfBirth = userInfo.DateOfBirth,
+                        HighestEducation = userInfo.HighestEducation,
+                        Branch = userInfo.Branch,
+                        YearOfPassout = userInfo.YearOfPassout,
+                        SecondarySchoolName = userInfo.SecondarySchoolName,
+                        HigherSecondarySchoolName = userInfo.HigherSecondarySchoolName,
+                        BTechCollegeName = userInfo.BTechCollegeName,
+                        MTechCollegeName = userInfo.MTechCollegeName,
+                        SecondaryMarks = userInfo.SecondaryMarks,
+                        HigherSecondaryMarks = userInfo.HigherSecondaryMarks,
+                        BTechMarks = userInfo.BTechMarks,
+                        MTechMarks = userInfo.MTechMarks,
+                        Hobbies = userInfo.Hobbies,
+                        ProfilePhoto = userInfo.ProfilePhoto,
+                        Aadharcard = userInfo.Aadharcard,
+                        MyResume = userInfo.MyResume,
+                        GuidMyResume = userInfo.GuidMyResume,
+                        GuidAadharcard = userInfo.GuidAadharcard,
+                        GuidProfilePhoto = userInfo.GuidProfilePhoto,
+                        AboutMyself = userInfo.AboutMyself,
+                    };
+                    context.UserDetails.Add(userDetail);
+                    context.SaveChanges();
+                    int userid = userDetail.UserID;
+                    AddressDetail currentaddress = new AddressDetail
+                    {
+                        UserID = userid,
+                        AddressType = (int)Enums.ADDRESS.CURRENT,
+                        StateId = userInfo.CurrentStateId,
+                        //Country = userInfo.CurrentCountry,
+                        //StateField = userInfo.CurrentStateField,
+                        AddressField = userInfo.CurrentAddressField,
+                        Pincode = userInfo.CurrentPincode,
+                    };
 
-                AddressDetail permarentaddress = new AddressDetail
-                {
-                    UserID = userid,
-                    AddressType = 2,
-                    Country = userInfo.PermarentCountry,
-                    StateField = userInfo.PermarentStateField,
-                    AddressField = userInfo.PermarentAddressField,
-                    Pincode = userInfo.PermarentPincode,
-                };
-                context.AddressDetails.Add(currentaddress);
-                context.SaveChanges();
-                context.AddressDetails.Add(permarentaddress);
-                context.SaveChanges();
-                flag = true;
+                    AddressDetail permarentaddress = new AddressDetail
+                    {
+                        UserID = userid,
+                        AddressType = (int)Enums.ADDRESS.PERMARENT,
+                        StateId = userInfo.PermarentStateId,
+                        AddressField = userInfo.PermarentAddressField,
+                        Pincode = userInfo.PermarentPincode,
+                    };
+                    context.AddressDetails.Add(currentaddress);
+                    context.SaveChanges();
+                    context.AddressDetails.Add(permarentaddress);
+                    context.SaveChanges();
+                    flag = true;
+                }
+            }
+            catch(Exception ex) 
+            {
+                Logger.AddData(ex);
             }
             return flag;
         }
@@ -83,56 +95,66 @@ namespace DemoUserManagaement.DAL
         public bool UserUpdate(UserInfo userInfo)
         {
             bool flag = false;
-            using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+            try
+            { 
+                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                {
+                    UserDetail user = context.UserDetails.Find(userInfo.UserID);
+                    user.UserID = userInfo.UserID;
+                    user.FirstName = userInfo.FirstName;
+                    user.MiddleName = userInfo.MiddleName;
+                    user.LastName = userInfo.LastName;
+                    user.FatherFirstName = userInfo.FatherFirstName;
+                    user.MotherFirstName = userInfo.MotherFirstName;
+                    user.FatherMiddleName = userInfo.FatherMiddleName;
+                    user.MotherMiddleName = userInfo.MotherMiddleName;
+                    user.FatherLastName = userInfo.FatherLastName;
+                    user.MotherLastName = userInfo.MotherLastName;
+                    user.Email = userInfo.Email;
+                    user.ContactNumber = userInfo.ContactNumber;
+                    user.Gender = userInfo.Gender;
+                    user.DateOfBirth = userInfo.DateOfBirth;
+                    user.HighestEducation = userInfo.HighestEducation;
+                    user.Branch = userInfo.Branch;
+                    user.YearOfPassout = userInfo.YearOfPassout;
+                    user.SecondarySchoolName = userInfo.SecondarySchoolName;
+                    user.HigherSecondarySchoolName = userInfo.HigherSecondarySchoolName;
+                    user.BTechCollegeName = userInfo.BTechCollegeName;
+                    user.MTechCollegeName = userInfo.MTechCollegeName;
+                    user.SecondaryMarks = userInfo.SecondaryMarks;
+                    user.HigherSecondaryMarks = userInfo.HigherSecondaryMarks;
+                    user.BTechMarks = userInfo.BTechMarks;
+                    user.MTechMarks = userInfo.MTechMarks;
+                    user.Hobbies = userInfo.Hobbies;
+                    user.ProfilePhoto = userInfo.ProfilePhoto;
+                    user.Aadharcard = userInfo.Aadharcard;
+                    user.MyResume = userInfo.MyResume;
+                    user.GuidMyResume = userInfo.GuidMyResume;
+                    user.GuidAadharcard = userInfo.GuidAadharcard;
+                    user.GuidProfilePhoto = userInfo.GuidProfilePhoto;
+                    int userid = user.UserID;
+
+                    AddressDetail currentaddress = context.AddressDetails.Find(userInfo.CurrentAddressID);
+
+
+                    currentaddress.AddressField = userInfo.CurrentAddressField;
+                    currentaddress.Pincode = userInfo.CurrentPincode;
+                    currentaddress.StateId = userInfo.CurrentStateId;
+
+
+                    AddressDetail permarentaddress = context.AddressDetails.Find(userInfo.PermarentAddressID);
+
+
+                    permarentaddress.StateId = userInfo.PermarentStateId;
+                    permarentaddress.AddressField = userInfo.PermarentAddressField;
+                    permarentaddress.Pincode = userInfo.PermarentPincode;
+                    context.SaveChanges();
+                    flag = true;
+                }
+            }
+            catch (Exception ex) 
             {
-                UserDetail user = context.UserDetails.Find(userInfo.UserID);
-                user.UserID = userInfo.UserID;
-                user.FirstName = userInfo.FirstName;
-                user.MiddleName = userInfo.MiddleName;
-                user.LastName = userInfo.LastName;
-                user.FatherFirstName = userInfo.FatherFirstName;
-                user.MotherFirstName = userInfo.MotherFirstName;
-                user.FatherMiddleName = userInfo.FatherMiddleName;
-                user.MotherMiddleName = userInfo.MotherMiddleName;
-                user.FatherLastName = userInfo.FatherLastName;
-                user.MotherLastName = userInfo.MotherLastName;
-                user.Email = userInfo.Email;
-                user.ContactNumber = userInfo.ContactNumber;
-                user.Gender = userInfo.Gender;
-                user.DateOfBirth = userInfo.DateOfBirth;
-                user.HighestEducation = userInfo.HighestEducation;
-                user.Branch = userInfo.Branch;
-                user.YearOfPassout = userInfo.YearOfPassout;
-                user.SecondarySchoolName = userInfo.SecondarySchoolName;
-                user.HigherSecondarySchoolName = userInfo.HigherSecondarySchoolName;
-                user.BTechCollegeName = userInfo.BTechCollegeName;
-                user.MTechCollegeName = userInfo.MTechCollegeName;
-                user.SecondaryMarks = userInfo.SecondaryMarks;
-                user.HigherSecondaryMarks = userInfo.HigherSecondaryMarks;
-                user.BTechMarks = userInfo.BTechMarks;
-                user.MTechMarks = userInfo.MTechMarks;
-                user.Hobbies = userInfo.Hobbies;
-                user.ProfilePhoto = userInfo.ProfilePhoto;
-                user.Aadharcard = userInfo.Aadharcard;
-                user.MyResume = userInfo.MyResume;
-                int userid = user.UserID;
-
-                AddressDetail currentaddress = context.AddressDetails.Find(userInfo.CurrentAddressID);
-
-                currentaddress.Country = userInfo.CurrentCountry;
-                currentaddress.StateField = userInfo.CurrentStateField;
-                currentaddress.AddressField = userInfo.CurrentAddressField;
-                currentaddress.Pincode = userInfo.CurrentPincode;
-
-
-                AddressDetail permarentaddress = context.AddressDetails.Find(userInfo.PermarentAddressID);
-
-                permarentaddress.Country = userInfo.PermarentCountry;
-                permarentaddress.StateField = userInfo.PermarentStateField;
-                permarentaddress.AddressField = userInfo.PermarentAddressField;
-                permarentaddress.Pincode = userInfo.PermarentPincode;
-                context.SaveChanges();
-                flag = true;
+                Logger.AddData(ex);
             }
             return flag;
         }
@@ -150,8 +172,6 @@ namespace DemoUserManagaement.DAL
                                                      where address.UserID == id
                                                      select address)
                                                     .ToList();
-
-                    
 
 
                     users = new UserInfo
@@ -184,35 +204,40 @@ namespace DemoUserManagaement.DAL
                         ProfilePhoto = user.ProfilePhoto,
                         Aadharcard = user.Aadharcard,
                         MyResume = user.MyResume,
+                        GuidMyResume = user.GuidMyResume,
+                        GuidAadharcard = user.GuidAadharcard,
+                        GuidProfilePhoto = user.GuidProfilePhoto,
                         AboutMyself = user.AboutMyself,
                     };
 
                     foreach (var item in addresses)
                     {
-                        if (item.AddressType == 1)
+                        if (item.AddressType == (int)Enums.ADDRESS.CURRENT)
                         {
-                            users.CurrentAddressID=item.AddressID;
-                            users.CurrentCountry = item.Country;
+                            users.CurrentAddressID = item.AddressID;
+                            State s = context.States.Find(item.StateId);
+                            users.CurrentCountry = context.Countries.Find(s.CountryId).CountryName;
+                            users.CurrentStateField = s.StateName;
+                            users.CurrentStateId = (int)item.StateId;
                             users.CurrentAddressField = item.AddressField;
-                            users.CurrentCountry = item.Country.ToString();
                             users.CurrentPincode = item.Pincode;
-                            users.CurrentStateField = item.StateField;
                         }
                         else
                         {
                             users.PermarentAddressID = item.AddressID;
-                            users.PermarentCountry = item.Country;
+                            State s = context.States.Find(item.StateId);
+                            users.PermarentCountry = context.Countries.Find(s.CountryId).CountryName;
+                            users.PermarentStateField = s.StateName;
+                            users.PermarentStateId = (int)item.StateId;
                             users.PermarentAddressField = item.AddressField;
-                            users.PermarentCountry = item.Country.ToString();
                             users.PermarentPincode = item.Pincode;
-                            users.PermarentStateField = item.StateField;
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.AddData(ex);
             }
 
             return users;
@@ -231,7 +256,8 @@ namespace DemoUserManagaement.DAL
                     {
                         if (item.CountryId == id)
                         {
-                            StateName sname=new StateName();
+                            StateName sname = new StateName();
+                            sname.StateId = item.StateId;
                             sname.StateNames = item.StateName;
                             statenames.Add(sname);
                         }
@@ -240,7 +266,7 @@ namespace DemoUserManagaement.DAL
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Logger.AddData(ex);
             }
             return statenames;
         }
@@ -267,7 +293,7 @@ namespace DemoUserManagaement.DAL
                     {
                         users.Add(new UserInfo
                         {
-                            UserID=user.UserID,
+                            UserID = user.UserID,
                             FirstName = user.FirstName,
                             MiddleName = user.MiddleName,
                             LastName = user.LastName,
@@ -301,8 +327,9 @@ namespace DemoUserManagaement.DAL
                     }
                 }
             }
-            catch (Exception ex) {
-                Console.WriteLine(ex);
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
             }
             return users;
         }
@@ -326,18 +353,18 @@ namespace DemoUserManagaement.DAL
 
         public int Lenusers()
         {
-            int lenuser=0;
+            int lenuser = 0;
             try
             {
                 using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
                 {
                     List<UserDetail> alluser = context.UserDetails.ToList();
-                    lenuser=alluser.Count;
+                    lenuser = alluser.Count;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Logger.AddData(ex);
             }
             return lenuser;
         }
@@ -350,12 +377,13 @@ namespace DemoUserManagaement.DAL
             {
                 using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
                 {
-                    List<Country> c= context.Countries.ToList();
+                    List<Country> c = context.Countries.ToList();
 
-                    countrynames=new List<CountryName>();
+                    countrynames = new List<CountryName>();
                     foreach (var item in c)
                     {
-                        CountryName cname= new CountryName();
+                        CountryName cname = new CountryName();
+                        cname.CountryId= item.CountryId;
                         cname.CountryNames = item.CountryName;
                         countrynames.Add(cname);
                     }
@@ -363,13 +391,13 @@ namespace DemoUserManagaement.DAL
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Logger.AddData(ex);
             }
             return countrynames;
 
         }
 
-        
+
         private static IQueryable<Note> ApplySorting(IQueryable<Note> query, string sortExpression, string sortDirection)
         {
             switch (sortExpression)
@@ -384,81 +412,100 @@ namespace DemoUserManagaement.DAL
                 case "TimeStamp":
                     query = sortDirection == "ASC" ? query.OrderBy(u => u.TimeStamp) : query.OrderByDescending(u => u.TimeStamp);
                     break;
-                    // Add other cases for additional columns
             }
 
             return query;
         }
 
-        public List<NotesInfo> NotesInfos(string sortExpression, string sortDirection, int startRowIndex, int maximumRows)
+        public List<NotesInfo> NotesInfos(string sortExpression, string sortDirection, int startRowIndex, int maximumRows, int id)
         {
 
-                List<NotesInfo> notes = null;
-                try
+            List<NotesInfo> notes = null;
+            try
+            {
+                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
                 {
-                    using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                    IQueryable<Note> query = context.Notes;
+
+
+                    // Sorting
+                    query = ApplySorting(query, sortExpression, sortDirection);
+
+
+                    query = query.Where(u => u.ObjectID == id);
+
+                    // Pagination
+                    query = query.Skip(startRowIndex).Take(maximumRows);
+
+
+                    List<Note> alluser = query.ToList();
+                    notes = new List<NotesInfo>();
+
+                    foreach (Note n in alluser)
                     {
-                        IQueryable<Note> query = context.Notes;
-
-                        // Sorting
-                        query = ApplySorting(query, sortExpression, sortDirection);
-
-                        // Pagination
-                        query = query.Skip(startRowIndex).Take(maximumRows);
-
-                        List<Note> alluser = query.ToList();
-                        notes = new List<NotesInfo>();
-
-                        foreach (Note n in alluser)
+                        notes.Add(new NotesInfo
                         {
-                            notes.Add(new NotesInfo
-                            {
-                                NoteID = n.NoteID,
-                                NoteText = n.NoteText,
-                                TimeStamp = n.TimeStamp,
-                                ObjectID = (int)n.ObjectID,
-                            });
-                        }
-
+                            NoteID = n.NoteID,
+                            NoteText = n.NoteText,
+                            TimeStamp = (DateTime)n.TimeStamp,
+                            ObjectID = (int)n.ObjectID,
+                        });
                     }
+
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
-                return notes;
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return notes;
         }
 
         public bool NoteSave(NotesInfo noteinfo)
         {
             bool flag = false;
-            using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+            try
             {
-                Note n = new Note
+                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
                 {
-                    TimeStamp = BitConverter.GetBytes(DateTime.Now.Ticks),
-                    NoteText = noteinfo.NoteText,
-                    ObjectID = noteinfo.ObjectID,
-                    ObjectType = "1",
-                };
-                context.Notes.Add(n);
-                context.SaveChanges();
-                flag = true;
+                    Note n = new Note
+                    {
+                        TimeStamp = DateTime.Now,
+                        NoteText = noteinfo.NoteText,
+                        ObjectID = noteinfo.ObjectID,
+                        ObjectType = (int?)Enums.OBJECTS.NOTE,
+                    };
+                    context.Notes.Add(n);
+                    context.SaveChanges();
+                    flag = true;
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.AddData(ex);
             }
             return flag;
         }
 
-        public bool UpdateNote(NotesInfo noteinfo)
+        public int LenNotes(int id)
         {
-            bool flag = false;
-            using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+            int lenuser = 0;
+            try
             {
-                Note n = context.Notes.Find(noteinfo);
-                n.NoteText=noteinfo.NoteText;
-                context.SaveChanges();
-                flag = true;
+                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                {
+                    IEnumerable<Note> alluser = context.Notes.ToList().Where(u => u.ObjectID == id);
+                    foreach (var item in alluser)
+                    {
+                        lenuser++;
+                    }
+                }
             }
-            return flag;
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return lenuser;
         }
     }
 }

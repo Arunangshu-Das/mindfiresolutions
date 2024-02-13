@@ -519,6 +519,15 @@ namespace DemoUserManagaement
         protected global::System.Web.UI.WebControls.FileUpload fileImage;
 
         /// <summary>
+        /// fileImageNameDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label fileImageNameDisplay;
+
+        /// <summary>
         /// fileAadharCard control.
         /// </summary>
         /// <remarks>
@@ -528,6 +537,15 @@ namespace DemoUserManagaement
         protected global::System.Web.UI.WebControls.FileUpload fileAadharCard;
 
         /// <summary>
+        /// fileAadharCardNameDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label fileAadharCardNameDisplay;
+
+        /// <summary>
         /// fileResume control.
         /// </summary>
         /// <remarks>
@@ -535,6 +553,15 @@ namespace DemoUserManagaement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fileResume;
+
+        /// <summary>
+        /// fileResumeNameDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label fileResumeNameDisplay;
 
         /// <summary>
         /// pnlAboutYou control.
@@ -607,5 +634,14 @@ namespace DemoUserManagaement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReset;
+
+        /// <summary>
+        /// notes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DemoUserManagaement.Notes notes;
     }
 }

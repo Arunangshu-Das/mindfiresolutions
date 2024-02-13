@@ -1,36 +1,29 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Notes.ascx.cs" Inherits="DemoUserManagaement.Notes" %>
 
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<div class="row mt-5 mb-5">
+    <div class="col-xs-12 col-sm-6">
         <div class="form-floating">
             <textarea runat="server" class="form-control" placeholder="Leave a comment here" id="Textarea1" style="height: 100px"></textarea>
             <label for="floatingTextarea2">Notes</label>
         </div>
-        <asp:Button ID="Button3" runat="server" Text="Insert" OnClick="InsertButton" />
+
+        <asp:Button class="mt-3" ID="Button3" runat="server" Text="Insert" OnClick="InsertButton" CausesValidation="false" />
+    </div>
+    <div class="col-xs-12 col-sm-6">
         <div>
-            <h1>STUDENT TABLE</h1>
+            <h3>STUDENT TABLE</h3>
             <asp:GridView ID="GridView1"
                 runat="server"
                 AutoGenerateColumns="False"
-                AllowSorting="True"
-                AllowPaging="True"
-                AllowCustomPaging="True"
-                OnPageIndexChanging="GridView1_PageIndexChanging"
-                OnSorting="SortingGridView"
-                PageSize="3"
+                AllowSorting="False"
+                AllowPaging="False"
+                AllowCustomPaging="False"
+                PageSize="100"
                 DataKeyNames="NoteID"
-                OnRowEditing="GridView1_RowEditing"
-                OnRowDeleting="GridView1_RowDeleting"
-                OnRowUpdating="GridView1_RowUpdating"
                 OnRowCancelingEdit="GridView1_RowCancelingEdit">
                 <Columns>
-                     
+
                     <asp:TemplateField HeaderText="NoteID" SortExpression="NoteID">
 
                         <EditItemTemplate>
@@ -62,11 +55,9 @@
                     <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                     <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
                     <asp:BoundField DataField="Salaryamt" HeaderText="Salary" SortExpression="Salaryamt" />--%>
-                    <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                    <%--<asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />--%>
                 </Columns>
             </asp:GridView>
-
         </div>
-    </form>
-</body>
-</html>
+        </div>
+    </div>

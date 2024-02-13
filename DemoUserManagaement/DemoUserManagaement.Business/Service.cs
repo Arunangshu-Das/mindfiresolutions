@@ -29,7 +29,7 @@ namespace DemoUserManagaement.Business
 
         public List<UserInfo> Allusers(string sortExpression, string sortDirection, int startRowIndex, int maximumRows)
         {
-            return dataAccess.Allusers(sortExpression,sortDirection,startRowIndex,maximumRows);
+            return dataAccess.Allusers(sortExpression, sortDirection, startRowIndex, maximumRows);
         }
 
         public List<CountryName> CountryNames()
@@ -50,6 +50,16 @@ namespace DemoUserManagaement.Business
         public bool NoteSave(NotesInfo noteinfo)
         {
             return dataAccess.NoteSave(noteinfo);
+        }
+
+        public List<NotesInfo> NotesInfos(string sortExpression, string sortDirection, int startRowIndex, int maximumRows, int id)
+        {
+            return dataAccess.NotesInfos(sortExpression, sortDirection, startRowIndex, maximumRows, id);
+        }
+
+        public int LenNotes(int id)
+        {
+            return dataAccess.LenNotes(id);
         }
     }
 }

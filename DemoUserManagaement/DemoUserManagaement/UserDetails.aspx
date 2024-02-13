@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserDetails.aspx.cs" Inherits="DemoUserManagaement.UserDetails" %>
 
+<%@ Register TagPrefix="note" TagName="uc" Src="~/notes.ascx" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="Scripts/script.js" type="text/javascript"></script>
+    <%--<script src="Scripts/script.js" type="text/javascript"></script>--%>
 </head>
 <body>
     <form id="formMain" runat="server">
@@ -410,7 +412,9 @@
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text" id="addon-wrapping"><i class="bi bi-file-image-fill"></i></span>
                             <asp:FileUpload ID="fileImage" runat="server" ClientIDMode="Static" CssClass="form-control upload" accept="image/png, image/jpg, image/jpeg" data-validate="validate" data-take="input" />
+
                         </div>
+                        <asp:Label ID="fileImageNameDisplay" runat="server"></asp:Label>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                         <label class="w-100" for="fileAadharCard">Enter Your Aadhaar Card<span class="star">*</span>:</label>
@@ -418,7 +422,9 @@
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text" id="addon-wrapping"><i class="bi bi-file-image-fill"></i></span>
                             <asp:FileUpload ID="fileAadharCard" ClientIDMode="Static" runat="server" CssClass="form-control upload" accept="image/png, image/jpg, image/jpeg" data-validate="validate" data-take="input" />
+
                         </div>
+                        <asp:Label ID="fileAadharCardNameDisplay" runat="server"></asp:Label>
                     </div>
                     <div class="col-xs-12 col-sm-4">
                         <label class="w-100" for="fileResume">Enter Resume<span class="star">*</span>:</label>
@@ -426,7 +432,9 @@
                         <div class="input-group flex-nowrap mt-4">
                             <span class="input-group-text" id="addon-wrapping"><i class="bi bi-file-earmark-pdf-fill"></i></span>
                             <asp:FileUpload ID="fileResume" ClientIDMode="Static" runat="server" CssClass="form-control upload mt-3" accept="application/pdf" data-validate="validate" data-take="input" />
+
                         </div>
+                        <asp:Label ID="fileResumeNameDisplay" runat="server"></asp:Label>
                     </div>
                 </div>
             </asp:Panel>
@@ -449,20 +457,23 @@
                 </fieldset>
             </asp:Panel>
 
-            
-<asp:TextBox ID="PermarentAddressId" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="100" oninput="validateNo(this)" data-take="input" hidden="True"></asp:TextBox>
+            <asp:TextBox ID="PermarentAddressId" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="100" oninput="validateNo(this)" data-take="input" hidden="True"></asp:TextBox>
 
 
+            <asp:TextBox ID="CurrentAddressId" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="100" oninput="validateNo(this)" data-take="input" hidden="True"></asp:TextBox>
 
-<asp:TextBox ID="CurrentAddressId" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="100" oninput="validateNo(this)" data-take="input" hidden="True"></asp:TextBox>
-
-            <asp:Panel ID="pnlButtons" runat="server" CssClass="container d-flex w-100 justify-content-between flex-wrap">
+            <asp:Panel ID="pnlButtons" runat="server" CssClass="container d-flex w-100 mt-5 justify-content-between flex-wrap mb-5">
                 <asp:Button ID="btnSubmit" runat="server" ClientIDMode="Static" CssClass="col-xs-12 col-sm-4 m-auto btn btn-outline-success" Text="Submit Form" OnClientClick="return validateForm();" OnClick="BtnSubmit_Click" />
                 <asp:Button ID="btnReset" runat="server" ClientIDMode="Static" CssClass="col-xs-12 col-sm-4 m-auto btn btn-outline-danger" Text="Reset Form" OnClientClick="resetForm();" CausesValidation="False" />
             </asp:Panel>
+            <div class="row mt-5 mb-5">
+                <note:uc ID="notes" runat="server"></note:uc>
+            </div>
 
         </div>
     </form>
+
+
 
     <%--    <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/script.js") %>
