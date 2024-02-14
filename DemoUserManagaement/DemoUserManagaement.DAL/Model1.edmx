@@ -23,15 +23,26 @@
           <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CountryName" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="ObjectType" Type="int" Nullable="false" />
+          <Property Name="DocumentOriginalName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DocumentGuidName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Note">
           <Key>
             <PropertyRef Name="NoteID" />
           </Key>
           <Property Name="NoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ObjectID" Type="int" />
-          <Property Name="ObjectType" Type="int" />
-          <Property Name="NoteText" Type="text" />
-          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="ObjectID" Type="int" Nullable="false" />
+          <Property Name="ObjectType" Type="int" Nullable="false" />
+          <Property Name="NoteText" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -79,7 +90,7 @@
           <Property Name="AboutMyself" Type="varchar" MaxLength="255" />
           <Property Name="Hobbies" Type="varchar(max)" />
         </EntityType>
-        <Association Name="FK__State__CountryId__5EBF139D">
+        <Association Name="FK__State__CountryId__6754599E">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
           <End Role="State" Type="Self.State" Multiplicity="*" />
           <ReferentialConstraint>
@@ -94,10 +105,11 @@
         <EntityContainer Name="DemoUserManagaementModelStoreContainer">
           <EntitySet Name="AddressDetails" EntityType="Self.AddressDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__State__CountryId__5EBF139D" Association="Self.FK__State__CountryId__5EBF139D">
+          <AssociationSet Name="FK__State__CountryId__6754599E" Association="Self.FK__State__CountryId__6754599E">
             <End Role="Country" EntitySet="Country" />
             <End Role="State" EntitySet="State" />
           </AssociationSet>
@@ -107,7 +119,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DemoUserManagaementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DemoUserManagaementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Notes" EntityType="DemoUserManagaementModel.Note" />
           <EntitySet Name="AddressDetails" EntityType="DemoUserManagaementModel.AddressDetail" />
           <EntitySet Name="Countries" EntityType="DemoUserManagaementModel.Country" />
           <EntitySet Name="States" EntityType="DemoUserManagaementModel.State" />
@@ -116,17 +127,9 @@
             <End Role="Country" EntitySet="Countries" />
             <End Role="State" EntitySet="States" />
           </AssociationSet>
+          <EntitySet Name="Documents" EntityType="DemoUserManagaementModel.Document" />
+          <EntitySet Name="Notes" EntityType="DemoUserManagaementModel.Note" />
         </EntityContainer>
-        <EntityType Name="Note">
-          <Key>
-            <PropertyRef Name="NoteID" />
-          </Key>
-          <Property Name="NoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ObjectID" Type="Int32" />
-          <Property Name="ObjectType" Type="Int32" />
-          <Property Name="NoteText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="AddressDetail">
           <Key>
             <PropertyRef Name="AddressID" />
@@ -205,23 +208,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="ObjectType" Type="Int32" Nullable="false" />
+          <Property Name="DocumentOriginalName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentGuidName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteID" />
+          </Key>
+          <Property Name="NoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectID" Type="Int32" Nullable="false" />
+          <Property Name="ObjectType" Type="Int32" Nullable="false" />
+          <Property Name="NoteText" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DemoUserManagaementModelStoreContainer" CdmEntityContainer="DemoUserManagaementEntities">
-          <EntitySetMapping Name="Notes">
-            <EntityTypeMapping TypeName="DemoUserManagaementModel.Note">
-              <MappingFragment StoreEntitySet="Note">
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
-                <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
-                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
-                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AddressDetails">
             <EntityTypeMapping TypeName="DemoUserManagaementModel.AddressDetail">
               <MappingFragment StoreEntitySet="AddressDetails">
@@ -287,6 +300,29 @@
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="DocumentGuidName" ColumnName="DocumentGuidName" />
+                <ScalarProperty Name="DocumentOriginalName" ColumnName="DocumentOriginalName" />
+                <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.Note">
+              <MappingFragment StoreEntitySet="Note">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

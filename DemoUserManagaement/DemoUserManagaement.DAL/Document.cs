@@ -12,12 +12,13 @@ namespace DemoUserManagaement.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Note
+    public partial class Document
     {
-        public int NoteID { get; set; }
+        public int DocumentID { get; set; }
         public int ObjectID { get; set; }
         public int ObjectType { get; set; }
-        public string NoteText { get; set; }
+        public string DocumentOriginalName { get; set; }
+        public string DocumentGuidName { get; set; }
         public System.DateTime TimeStamp { get; set; }
     }
 }

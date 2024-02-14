@@ -157,6 +157,7 @@
     <Content Include="UserDetails.aspx" />
     <Content Include="Users.aspx" />
     <Content Include="Notes.ascx" />
+    <Content Include="Document.ascx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -259,6 +260,13 @@
     </Compile>
     <Compile Include="Notes.ascx.designer.cs">
       <DependentUpon>Notes.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Document.ascx.cs">
+      <DependentUpon>Document.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document.ascx.designer.cs">
+      <DependentUpon>Document.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

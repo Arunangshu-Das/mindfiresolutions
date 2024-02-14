@@ -1,0 +1,56 @@
+System.Exception: Tanishka
+   at MultipleCrudLayerWise.DAL.Dal.AddStudent(StudentVO vo) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise.DAL\Dal.cs:line 32
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.Exception: Aradhya Patro
+   at MultipleCrudLayerWise.DAL.Dal.AddStudent(StudentVO vo) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise.DAL\Dal.cs:line 32
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.Exception: Piyush
+   at MultipleCrudLayerWise.DAL.Dal.AddStudent(StudentVO vo) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise.DAL\Dal.cs:line 32
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at MultipleCrudLayerWise.Program.Main(String[] args) in C:\Users\arunangshud\Desktop\mindfiresolutions\MultipleCrudLayerWise\MultipleCrudLayerWise\Program.cs:line 56

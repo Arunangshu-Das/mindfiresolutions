@@ -21,6 +21,7 @@ namespace DemoUserManagaement
         {
             int userid;
             notes.IdValue = Request.QueryString["id"];
+            docs.IdValue = Request.QueryString["id"];
             //checkboxSubscribe.CheckedChanged += new EventHandler(Copy_Address);
             if (!IsPostBack)
             {
@@ -44,6 +45,7 @@ namespace DemoUserManagaement
                 else
                 {
                     notes.Visible = false;
+                    docs.Visible = false;
                 }
             }
         }

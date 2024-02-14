@@ -5,12 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="12cf9cc1f5334d4baeeb00cd9042d458" Name="Diagram1">
-        <EntityTypeShape EntityType="DemoUserManagaementModel.Note" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="DemoUserManagaementModel.AddressDetail" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DemoUserManagaementModel.Country" Width="1.5" PointX="0.75" PointY="4" />
         <EntityTypeShape EntityType="DemoUserManagaementModel.State" Width="1.5" PointX="3" PointY="3.875" />
         <EntityTypeShape EntityType="DemoUserManagaementModel.UserDetail" Width="1.5" PointX="5.75" PointY="3.75" />
         <AssociationConnector Association="DemoUserManagaementModel.FK__State__CountryId__5EBF139D" />
+        <EntityTypeShape EntityType="DemoUserManagaementModel.Document" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DemoUserManagaementModel.Note" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,5 +18,10 @@ namespace DemoUserManagaement.Utils
         {
             NOTE=1
         }
+
+        public enum DOCS
+        {
+            DOCUMENT=1
+        }
     }
 }

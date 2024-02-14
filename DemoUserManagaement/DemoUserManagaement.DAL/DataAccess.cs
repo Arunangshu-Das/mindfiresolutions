@@ -495,14 +495,14 @@ namespace DemoUserManagaement.DAL
             {
                 using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
                 {
-                    Note n = new Note
+                    Note note = new Note
                     {
                         TimeStamp = DateTime.Now,
                         NoteText = noteinfo.NoteText,
                         ObjectID = noteinfo.ObjectID,
-                        ObjectType = (int?)Enums.OBJECTS.NOTE,
+                        ObjectType = (int)Enums.OBJECTS.NOTE,
                     };
-                    context.Notes.Add(n);
+                    context.Notes.Add(note);
                     context.SaveChanges();
                     flag = true;
                 }
@@ -534,5 +534,120 @@ namespace DemoUserManagaement.DAL
             }
             return lenuser;
         }
+
+        public bool DocumentSave(DocumentInfo docinfo)
+        {
+            bool flag = false;
+            try
+            {
+                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                {
+                    Document doc = new Document
+                    {
+                        TimeStamp = DateTime.Now,
+                        DocumentOriginalName = docinfo.DocumentOriginalName,
+                        DocumentGuidName = docinfo.DocumentGuidName,
+                        ObjectID = docinfo.ObjectID,
+                        ObjectType = (int)Enums.DOCS.DOCUMENT,
+                    };
+                    context.Documents.Add(doc);
+                    context.SaveChanges();
+                    flag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return flag;
+        }
+
+        public int LenDocs(int id)
+        {
+            int lenuser = 0;
+            try
+            {
+                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                {
+                    IEnumerable<Document> alluser = context.Documents.ToList().Where(u => u.ObjectID == id);
+                    foreach (var item in alluser)
+                    {
+                        lenuser++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return lenuser;
+        }
+
+        public List<DocumentInfo> DocumentsInfos(string sortExpression, string sortDirection, int startRowIndex, int maximumRows, int id)
+        {
+
+            List<DocumentInfo> docs = null;
+            try
+            {
+                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                {
+                    IQueryable<Document> query = context.Documents;
+
+
+                    // Sorting
+                    query = ApplySorting(query, sortExpression, sortDirection);
+
+
+                    query = query.Where(u => u.ObjectID == id);
+
+                    // Pagination
+                    query = query.Skip(startRowIndex).Take(maximumRows);
+
+
+                    List<Document> alldocs = query.ToList();
+                    docs = new List<DocumentInfo>();
+
+                    foreach (Document doc in alldocs)
+                    {
+                        docs.Add(new DocumentInfo
+                        {
+                            DocumentID = doc.DocumentID,
+                            DocumentOriginalName = doc.DocumentOriginalName,
+                            DocumentGuidName = doc.DocumentGuidName,
+                            TimeStamp = (DateTime)doc.TimeStamp,
+                            ObjectID = (int)doc.ObjectID,
+                        });
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return docs;
+        }
+
+        private static IQueryable<Document> ApplySorting(IQueryable<Document> query, string sortExpression, string sortDirection)
+        {
+            switch (sortExpression)
+            {
+                case "DocumentID":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.DocumentID) : query.OrderByDescending(u => u.DocumentID);
+                    break;
+                case "DocumentOriginalName":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.DocumentOriginalName) : query.OrderByDescending(u => u.DocumentOriginalName);
+                    break;
+                case "DocumentGuidName":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.DocumentGuidName) : query.OrderByDescending(u => u.DocumentGuidName);
+                    break;
+                case "TimeStamp":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.TimeStamp) : query.OrderByDescending(u => u.TimeStamp);
+                    break;
+            }
+
+            return query;
+        }
+
     }
 }
