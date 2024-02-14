@@ -15,9 +15,9 @@ namespace DemoUserManagaement.DAL
     public partial class AddressDetail
     {
         public int AddressID { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public Nullable<int> AddressType { get; set; }
-        public Nullable<int> StateId { get; set; }
+        public int UserID { get; set; }
+        public int AddressType { get; set; }
+        public int StateId { get; set; }
         public string AddressField { get; set; }
         public string Pincode { get; set; }
     }

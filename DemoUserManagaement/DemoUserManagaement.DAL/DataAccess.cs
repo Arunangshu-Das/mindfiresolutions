@@ -126,13 +126,20 @@ namespace DemoUserManagaement.DAL
                     user.BTechMarks = userInfo.BTechMarks;
                     user.MTechMarks = userInfo.MTechMarks;
                     user.Hobbies = userInfo.Hobbies;
+                    if(userInfo.ProfilePhoto!=null)
                     user.ProfilePhoto = userInfo.ProfilePhoto;
-                    user.Aadharcard = userInfo.Aadharcard;
-                    user.MyResume = userInfo.MyResume;
-                    user.GuidMyResume = userInfo.GuidMyResume;
-                    user.GuidAadharcard = userInfo.GuidAadharcard;
-                    user.GuidProfilePhoto = userInfo.GuidProfilePhoto;
+                    if (userInfo.Aadharcard != null)
+                        user.Aadharcard = userInfo.Aadharcard;
+                    if (userInfo.MyResume != null)
+                        user.MyResume = userInfo.MyResume;
+                    if (userInfo.GuidMyResume != null)
+                        user.GuidMyResume = userInfo.GuidMyResume;
+                    if (userInfo.GuidAadharcard != null)
+                        user.GuidAadharcard = userInfo.GuidAadharcard;
+                    if (userInfo.GuidProfilePhoto != null)
+                        user.GuidProfilePhoto = userInfo.GuidProfilePhoto;
                     int userid = user.UserID;
+
 
                     AddressDetail currentaddress = context.AddressDetails.Find(userInfo.CurrentAddressID);
 
@@ -173,43 +180,45 @@ namespace DemoUserManagaement.DAL
                                                      select address)
                                                     .ToList();
 
-
-                    users = new UserInfo
+                    if (user != null)
                     {
-                        FirstName = user.FirstName,
-                        MiddleName = user.MiddleName,
-                        LastName = user.LastName,
-                        FatherFirstName = user.FatherFirstName,
-                        MotherFirstName = user.MotherFirstName,
-                        FatherMiddleName = user.FatherMiddleName,
-                        MotherMiddleName = user.MotherMiddleName,
-                        FatherLastName = user.FatherLastName,
-                        MotherLastName = user.MotherLastName,
-                        Email = user.Email,
-                        ContactNumber = user.ContactNumber,
-                        Gender = user.Gender,
-                        DateOfBirth = (DateTime)user.DateOfBirth,
-                        HighestEducation = user.HighestEducation,
-                        Branch = user.Branch,
-                        YearOfPassout = user.YearOfPassout,
-                        SecondarySchoolName = user.SecondarySchoolName,
-                        HigherSecondarySchoolName = user.HigherSecondarySchoolName,
-                        BTechCollegeName = user.BTechCollegeName,
-                        MTechCollegeName = user.MTechCollegeName,
-                        SecondaryMarks = user.SecondaryMarks,
-                        HigherSecondaryMarks = user.HigherSecondaryMarks,
-                        BTechMarks = user.BTechMarks,
-                        MTechMarks = user.MTechMarks,
-                        Hobbies = user.Hobbies,
-                        ProfilePhoto = user.ProfilePhoto,
-                        Aadharcard = user.Aadharcard,
-                        MyResume = user.MyResume,
-                        GuidMyResume = user.GuidMyResume,
-                        GuidAadharcard = user.GuidAadharcard,
-                        GuidProfilePhoto = user.GuidProfilePhoto,
-                        AboutMyself = user.AboutMyself,
-                    };
-
+                        users = new UserInfo
+                        {
+                            FirstName = user.FirstName,
+                            MiddleName = user.MiddleName,
+                            LastName = user.LastName,
+                            FatherFirstName = user.FatherFirstName,
+                            MotherFirstName = user.MotherFirstName,
+                            FatherMiddleName = user.FatherMiddleName,
+                            MotherMiddleName = user.MotherMiddleName,
+                            FatherLastName = user.FatherLastName,
+                            MotherLastName = user.MotherLastName,
+                            Email = user.Email,
+                            ContactNumber = user.ContactNumber,
+                            Gender = user.Gender,
+                            DateOfBirth = (DateTime)user.DateOfBirth,
+                            HighestEducation = user.HighestEducation,
+                            Branch = user.Branch,
+                            YearOfPassout = user.YearOfPassout,
+                            SecondarySchoolName = user.SecondarySchoolName,
+                            HigherSecondarySchoolName = user.HigherSecondarySchoolName,
+                            BTechCollegeName = user.BTechCollegeName,
+                            MTechCollegeName = user.MTechCollegeName,
+                            SecondaryMarks = user.SecondaryMarks,
+                            HigherSecondaryMarks = user.HigherSecondaryMarks,
+                            BTechMarks = user.BTechMarks,
+                            MTechMarks = user.MTechMarks,
+                            Hobbies = user.Hobbies,
+                            ProfilePhoto = user.ProfilePhoto,
+                            Aadharcard = user.Aadharcard,
+                            MyResume = user.MyResume,
+                            GuidMyResume = user.GuidMyResume,
+                            GuidAadharcard = user.GuidAadharcard,
+                            GuidProfilePhoto = user.GuidProfilePhoto,
+                            AboutMyself = user.AboutMyself,
+                        };
+                    }
+                    
                     foreach (var item in addresses)
                     {
                         if (item.AddressType == (int)Enums.ADDRESS.CURRENT)
@@ -322,6 +331,9 @@ namespace DemoUserManagaement.DAL
                             ProfilePhoto = user.ProfilePhoto,
                             Aadharcard = user.Aadharcard,
                             MyResume = user.MyResume,
+                            GuidAadharcard=user.GuidAadharcard,
+                            GuidMyResume=user.GuidMyResume,
+                            GuidProfilePhoto=user.GuidProfilePhoto,
                             AboutMyself = user.AboutMyself
                         });
                     }
@@ -343,6 +355,21 @@ namespace DemoUserManagaement.DAL
                     break;
                 case "FirstName":
                     query = sortDirection == "ASC" ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName);
+                    break;
+                case "LastName":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.LastName) : query.OrderByDescending(u => u.LastName);
+                    break;
+                case "Email":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.Email) : query.OrderByDescending(u => u.Email);
+                    break;
+                case "ContactNumber":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.ContactNumber) : query.OrderByDescending(u => u.ContactNumber);
+                    break;
+                case "Hobbies":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.Hobbies) : query.OrderByDescending(u => u.Hobbies);
+                    break;
+                case "ProfilePhoto":
+                    query = sortDirection == "ASC" ? query.OrderBy(u => u.ProfilePhoto) : query.OrderByDescending(u => u.ProfilePhoto);
                     break;
                     // Add other cases for additional columns
             }

@@ -1,23 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserDetails.aspx.cs" Inherits="DemoUserManagaement.UserDetails" %>
+﻿<%@ Page Title="User Details Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UserDetails.aspx.cs" Inherits="DemoUserManagaement.UserDetails" %>
 
 <%@ Register TagPrefix="note" TagName="uc" Src="~/notes.ascx" %>
 
-<!DOCTYPE html>
+<%--<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+   <h4 class="text-white bg-dark">User Details</h4> 
+</asp:Content>--%>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <webopt:BundleReference runat="server" Path="~/Content/css" />
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <%--<script src="Scripts/script.js" type="text/javascript"></script>--%>
-</head>
-<body>
-    <form id="formMain" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="container w-100 m-auto mt-5" style="background-color: white; box-shadow: -5px -5px 5px 5px #5c5656;">
 
             <fieldset>
@@ -471,12 +461,11 @@
             </div>
 
         </div>
-    </form>
+</asp:Content>
 
 
 
     <%--    <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/script.js") %>
     </asp:PlaceHolder>--%>
-</body>
-</html>
+

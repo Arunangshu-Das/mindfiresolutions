@@ -10,18 +10,18 @@
             <PropertyRef Name="AddressID" />
           </Key>
           <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" />
-          <Property Name="AddressType" Type="int" />
-          <Property Name="StateId" Type="int" />
-          <Property Name="AddressField" Type="varchar" MaxLength="255" />
-          <Property Name="Pincode" Type="varchar" MaxLength="255" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AddressType" Type="int" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="AddressField" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Pincode" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="CountryId" />
           </Key>
           <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CountryName" Type="varchar" MaxLength="255" />
+          <Property Name="CountryName" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="Note">
           <Key>
@@ -39,34 +39,34 @@
           </Key>
           <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CountryId" Type="int" />
-          <Property Name="StateName" Type="varchar" MaxLength="255" />
+          <Property Name="StateName" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="UserDetails">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="MiddleName" Type="varchar" MaxLength="255" />
-          <Property Name="LastName" Type="varchar" MaxLength="255" />
-          <Property Name="FatherFirstName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FatherFirstName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="FatherMiddleName" Type="varchar" MaxLength="255" />
-          <Property Name="FatherLastName" Type="varchar" MaxLength="255" />
-          <Property Name="MotherFirstName" Type="varchar" MaxLength="255" />
+          <Property Name="FatherLastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MotherFirstName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="MotherMiddleName" Type="varchar" MaxLength="255" />
-          <Property Name="MotherLastName" Type="varchar" MaxLength="255" />
-          <Property Name="Email" Type="varchar" MaxLength="255" />
-          <Property Name="ContactNumber" Type="varchar" MaxLength="15" />
-          <Property Name="Gender" Type="varchar" MaxLength="10" />
-          <Property Name="DateOfBirth" Type="date" />
-          <Property Name="HighestEducation" Type="varchar" MaxLength="255" />
-          <Property Name="Branch" Type="varchar" MaxLength="255" />
-          <Property Name="YearOfPassout" Type="varchar" MaxLength="255" />
-          <Property Name="SecondarySchoolName" Type="varchar" MaxLength="255" />
+          <Property Name="MotherLastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="HighestEducation" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Branch" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="YearOfPassout" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SecondarySchoolName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="HigherSecondarySchoolName" Type="varchar" MaxLength="255" />
           <Property Name="BTechCollegeName" Type="varchar" MaxLength="255" />
           <Property Name="MTechCollegeName" Type="varchar" MaxLength="255" />
-          <Property Name="SecondaryMarks" Type="varchar" MaxLength="255" />
+          <Property Name="SecondaryMarks" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="HigherSecondaryMarks" Type="varchar" MaxLength="255" />
           <Property Name="BTechMarks" Type="varchar" MaxLength="255" />
           <Property Name="MTechMarks" Type="varchar" MaxLength="255" />
@@ -79,7 +79,7 @@
           <Property Name="AboutMyself" Type="varchar" MaxLength="255" />
           <Property Name="Hobbies" Type="varchar(max)" />
         </EntityType>
-        <Association Name="FK__State__CountryId__3D5E1FD2">
+        <Association Name="FK__State__CountryId__5EBF139D">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
           <End Role="State" Type="Self.State" Multiplicity="*" />
           <ReferentialConstraint>
@@ -97,7 +97,7 @@
           <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__State__CountryId__3D5E1FD2" Association="Self.FK__State__CountryId__3D5E1FD2">
+          <AssociationSet Name="FK__State__CountryId__5EBF139D" Association="Self.FK__State__CountryId__5EBF139D">
             <End Role="Country" EntitySet="Country" />
             <End Role="State" EntitySet="State" />
           </AssociationSet>
@@ -106,45 +106,16 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DemoUserManagaementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Country">
-          <Key>
-            <PropertyRef Name="CountryId" />
-          </Key>
-          <Property Name="CountryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="CountryName" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <NavigationProperty Name="States" Relationship="Self.FK__State__CountryId__3D5E1FD2" FromRole="Country" ToRole="State" />
-        </EntityType>
-        <EntityType Name="State">
-          <Key>
-            <PropertyRef Name="StateId" />
-          </Key>
-          <Property Name="StateId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="CountryId" Type="Int32" />
-          <Property Name="StateName" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <NavigationProperty Name="Country" Relationship="Self.FK__State__CountryId__3D5E1FD2" FromRole="State" ToRole="Country" />
-        </EntityType>
-        <Association Name="FK__State__CountryId__3D5E1FD2">
-          <End Type="Self.Country" Multiplicity="0..1" Role="Country" />
-          <End Type="Self.State" Multiplicity="*" Role="State" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="CountryId" />
-            </Principal>
-            <Dependent Role="State">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DemoUserManagaementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Countries" EntityType="Self.Country" />
-          <EntitySet Name="States" EntityType="Self.State" />
-          <AssociationSet Name="FK__State__CountryId__3D5E1FD2" Association="Self.FK__State__CountryId__3D5E1FD2">
-            <End EntitySet="Countries" Role="Country" />
-            <End EntitySet="States" Role="State" />
-          </AssociationSet>
           <EntitySet Name="Notes" EntityType="DemoUserManagaementModel.Note" />
           <EntitySet Name="AddressDetails" EntityType="DemoUserManagaementModel.AddressDetail" />
+          <EntitySet Name="Countries" EntityType="DemoUserManagaementModel.Country" />
+          <EntitySet Name="States" EntityType="DemoUserManagaementModel.State" />
           <EntitySet Name="UserDetails" EntityType="DemoUserManagaementModel.UserDetail" />
+          <AssociationSet Name="FK__State__CountryId__5EBF139D" Association="DemoUserManagaementModel.FK__State__CountryId__5EBF139D">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Note">
           <Key>
@@ -161,38 +132,55 @@
             <PropertyRef Name="AddressID" />
           </Key>
           <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="AddressType" Type="Int32" />
-          <Property Name="StateId" Type="Int32" />
-          <Property Name="AddressField" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Pincode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="AddressType" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="AddressField" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Pincode" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="States" Relationship="DemoUserManagaementModel.FK__State__CountryId__5EBF139D" FromRole="Country" ToRole="State" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="StateName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Country" Relationship="DemoUserManagaementModel.FK__State__CountryId__5EBF139D" FromRole="State" ToRole="Country" />
         </EntityType>
         <EntityType Name="UserDetail">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="MiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FatherFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FatherFirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="FatherMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FatherLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="MotherFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FatherLastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MotherFirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="MotherMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="MotherLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ContactNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
-          <Property Name="HighestEducation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Branch" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="YearOfPassout" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SecondarySchoolName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MotherLastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HighestEducation" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Branch" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="YearOfPassout" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SecondarySchoolName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="HigherSecondarySchoolName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="BTechCollegeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="MTechCollegeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SecondaryMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryMarks" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="HigherSecondaryMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="BTechMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="MTechMarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -205,29 +193,24 @@
           <Property Name="AboutMyself" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Hobbies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="FK__State__CountryId__5EBF139D">
+          <End Type="DemoUserManagaementModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="DemoUserManagaementModel.State" Role="State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DemoUserManagaementModelStoreContainer" CdmEntityContainer="DemoUserManagaementEntities">
-          <EntitySetMapping Name="Countries">
-            <EntityTypeMapping TypeName="DemoUserManagaementModel.Country">
-              <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="States">
-            <EntityTypeMapping TypeName="DemoUserManagaementModel.State">
-              <MappingFragment StoreEntitySet="State">
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Notes">
             <EntityTypeMapping TypeName="DemoUserManagaementModel.Note">
               <MappingFragment StoreEntitySet="Note">
@@ -248,6 +231,23 @@
                 <ScalarProperty Name="AddressType" ColumnName="AddressType" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="DemoUserManagaementModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

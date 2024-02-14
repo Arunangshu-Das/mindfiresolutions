@@ -11,7 +11,7 @@ namespace DemoUserManagaement
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Name.Text = MainContent.Page.Title;
         }
     }
 }

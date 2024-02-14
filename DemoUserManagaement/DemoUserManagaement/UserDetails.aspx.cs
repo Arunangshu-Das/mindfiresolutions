@@ -79,6 +79,7 @@ namespace DemoUserManagaement
 
 
                 ddlPermanentCountryName.SelectedValue = user.PermarentCountry;
+                ddlPermanentCountryName.SelectedIndex = Convert.ToInt32(ddlPermanentCountryName.SelectedValue);
                 int id = Convert.ToInt32(ddlPermanentCountryName.SelectedValue);
                 ddlPermanentStateName.Items.Clear();
                 List<StateName> states = service.AllStates(id);
@@ -88,10 +89,12 @@ namespace DemoUserManagaement
                 ddlPermanentStateName.DataTextField = "StateNames";
                 ddlPermanentStateName.DataBind();
                 ddlPermanentStateName.SelectedValue = user.PermarentStateField;
+                ddlPermanentStateName.SelectedIndex = Convert.ToInt32(ddlPermanentStateName.SelectedValue);
                 txtAddressPermarent.Text = user.PermarentAddressField;
                 txtPincodePermarent.Text = user.PermarentPincode;
 
                 ddlCurrentCountryName.SelectedValue = user.CurrentCountry;
+                ddlCurrentCountryName.SelectedIndex = Convert.ToInt32(ddlCurrentCountryName.SelectedValue);
                 id = Convert.ToInt32(ddlCurrentCountryName.SelectedValue);
                 ddlCurrentStateName.Items.Clear();
                 states = service.AllStates(id);
@@ -100,6 +103,7 @@ namespace DemoUserManagaement
                 ddlCurrentStateName.DataTextField = "StateNames";
                 ddlCurrentStateName.DataBind();
                 ddlCurrentStateName.SelectedValue = user.CurrentStateField;
+                ddlCurrentStateName.SelectedIndex = Convert.ToInt32(ddlCurrentStateName.SelectedValue);
                 txtAddressCurrent.Text = user.CurrentAddressField;
                 txtPincodeCurrent.Text = user.CurrentPincode;
 
@@ -279,12 +283,24 @@ namespace DemoUserManagaement
                     }
                 }
 
-                userInfo.GuidProfilePhoto = Path.GetFileName(guidFileImageLocation);
-                userInfo.GuidAadharcard = Path.GetFileName(guidFileAadharCardLocation);
-                userInfo.GuidMyResume = Path.GetFileName(guiFileResumeLocation);
-                userInfo.ProfilePhoto = Path.GetFileName(fileImageLocation);
-                userInfo.Aadharcard = Path.GetFileName(fileAadharCardLocation);
-                userInfo.MyResume = Path.GetFileName(fileResumeLocation);
+                if (fileImageLocation != "")
+                {
+                    userInfo.ProfilePhoto = Path.GetFileName(fileImageLocation);
+                    userInfo.GuidProfilePhoto = Path.GetFileName(guidFileImageLocation);
+                }
+
+                if (fileAadharCardLocation != null)
+                {
+                    userInfo.Aadharcard = Path.GetFileName(fileAadharCardLocation);
+                    userInfo.GuidAadharcard = Path.GetFileName(guidFileAadharCardLocation);
+                }
+
+                if (fileResumeLocation != null)
+                {
+                    userInfo.MyResume = Path.GetFileName(fileResumeLocation);
+                    userInfo.GuidMyResume = Path.GetFileName(guiFileResumeLocation);
+                }
+                 
 
                 // About You
                 userInfo.AboutMyself = txtAboutYourself.Text;

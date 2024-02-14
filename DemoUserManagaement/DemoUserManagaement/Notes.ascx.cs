@@ -42,32 +42,32 @@ namespace DemoUserManagaement
         protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             // Get the StudentID of the row being updated
-            int id = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
-            // Get updated values from the TextBoxes or other input controls within the row
+            //int id = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
+            //// Get updated values from the TextBoxes or other input controls within the row
 
 
 
-            if (GridView1.Rows[e.RowIndex].FindControl("TextBox1") is TextBox noteTextBox)
-            {
-                // Get the values from the TextBoxes
-                string note = noteTextBox.Text;
+            //if (GridView1.Rows[e.RowIndex].FindControl("TextBox1") is TextBox noteTextBox)
+            //{
+            //    // Get the values from the TextBoxes
+            //    string note = noteTextBox.Text;
 
-                // Update the record in your data source using the studentID and updated values
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
-                {
-                    con.Open();
-                    SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "UPDATE [usernote] SET [note]=@note WHERE [id]=@id";
-                    cmd.Parameters.AddWithValue("@note", note);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
-                    Response.Write("<script>alert('Update Operation Was Successfull');</script>");
-                }
-                // Then rebind the GridView
-            }
-            GridView1.EditIndex = -1;
-            BindGridView();
+            //    // Update the record in your data source using the studentID and updated values
+            //    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Test"].ConnectionString))
+            //    {
+            //        con.Open();
+            //        SqlCommand cmd = con.CreateCommand();
+            //        cmd.CommandType = CommandType.Text;
+            //        cmd.CommandText = "UPDATE [usernote] SET [note]=@note WHERE [id]=@id";
+            //        cmd.Parameters.AddWithValue("@note", note);
+            //        cmd.Parameters.AddWithValue("@id", id);
+            //        cmd.ExecuteNonQuery();
+            //        Response.Write("<script>alert('Update Operation Was Successfull');</script>");
+            //    }
+            //    // Then rebind the GridView
+            //}
+            //GridView1.EditIndex = -1;
+            //BindGridView();
         }
 
         protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -95,8 +95,8 @@ namespace DemoUserManagaement
             }
         }
 
-        //protected void SortingGridView(object sender, GridViewSortEventArgs e)
-        //{
+        protected void SortingGridView(object sender, GridViewSortEventArgs e)
+        {
         //    string sortExpression = e.SortExpression;
         //    string sortDirection = ViewState["SortDirection"].ToString();
 
@@ -114,7 +114,7 @@ namespace DemoUserManagaement
         //    ViewState["SortDirection"] = sortDirection;
 
         //    BindGridView();
-        //}
+        }
 
         
 

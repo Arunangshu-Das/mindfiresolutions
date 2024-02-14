@@ -25,10 +25,10 @@ namespace DemoUserManagaement.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Country> Countries { get; set; }
-        public virtual DbSet<State> States { get; set; }
         public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<AddressDetail> AddressDetails { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<State> States { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
     }
 }
