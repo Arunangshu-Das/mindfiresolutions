@@ -6,5 +6,21 @@ CREATE TABLE UserDetails (    UserID INT IDENTITY(1,1) PRIMARY KEY,    FirstNa
     TimeStamp datetime
 );
 
+drop table Document;
 
-select * from AddressDetails;
+
+create table Document (
+	DocumentID int IDENTITY(1,1) PRIMARY KEY,
+	ObjectID int not null,
+	ObjectType int not null,
+	DocumentType int not null,
+	DocumentOriginalName varchar(255) not null,
+	DocumentGuidName varchar(255) not null,
+	TimeStamp datetime not null
+);
+
+create table DocumentType(
+	DocumentTypeID int IDENTITY(1,1) PRIMARY KEY,
+	DocumentTypeFor int not null,
+	DocumentTypeName varchar(255) not null
+);

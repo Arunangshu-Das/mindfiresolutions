@@ -15,8 +15,25 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
+    <script>
+        function foo() {
+            var nameofthepage = document.getElementById("Name");
+            var allNavs = document.querySelectorAll(".nav-link");
+            for (let i = 0; i < allNavs.length; i++) {
+                if (allNavs[i].getAttribute('href') == nameofthepage.textContent) {
+                    allNavs[i].classList.add('active');
+                    break;
+                }
+                else if (allNavs[i].getAttribute('href') == "./" && nameofthepage.textContent == "Home") {
+                    allNavs[i].classList.add('active');
+                    break;
+                }
+            }
+        }
+    </script>
+
 </head>
-<body>
+<body onload="foo()">
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -49,11 +66,11 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Home</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/users">All User</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Users">All User</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/UserDetails">New User</a></li>
                     </ul>
                 </div>
-                <asp:Label CssClass="navbar-brand" runat="server" ID="Name"></asp:Label>
+                <asp:Label CssClass="navbar-brand" runat="server" ClientIDMode="Static" ID="Name"></asp:Label>
             </div>
             <%--<asp:ContentPlaceHolder ID="head" runat="server">
             </asp:ContentPlaceHolder>--%>

@@ -8,6 +8,7 @@ using DemoUserManagaement.Business;
 using DemoUserManagaement.Utils;
 using DemoUserManagaement.Model;
 using System.IO;
+using System.Configuration;
 
 namespace DemoUserManagaement
 {
@@ -23,6 +24,11 @@ namespace DemoUserManagaement
                 ViewState["SortExpression"] = "DocumentID";
                 ViewState["SortDirection"] = "ASC";
                 BindGridView();
+                List<DocumentTypeModel> documentTypes= service.DocumentTypeNames(1);
+                ddlSelectDocumentTypeFor.DataSource = documentTypes;
+                ddlSelectDocumentTypeFor.DataValueField = "Id"; // Property of your State class representing the value
+                ddlSelectDocumentTypeFor.DataTextField = "Name";
+                ddlSelectDocumentTypeFor.DataBind();
             }
         }
 
@@ -54,8 +60,8 @@ namespace DemoUserManagaement
                     {
                         Guid obj = Guid.NewGuid();
                         string fn = System.IO.Path.GetFileName(uploadedFile.FileName);
-                        string fileImageLocation = Server.MapPath("upload") + "\\" + fn;
-                        string guidFileImageLocation = Server.MapPath("upload") + "\\" + obj.ToString() + Path.GetExtension(uploadedFile.FileName);
+                        string fileImageLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + fn;
+                        string guidFileImageLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + obj.ToString() + Path.GetExtension(uploadedFile.FileName);
                         try
                         {
                             uploadedFile.SaveAs(guidFileImageLocation);
@@ -70,6 +76,7 @@ namespace DemoUserManagaement
                             DocumentGuidName = Path.GetFileName(guidFileImageLocation),
                             DocumentOriginalName = Path.GetFileName(fileImageLocation),
                             ObjectID = Convert.ToInt32(IdValue),
+                            DocumentType = Convert.ToInt32(ddlSelectDocumentTypeFor.SelectedValue),
                         };
                         service.DocumentSave(documentInfo);
                     }

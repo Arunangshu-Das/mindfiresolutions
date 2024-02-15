@@ -9,13 +9,13 @@ using DemoUserManagaement.Business;
 using System.Xml.Linq;
 using System.IO;
 using DemoUserManagaement.Utils;
+using System.Configuration;
 
 namespace DemoUserManagaement
 {
     public partial class UserDetails : System.Web.UI.Page
     {
         Service service = new Service();
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -49,7 +49,6 @@ namespace DemoUserManagaement
                 }
             }
         }
-
 
         public void LoadUser(int userid)
         {
@@ -141,7 +140,6 @@ namespace DemoUserManagaement
                 Logger.AddData(ex);
             }
         }
-
 
         public void DdlPermanentCountryName_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -241,8 +239,8 @@ namespace DemoUserManagaement
                 {
                     Guid obj = Guid.NewGuid();
                     string fn = System.IO.Path.GetFileName(fileImage.PostedFile.FileName);
-                    fileImageLocation = Server.MapPath("upload") + "\\" + fn;
-                    guidFileImageLocation = Server.MapPath("upload") + "\\" + obj.ToString() + Path.GetExtension(fileImage.PostedFile.FileName);
+                    fileImageLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + fn;
+                    guidFileImageLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + obj.ToString() + Path.GetExtension(fileImage.PostedFile.FileName);
                     try
                     {
                         fileImage.PostedFile.SaveAs(guidFileImageLocation);
@@ -257,8 +255,8 @@ namespace DemoUserManagaement
                 {
                     Guid obj = Guid.NewGuid();
                     string fn = System.IO.Path.GetFileName(fileAadharCard.PostedFile.FileName);
-                    fileAadharCardLocation = Server.MapPath("upload") + "\\" + fn;
-                    guidFileAadharCardLocation = Server.MapPath("upload") + "\\" + obj.ToString() + Path.GetExtension(fileAadharCard.PostedFile.FileName);
+                    fileAadharCardLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + fn;
+                    guidFileAadharCardLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + obj.ToString() + Path.GetExtension(fileAadharCard.PostedFile.FileName);
                     try
                     {
                         fileAadharCard.PostedFile.SaveAs(guidFileAadharCardLocation);
@@ -273,8 +271,8 @@ namespace DemoUserManagaement
                 {
                     Guid obj = Guid.NewGuid();
                     string fn = System.IO.Path.GetFileName(fileResume.PostedFile.FileName);
-                    fileResumeLocation = Server.MapPath("upload") + "\\" + fn;
-                    guiFileResumeLocation = Server.MapPath("upload") + "\\" + obj.ToString() + Path.GetExtension(fileResume.PostedFile.FileName);
+                    fileResumeLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + fn;
+                    guiFileResumeLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + obj.ToString() + Path.GetExtension(fileResume.PostedFile.FileName);
                     try
                     {
                         fileResume.PostedFile.SaveAs(guiFileResumeLocation);

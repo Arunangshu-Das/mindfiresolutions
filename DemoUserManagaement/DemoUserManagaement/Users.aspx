@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Users Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="DemoUserManagaement.Users" %>
+﻿<%@ Page Title="Users" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="DemoUserManagaement.Users" %>
 
 <%--<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
@@ -133,7 +133,7 @@
                     <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ProfilePhoto") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:HyperLink ID="Label5" Target="_blank" runat="server" Text='<%# Bind("ProfilePhoto") %>' NavigateUrl='<%# "~/upload/" + Eval("GuidProfilePhoto") %>'></asp:HyperLink>
+                    <asp:HyperLink ID="Label5" Target="_blank" runat="server" Text='<%# Bind("ProfilePhoto") %>' NavigateUrl='<%# "Download.ashx?file=" + Eval("GuidProfilePhoto") %>'></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
 

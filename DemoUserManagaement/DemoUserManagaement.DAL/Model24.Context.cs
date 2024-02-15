@@ -13,10 +13,10 @@ namespace DemoUserManagaement.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DemoUserManagaementEntities : DbContext
+    public partial class DemoUserManagaementEntities24 : DbContext
     {
-        public DemoUserManagaementEntities()
-            : base("name=DemoUserManagaementEntities")
+        public DemoUserManagaementEntities24()
+            : base("name=DemoUserManagaementEntities24")
         {
         }
     
@@ -27,9 +27,10 @@ namespace DemoUserManagaement.DAL
     
         public virtual DbSet<AddressDetail> AddressDetails { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+        public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
-        public virtual DbSet<Document> Documents { get; set; }
-        public virtual DbSet<Note> Notes { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace DemoUserManagaement.DAL
             bool flag = false;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     UserDetail userDetail = new UserDetail
                     {
@@ -85,7 +85,7 @@ namespace DemoUserManagaement.DAL
                     flag = true;
                 }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 Logger.AddData(ex);
             }
@@ -96,8 +96,8 @@ namespace DemoUserManagaement.DAL
         {
             bool flag = false;
             try
-            { 
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+            {
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     UserDetail user = context.UserDetails.Find(userInfo.UserID);
                     user.UserID = userInfo.UserID;
@@ -126,8 +126,8 @@ namespace DemoUserManagaement.DAL
                     user.BTechMarks = userInfo.BTechMarks;
                     user.MTechMarks = userInfo.MTechMarks;
                     user.Hobbies = userInfo.Hobbies;
-                    if(userInfo.ProfilePhoto!=null)
-                    user.ProfilePhoto = userInfo.ProfilePhoto;
+                    if (userInfo.ProfilePhoto != null)
+                        user.ProfilePhoto = userInfo.ProfilePhoto;
                     if (userInfo.Aadharcard != null)
                         user.Aadharcard = userInfo.Aadharcard;
                     if (userInfo.MyResume != null)
@@ -159,7 +159,7 @@ namespace DemoUserManagaement.DAL
                     flag = true;
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Logger.AddData(ex);
             }
@@ -171,7 +171,7 @@ namespace DemoUserManagaement.DAL
             UserInfo users = null;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     UserDetail user = context.UserDetails.Find(id);
 
@@ -218,7 +218,7 @@ namespace DemoUserManagaement.DAL
                             AboutMyself = user.AboutMyself,
                         };
                     }
-                    
+
                     foreach (var item in addresses)
                     {
                         if (item.AddressType == (int)Enums.ADDRESS.CURRENT)
@@ -257,7 +257,7 @@ namespace DemoUserManagaement.DAL
             List<StateName> statenames = null;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     List<State> s = context.States.ToList();
                     statenames = new List<StateName>();
@@ -285,7 +285,7 @@ namespace DemoUserManagaement.DAL
             List<UserInfo> users = null;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     IQueryable<UserDetail> query = context.UserDetails;
 
@@ -331,9 +331,9 @@ namespace DemoUserManagaement.DAL
                             ProfilePhoto = user.ProfilePhoto,
                             Aadharcard = user.Aadharcard,
                             MyResume = user.MyResume,
-                            GuidAadharcard=user.GuidAadharcard,
-                            GuidMyResume=user.GuidMyResume,
-                            GuidProfilePhoto=user.GuidProfilePhoto,
+                            GuidAadharcard = user.GuidAadharcard,
+                            GuidMyResume = user.GuidMyResume,
+                            GuidProfilePhoto = user.GuidProfilePhoto,
                             AboutMyself = user.AboutMyself
                         });
                     }
@@ -383,7 +383,7 @@ namespace DemoUserManagaement.DAL
             int lenuser = 0;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     List<UserDetail> alluser = context.UserDetails.ToList();
                     lenuser = alluser.Count;
@@ -402,7 +402,7 @@ namespace DemoUserManagaement.DAL
 
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     List<Country> c = context.Countries.ToList();
 
@@ -410,7 +410,7 @@ namespace DemoUserManagaement.DAL
                     foreach (var item in c)
                     {
                         CountryName cname = new CountryName();
-                        cname.CountryId= item.CountryId;
+                        cname.CountryId = item.CountryId;
                         cname.CountryNames = item.CountryName;
                         countrynames.Add(cname);
                     }
@@ -450,7 +450,7 @@ namespace DemoUserManagaement.DAL
             List<NotesInfo> notes = null;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     IQueryable<Note> query = context.Notes;
 
@@ -493,7 +493,7 @@ namespace DemoUserManagaement.DAL
             bool flag = false;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     Note note = new Note
                     {
@@ -507,7 +507,7 @@ namespace DemoUserManagaement.DAL
                     flag = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.AddData(ex);
             }
@@ -519,7 +519,7 @@ namespace DemoUserManagaement.DAL
             int lenuser = 0;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     IEnumerable<Note> alluser = context.Notes.ToList().Where(u => u.ObjectID == id);
                     foreach (var item in alluser)
@@ -540,12 +540,13 @@ namespace DemoUserManagaement.DAL
             bool flag = false;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     Document doc = new Document
                     {
                         TimeStamp = DateTime.Now,
                         DocumentOriginalName = docinfo.DocumentOriginalName,
+                        DocumentType = docinfo.DocumentType,
                         DocumentGuidName = docinfo.DocumentGuidName,
                         ObjectID = docinfo.ObjectID,
                         ObjectType = (int)Enums.DOCS.DOCUMENT,
@@ -567,7 +568,7 @@ namespace DemoUserManagaement.DAL
             int lenuser = 0;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     IEnumerable<Document> alluser = context.Documents.ToList().Where(u => u.ObjectID == id);
                     foreach (var item in alluser)
@@ -589,7 +590,7 @@ namespace DemoUserManagaement.DAL
             List<DocumentInfo> docs = null;
             try
             {
-                using (DemoUserManagaementEntities context = new DemoUserManagaementEntities())
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
                     IQueryable<Document> query = context.Documents;
 
@@ -606,15 +607,18 @@ namespace DemoUserManagaement.DAL
 
                     List<Document> alldocs = query.ToList();
                     docs = new List<DocumentInfo>();
+                    List<DocumentTypeModel> documents = DocumentTypeNames(1);
 
                     foreach (Document doc in alldocs)
                     {
                         docs.Add(new DocumentInfo
                         {
                             DocumentID = doc.DocumentID,
+                            DocumentType = doc.DocumentType,
                             DocumentOriginalName = doc.DocumentOriginalName,
                             DocumentGuidName = doc.DocumentGuidName,
                             TimeStamp = (DateTime)doc.TimeStamp,
+                            DocumentTypeName=documents[doc.DocumentType-1].Name,
                             ObjectID = (int)doc.ObjectID,
                         });
                     }
@@ -647,6 +651,34 @@ namespace DemoUserManagaement.DAL
             }
 
             return query;
+        }
+
+        public List<DocumentTypeModel> DocumentTypeNames(int id)
+        {
+            List<DocumentTypeModel> docs = null;
+            try
+            {
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
+                {
+                    IQueryable<DocumentType> query= context.DocumentTypes.Where(u=>u.DocumentTypeFor==id);
+
+                    docs = new List<DocumentTypeModel>();
+                    foreach (DocumentType docType in query)
+                    {
+                        docs.Add(new DocumentTypeModel
+                        {
+                            Id = docType.DocumentTypeID,
+                            Name=docType.DocumentTypeName
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+
+            return docs;
         }
 
     }

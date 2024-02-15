@@ -69,12 +69,17 @@ namespace DemoUserManagaement.Business
 
         public List<DocumentInfo> DocumentsInfos(string sortExpression, string sortDirection, int startRowIndex, int maximumRows, int id)
         {
-            return dataAccess.DocumentsInfos(sortExpression,sortDirection, startRowIndex, maximumRows,id);
+            return dataAccess.DocumentsInfos(sortExpression, sortDirection, startRowIndex, maximumRows, id);
         }
 
         public int LenDocs(int id)
         {
             return dataAccess.LenDocs(id);
+        }
+
+        public List<DocumentTypeModel> DocumentTypeNames(int id)
+        {
+            return dataAccess.DocumentTypeNames(id);
         }
     }
 }
