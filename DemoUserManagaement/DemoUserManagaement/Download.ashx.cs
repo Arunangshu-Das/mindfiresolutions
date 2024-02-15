@@ -31,6 +31,7 @@ namespace DemoUserManagaement
                 else if (extension == ".pdf")
                 {
                     context.Response.ContentType = "application/pdf";
+                    context.Response.AddHeader("Content-Disposition", "inline; filename=\"" + Path.GetFileName(file) + "\"");
                 }
                 else
                 {

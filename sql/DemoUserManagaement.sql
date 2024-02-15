@@ -6,8 +6,6 @@ CREATE TABLE UserDetails (    UserID INT IDENTITY(1,1) PRIMARY KEY,    FirstNa
     TimeStamp datetime
 );
 
-drop table Document;
-
 
 create table Document (
 	DocumentID int IDENTITY(1,1) PRIMARY KEY,
@@ -24,3 +22,5 @@ create table DocumentType(
 	DocumentTypeFor int not null,
 	DocumentTypeName varchar(255) not null
 );
+
+insert into DocumentType(DocumentTypeFor, DocumentTypeName) values (1,'Pan');
