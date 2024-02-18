@@ -37,6 +37,11 @@ namespace DemoUserManagaement.Business
             return dataAccess.CountryNames();
         }
 
+        public bool FindEmail(int id, string email)
+        {
+            return dataAccess.FindEmail(id, email);
+        }
+
         public int Lenusers()
         {
             return dataAccess.Lenusers();
@@ -80,6 +85,10 @@ namespace DemoUserManagaement.Business
         public List<DocumentTypeModel> DocumentTypeNames(int id)
         {
             return dataAccess.DocumentTypeNames(id);
+        }
+        public List<RoleModel> LoginUser(LoginModel login)
+        {
+            return dataAccess.LoginUser(login);
         }
     }
 }

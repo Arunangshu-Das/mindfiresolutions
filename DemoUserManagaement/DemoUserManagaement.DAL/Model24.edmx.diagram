@@ -11,8 +11,10 @@
         <EntityTypeShape EntityType="DemoUserManagaementModel12.DocumentType" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DemoUserManagaementModel12.Note" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DemoUserManagaementModel12.State" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DemoUserManagaementModel12.UserDetail" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="DemoUserManagaementModel12.FK__State__CountryId__6754599E" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DemoUserManagaementModel12.UserDetail" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="DemoUserManagaementModel12.Role" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="DemoUserManagaementModel12.UserRole" Width="1.5" PointX="2.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

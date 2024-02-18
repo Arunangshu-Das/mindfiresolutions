@@ -24,6 +24,7 @@ namespace DemoUserManagaement.Model
         public string ContactNumber { get; set; }
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string Password { get; set; }
         public string HighestEducation { get; set; }
         public string Branch { get; set; }
         public string YearOfPassout { get; set; }

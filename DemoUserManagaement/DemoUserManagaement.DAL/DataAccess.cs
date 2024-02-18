@@ -36,6 +36,7 @@ namespace DemoUserManagaement.DAL
                         ContactNumber = userInfo.ContactNumber,
                         Gender = userInfo.Gender,
                         DateOfBirth = userInfo.DateOfBirth,
+                        Password=userInfo.Password,
                         HighestEducation = userInfo.HighestEducation,
                         Branch = userInfo.Branch,
                         YearOfPassout = userInfo.YearOfPassout,
@@ -82,12 +83,62 @@ namespace DemoUserManagaement.DAL
                     context.SaveChanges();
                     context.AddressDetails.Add(permarentaddress);
                     context.SaveChanges();
+
+                    List<Role> role= context.Roles.Where(u => u.IsDefault == true).ToList();
+                    
+                    foreach(Role r in role)
+                    {
+                        UserRole u=new UserRole();
+                        u.UserId = userid;
+                        u.RoleID = r.RoleID;
+                        context.UserRoles.Add(u);
+                    }
+
                     flag = true;
+
+                    context.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
                 Logger.AddData(ex);
+            }
+            return flag;
+        }
+
+        public bool FindEmail(int id, string email)
+        {
+            bool flag= false;
+            if (id == 0)
+            {
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
+                {
+                    List<UserDetail> u= (from user in context.UserDetails
+                                         where user.Email == email
+                                         select user)
+                                                    .ToList();
+                    if (u.Count>0)
+                    {
+                        flag = true;
+                    }
+                }
+            }
+            else
+            {
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
+                {
+                    List<UserDetail> u = (from user in context.UserDetails
+                                          where user.Email == email
+                                          select user)
+                                                    .ToList();
+                    foreach (UserDetail user in u)
+                    {
+                        if(user.UserID!=id)
+                        {
+                            flag= true;
+                        }
+                    }
+                }
             }
             return flag;
         }
@@ -114,6 +165,10 @@ namespace DemoUserManagaement.DAL
                     user.ContactNumber = userInfo.ContactNumber;
                     user.Gender = userInfo.Gender;
                     user.DateOfBirth = userInfo.DateOfBirth;
+                    if (userInfo.Password != "" && userInfo.Password!=null)
+                    {
+                        user.Password = userInfo.Password;
+                    }
                     user.HighestEducation = userInfo.HighestEducation;
                     user.Branch = userInfo.Branch;
                     user.YearOfPassout = userInfo.YearOfPassout;
@@ -197,6 +252,7 @@ namespace DemoUserManagaement.DAL
                             ContactNumber = user.ContactNumber,
                             Gender = user.Gender,
                             DateOfBirth = (DateTime)user.DateOfBirth,
+                            Password=user.Password,
                             HighestEducation = user.HighestEducation,
                             Branch = user.Branch,
                             YearOfPassout = user.YearOfPassout,
@@ -681,5 +737,36 @@ namespace DemoUserManagaement.DAL
             return docs;
         }
 
+        public List<RoleModel> LoginUser(LoginModel login)
+        {
+            List<RoleModel> roles = null;
+            try
+            {
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
+                {
+                    UserDetail u= context.UserDetails.FirstOrDefault(s=>s.Email==login.Email);
+                    
+                    if(u!=null && u.Password==login.Password )
+                    {
+                        List<UserRole> role=context.UserRoles.Where(s => s.UserId == u.UserID).ToList();
+                        roles = new List<RoleModel>();
+                        foreach (var item in role)
+                        {
+                            Role r=context.Roles.Find(item.RoleID);
+                            roles.Add(new RoleModel
+                            {
+                                Id = item.RoleID,
+                                Name = r.RoleName
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return roles;
+        }
     }
 }

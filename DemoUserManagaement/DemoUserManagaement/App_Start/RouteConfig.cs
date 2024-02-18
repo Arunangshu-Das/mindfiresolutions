@@ -12,7 +12,7 @@ namespace DemoUserManagaement
         {
             var settings = new FriendlyUrlSettings();
             settings.AutoRedirectMode = RedirectMode.Permanent;
-            routes.EnableFriendlyUrls(settings);
+            //routes.EnableFriendlyUrls(settings);
         }
     }
 }

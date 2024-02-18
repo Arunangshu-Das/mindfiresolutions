@@ -10,13 +10,16 @@ using System.Web.UI.WebControls;
 using DemoUserManagaement.Model;
 using DemoUserManagaement.Business;
 using DemoUserManagaement.Utils;
+using Newtonsoft.Json;
+using System.Web.Services;
+using Newtonsoft.Json.Linq;
 
 namespace DemoUserManagaement
 {
     public partial class Notes : System.Web.UI.UserControl
     {
 
-        Service service = new Service();
+        public static Service service = new Service();
         public string IdValue { get; set; }
 
 
@@ -60,6 +63,13 @@ namespace DemoUserManagaement
             {
                 Logger.AddData(ex);
             }
+        }
+
+        [WebMethod]
+        public static bool NoteSave(string jsonData)
+        {
+            NotesInfo noteInfo = JsonConvert.DeserializeObject<NotesInfo>(jsonData);
+            return service.NoteSave(noteInfo);
         }
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)

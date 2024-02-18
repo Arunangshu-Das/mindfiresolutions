@@ -30,7 +30,7 @@
                     txtPincodePermarent.value = txtPincodeCurrent.value;
                     ddlPermanentCountryName.selectedIndex = ddlCurrentCountryName.selectedIndex;
                     ddlPermanentStateName.selectedIndex = ddlCurrentStateName.selectedIndex;
-                    
+
                 }
                 else {
                     ddlPermanentCountryName.value = "";
@@ -162,6 +162,16 @@
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text"><i class="bi bi-cake2-fill"></i></span>
                         <asp:TextBox ID="dateOfBirth" ClientIDMode="Static" runat="server" CssClass="form-control" TextMode="Date" Max="2016-12-31" Min="2000-01-01" data-take="input" data-validate="validate"></asp:TextBox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <label for="txtEmail">Password<span class="star">*</span>:</label>
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text"><i class="bi bi-envelope-at-fill"></i></span>
+                        <asp:TextBox TextMode="Password" ID="passowrd" ClientIDMode="Static" runat="server" CssClass="form-control" placeholder="" data-take="input" data-validate="validate" data-toggle="tooltip" title=""></asp:TextBox>
                     </div>
                 </div>
             </div>

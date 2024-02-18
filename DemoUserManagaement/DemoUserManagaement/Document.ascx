@@ -30,63 +30,69 @@
     <asp:Button CssClass="btn btn-primary mt-3 " class="mt-3" ID="Button3" runat="server" Text="Upload" OnClick="InsertButton" CausesValidation="false" />
 </div>
 
+
+
 <div>
-    <h3>ALL Documents</h3>
-    <asp:GridView ID="GridView1"
-        runat="server"
-        AutoGenerateColumns="False"
-        AllowSorting="True"
-        OnSorting="SortingGridView"
-        AllowPaging="True"
-        AllowCustomPaging="True"
-        OnPageIndexChanging="GridView1_PageIndexChanging"
-        PageSize="2"
-        DataKeyNames="DocumentID"
-        CssClass="table table-striped table-bordered table-hover">
-        <Columns>
+    <asp:UpdatePanel runat="server">
+        <ContentTemplate>
+            <h3>ALL Documents</h3>
+            <asp:GridView ID="GridView1"
+                runat="server"
+                AutoGenerateColumns="False"
+                AllowSorting="True"
+                OnSorting="SortingGridView"
+                AllowPaging="True"
+                AllowCustomPaging="True"
+                OnPageIndexChanging="GridView1_PageIndexChanging"
+                PageSize="2"
+                DataKeyNames="DocumentID"
+                CssClass="table table-striped table-bordered table-hover">
+                <Columns>
 
-            <asp:TemplateField HeaderText="DocumentID" SortExpression="DocumentID">
+                    <asp:TemplateField HeaderText="DocumentID" SortExpression="DocumentID">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox0" runat="server" Text='<%# Bind("DocumentID") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label0" runat="server" Text='<%# Bind("DocumentID") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox0" runat="server" Text='<%# Bind("DocumentID") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="Label0" runat="server" Text='<%# Bind("DocumentID") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="DocumentName" SortExpression="DocumentOriginalName">
+                    <asp:TemplateField HeaderText="DocumentName" SortExpression="DocumentOriginalName">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("DocumentOriginalName") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:HyperLink ID="Label1" Target="_blank" runat="server" Text='<%# Bind("DocumentOriginalName") %>' NavigateUrl='<%# "Download.ashx?file=" + Eval("DocumentGuidName") %>'></asp:HyperLink>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("DocumentOriginalName") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:HyperLink ID="Label1" Target="_blank" runat="server" Text='<%# Bind("DocumentOriginalName") %>' NavigateUrl='<%# "Download.ashx?file=" + Eval("DocumentGuidName") %>'></asp:HyperLink>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="Name">
+                    <asp:TemplateField HeaderText="Name">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("DocumentTypeName") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("DocumentTypeName") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("DocumentTypeName") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="Label3" runat="server" Text='<%# Bind("DocumentTypeName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="TimeStamp" SortExpression="TimeStamp">
-                <ItemTemplate>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("TimeStamp", "{0:dd/MM/yyyy hh:mm tt}") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                    <asp:TemplateField HeaderText="TimeStamp" SortExpression="TimeStamp">
+                        <ItemTemplate>
+                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("TimeStamp", "{0:dd/MM/yyyy hh:mm tt}") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
 
-            <%--<asp:BoundField DataField="StudentID" HeaderText="ID" SortExpression="StudentID" />
+                    <%--<asp:BoundField DataField="StudentID" HeaderText="ID" SortExpression="StudentID" />
                     <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                     <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
                     <asp:BoundField DataField="Salaryamt" HeaderText="Salary" SortExpression="Salaryamt" />--%>
-            <%--<asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />--%>
-        </Columns>
-    </asp:GridView>
+                    <%--<asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />--%>
+                </Columns>
+            </asp:GridView>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 </div>

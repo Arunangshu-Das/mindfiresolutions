@@ -69,6 +69,7 @@ namespace DemoUserManagaement
                 txtPhoneNumber.Text = user.ContactNumber;
                 PermarentAddressId.Text = Convert.ToString(user.PermarentAddressID);
                 CurrentAddressId.Text = Convert.ToString(user.CurrentAddressID);
+                passowrd.Text = user.Password;
 
                 if (user.Gender == "Male") radioMale.Checked = true;
                 else radioFemale.Checked = true;
@@ -193,6 +194,7 @@ namespace DemoUserManagaement
                 userInfo.MotherLastName = txtMotherLastName.Text;
                 userInfo.Email = txtEmail.Text;
                 userInfo.ContactNumber = txtPhoneNumber.Text;
+                userInfo.Password = passowrd.Text;
 
                 // Gender: Assuming radioMale and radioFemale are RadioButton controls
                 userInfo.Gender = radioMale.Checked ? "Male" : "Female";

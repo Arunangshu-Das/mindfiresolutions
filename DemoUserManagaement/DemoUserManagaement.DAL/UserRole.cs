@@ -12,13 +12,10 @@ namespace DemoUserManagaement.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class AddressDetail
+    public partial class UserRole
     {
-        public int AddressID { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public Nullable<int> AddressType { get; set; }
-        public Nullable<int> StateId { get; set; }
-        public string AddressField { get; set; }
-        public string Pincode { get; set; }
+        public int UserRoleID { get; set; }
+        public int UserId { get; set; }
+        public int RoleID { get; set; }
     }
 }

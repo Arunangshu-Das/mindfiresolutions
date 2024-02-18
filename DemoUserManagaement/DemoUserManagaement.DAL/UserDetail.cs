@@ -27,7 +27,8 @@ namespace DemoUserManagaement.DAL
         public string Email { get; set; }
         public string ContactNumber { get; set; }
         public string Gender { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
+        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public string Password { get; set; }
         public string HighestEducation { get; set; }
         public string Branch { get; set; }
         public string YearOfPassout { get; set; }
