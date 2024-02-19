@@ -31,6 +31,8 @@ namespace DemoUserManagaement
 
             List<RoleModel> roles = DataAccess.LoginUser(l);
 
+            HttpContext.Current.Session["role"]=roles;
+
             if (roles!=null && roles.Count>0)
             {
                 return JsonConvert.SerializeObject(roles);

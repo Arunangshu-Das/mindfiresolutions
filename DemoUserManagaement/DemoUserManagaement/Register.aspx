@@ -998,7 +998,8 @@
 
             // Print or use the jsonObject as needed
             var jsonData = JSON.stringify(jsonObject);
-            
+
+            uploadFile();
 
             if (userId == null)
             {
@@ -1112,6 +1113,33 @@
             }
             element.removeClass("is-invalid")
         }
+
+        function uploadFile() {
+            var fileInput = document.getElementById('fileAadharCard');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var url = "/upload";
+                var http = new XMLHttpRequest();
+                http.open('POST', url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader('Content-type', 'image/jpeg');
+
+                http.onreadystatechange = function () {//Call a function when the state changes.
+                    if (http.readyState == 4 && http.status == 200) {
+                        alert(http.responseText);
+                    }
+                }
+                var formData = new FormData();
+                formData.append('file', file);
+                http.send(formData);
+
+            }
+        }
+
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
