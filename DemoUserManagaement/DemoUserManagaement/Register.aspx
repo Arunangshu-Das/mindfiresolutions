@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="DemoUserManagaement.Register" %>
 
+<%@ Register TagPrefix="note" TagName="uc" Src="~/notes.ascx" %>
 
+<%@ Register TagPrefix="doc" TagName="uc" Src="~/document.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
@@ -533,6 +535,16 @@
             </div>
 
         </div>
+
+        <div class="row mt-5 mb-5">
+            <div class="col-xs-6 col-sm-6">
+                <note:uc id="notes" runat="server"></note:uc>
+            </div>
+
+            <div class="col-xs-6 col-sm-6">
+                <doc:uc id="docs" runat="server"></doc:uc>
+            </div>
+        </div>
     </div>
 
 
@@ -634,7 +646,7 @@
 
             var emailInput = $("#txtEmail");
 
-            PageMethods.FindEmail(userId, emailInput.val(),onSucess, onError);
+            PageMethods.FindEmail(userId, emailInput.val(), onSucess, onError);
 
             function onSucess(result) {
                 if (result == true) {

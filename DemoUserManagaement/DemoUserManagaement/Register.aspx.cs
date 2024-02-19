@@ -17,7 +17,18 @@ namespace DemoUserManagaement
         public static Service service = new Service();
         protected void Page_Load(object sender, EventArgs e)
         {
+            notes.IdValue = Request.QueryString["id"];
+            docs.IdValue = Request.QueryString["id"];
 
+            if (Request.QueryString["id"] != null)
+            {
+
+            }
+            else
+            {
+                notes.Visible = false;
+                docs.Visible = false;
+            }
         }
 
         [WebMethod]
