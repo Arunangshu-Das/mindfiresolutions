@@ -62,5 +62,13 @@ namespace DemoUserManagaement
         {
             return service.UserGet(id);
         }
+
+        [WebMethod]
+        public static bool UserUpdate(string jsonData)
+        {
+            UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
+            Console.WriteLine("Hello");
+            return service.UserUpdate(userInfo);
+        }
     }
 }

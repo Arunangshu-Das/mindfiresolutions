@@ -313,6 +313,7 @@
 
                     </div>
                 </div>
+                <input type="text" class="form-control" id="PermarentAddressID" name="PermarentAddressID" placeholder="PermarentAddressID" data-take="input" data-name="PermarentAddressID" hidden>
             </fieldset>
 
             <fieldset>
@@ -361,6 +362,9 @@
 
                     </div>
                 </div>
+
+                <input type="text" class="form-control" id="CurrentAddressID" name="CurrentAddressID" placeholder="CurrentAddressID" data-take="input" data-name="CurrentAddressID" hidden>
+
             </fieldset>
 
             <fieldset>
@@ -549,8 +553,11 @@
 
 
     <script>
+        var id = null;
         $(document).ready(function () {
 
+            var urlParams = new URLSearchParams(window.location.search);
+            id = parseInt(urlParams.get('id'));
 
             $('#m-tech-marks, #b-tech-marks, #higher-secondary-marks, #higher-secondary-school-name, #b-tech-college-name, #m-tech-college-name').css('display', 'none');
 
@@ -583,6 +590,50 @@
                             inputElement.val(value);
                         }
                     });
+
+                    console.log(result);
+
+                    var selectedValue = result.CurrentCountry;
+
+                    // Loop through the options and set the selected attribute for the matching option
+                    for (var i = 0; i < selectCurrentCountry.options.length; i++) {
+                        if (selectCurrentCountry.options[i].text == selectedValue) {
+                            selectCurrentCountry.options[i].selected = true;
+                            updateStates("selectCurrentCountry", "selectCurrentState");
+                            break; // Break out of the loop once the value is set
+                        }
+                    }
+
+                    selectedValue = result.PermarentCountry;
+
+                    // Loop through the options and set the selected attribute for the matching option
+                    for (var i = 0; i < selectPermarentCountry.options.length; i++) {
+                        if (selectPermarentCountry.options[i].text == selectedValue) {
+                            selectPermarentCountry.options[i].selected = true;
+                            updateStates("selectPermarentCountry", "selectPermarentState");
+                            break; // Break out of the loop once the value is set
+                        }
+                    }
+
+                    selectedValue = result.CurrentStateField;
+
+                    // Loop through the options and set the selected attribute for the matching option
+                    for (var i = 0; i < selectCurrentState.options.length; i++) {
+                        if (selectCurrentState.options[i].text == selectedValue) {
+                            selectCurrentState.options[i].selected = true;
+                            break; // Break out of the loop once the value is set
+                        }
+                    }
+
+                    selectedValue = result.PermarentStateField;
+
+                    // Loop through the options and set the selected attribute for the matching option
+                    for (var i = 0; i < selectPermarentState.options.length; i++) {
+                        if (selectPermarentState.options[i].text == selectedValue) {
+                            selectPermarentState.options[i].selected = true;
+                            break; // Break out of the loop once the value is set
+                        }
+                    }
                 }
                 function onError(result) {
                     alert('Something wrong.');
@@ -939,9 +990,24 @@
             jsonObject['CurrentStateId'] = $('#selectCurrentState').val();
             jsonObject['PermarentStateId'] = $('#selectPermarentState').val()
 
+            var urlParams = new URLSearchParams(window.location.search);
+            var userId = urlParams.get('id');
+            if (userId != null) {
+                jsonObject["UserID"] = id;
+            }
+
             // Print or use the jsonObject as needed
             var jsonData = JSON.stringify(jsonObject);
-            PageMethods.UserSave(jsonData, onSucess, onError);
+            
+
+            if (userId == null)
+            {
+                PageMethods.UserSave(jsonData, onSucess, onError);
+            }
+            else
+            {
+                PageMethods.UserUpdate(jsonData, onSucess, onError);
+            }
 
             function onSucess(result) {
                 window.location.href = "Login.aspx";

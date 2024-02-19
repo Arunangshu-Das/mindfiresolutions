@@ -8,6 +8,8 @@
 </div>
 
 
+<asp:UpdatePanel ID="CurrentSelectPanel" runat="server">
+    <ContentTemplate>
         <asp:Label runat="server" CssClass="form-label star-mark required" AssociatedControlID="ddlSelectDocumentTypeFor">Enter Your Document</asp:Label>
         <div class="input-group">
             <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
@@ -18,7 +20,8 @@
         </div>
         <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlSelectDocumentTypeFor"
             ErrorMessage="Please select your ID" ForeColor="Red"></asp:RequiredFieldValidator>
-
+    </ContentTemplate>
+</asp:UpdatePanel>
 <div class="d-grid gap-2 d-md-flex justify-content-center">
     <asp:Button CssClass="btn btn-primary mt-3 " class="mt-3" ID="Button3" runat="server" Text="Upload" OnClick="InsertButton" CausesValidation="false" />
 </div>
