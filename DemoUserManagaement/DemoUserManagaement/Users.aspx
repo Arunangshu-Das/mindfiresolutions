@@ -45,103 +45,108 @@
             .myGridStyle tr:hover {
                 transition: background-color 0.3s ease;
                 background-color: #2f2f2f;
-                cursor:pointer;
+                cursor: pointer;
             }
-            .myGridStyle{
-                color:white;
-            }
+
+        .myGridStyle {
+            color: white;
+        }
     </style>
-    <asp:GridView ID="GridView1"
-        runat="server"
-        AutoGenerateColumns="False"
-        AllowSorting="True"
-        AllowPaging="True"
-        AllowCustomPaging="True"
-        OnPageIndexChanging="GridView1_PageIndexChanging"
-        OnSorting="SortingGridView"
-        PageSize="2"
-        DataKeyNames="UserID"
-        OnRowEditing="GridView1_RowEditing"
-        OnRowUpdating="GridView1_RowUpdating"
-        OnRowCancelingEdit="GridView1_RowCancelingEdit"
-        CssClass="myGridStyle">
-        <Columns>
+    <asp:UpdatePanel runat="server">
+        <ContentTemplate>
+            <asp:GridView ID="GridView1"
+                runat="server"
+                AutoGenerateColumns="False"
+                AllowSorting="True"
+                AllowPaging="True"
+                AllowCustomPaging="True"
+                OnPageIndexChanging="GridView1_PageIndexChanging"
+                OnSorting="SortingGridView"
+                PageSize="2"
+                DataKeyNames="UserID"
+                OnRowEditing="GridView1_RowEditing"
+                OnRowUpdating="GridView1_RowUpdating"
+                OnRowCancelingEdit="GridView1_RowCancelingEdit"
+                CssClass="myGridStyle">
+                <Columns>
 
-            <asp:TemplateField HeaderText="ID" SortExpression="UserID">
+                    <asp:TemplateField HeaderText="ID" SortExpression="UserID">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox0" runat="server" Text='<%# Bind("UserID") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label0" runat="server" Text='<%# Bind("UserID") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox0" runat="server" Text='<%# Bind("UserID") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="Label0" runat="server" Text='<%# Bind("UserID") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="FirstName" SortExpression="FirstName">
+                    <asp:TemplateField HeaderText="FirstName" SortExpression="FirstName">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("FirstName") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("FirstName") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("FirstName") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("FirstName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="LastName" SortExpression="LastName">
+                    <asp:TemplateField HeaderText="LastName" SortExpression="LastName">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("LastName") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("LastName") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("LastName") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("LastName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="Email" SortExpression="Email">
+                    <asp:TemplateField HeaderText="Email" SortExpression="Email">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("Email") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="Label3" runat="server" Text='<%# Bind("Email") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="ContactNumber" SortExpression="ContactNumber">
+                    <asp:TemplateField HeaderText="ContactNumber" SortExpression="ContactNumber">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("ContactNumber") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("ContactNumber") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("ContactNumber") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="Label4" runat="server" Text='<%# Bind("ContactNumber") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="Hobbies" SortExpression="Hobbies">
+                    <asp:TemplateField HeaderText="Hobbies" SortExpression="Hobbies">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Hobbies") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label5" runat="server" Text='<%# Bind("Hobbies") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Hobbies") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="Label5" runat="server" Text='<%# Bind("Hobbies") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="ProfilePhoto" SortExpression="ProfilePhoto">
+                    <asp:TemplateField HeaderText="ProfilePhoto" SortExpression="ProfilePhoto">
 
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ProfilePhoto") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:HyperLink ID="Label5" Target="_blank" runat="server" Text='<%# Bind("ProfilePhoto") %>' NavigateUrl='<%# "Download.ashx?file=" + Eval("GuidProfilePhoto") %>'></asp:HyperLink>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("ProfilePhoto") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:HyperLink ID="Label5" Target="_blank" runat="server" Text='<%# Bind("ProfilePhoto") %>' NavigateUrl='<%# "Download.ashx?file=" + Eval("GuidProfilePhoto") %>'></asp:HyperLink>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-            <%--<asp:BoundField DataField="StudentID" HeaderText="ID" SortExpression="StudentID" />
+                    <%--<asp:BoundField DataField="StudentID" HeaderText="ID" SortExpression="StudentID" />
                     <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                     <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
                     <asp:BoundField DataField="Salaryamt" HeaderText="Salary" SortExpression="Salaryamt" />--%>
-            <asp:CommandField ShowEditButton="True" />
-        </Columns>
-    </asp:GridView>
+                    <asp:CommandField ShowEditButton="True" />
+                </Columns>
+            </asp:GridView>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 </asp:Content>

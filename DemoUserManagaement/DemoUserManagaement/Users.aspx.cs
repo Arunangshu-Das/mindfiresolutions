@@ -35,7 +35,7 @@ namespace DemoUserManagaement
         {
             //GridView1.EditIndex = e.NewEditIndex;
             //BindGridView(); // Call a method to rebind the GridView
-            Response.Redirect("UserDetails?id=" + GridView1.DataKeys[e.NewEditIndex].Values["UserID"]);
+            Response.Redirect("Register.aspx?id=" + GridView1.DataKeys[e.NewEditIndex].Values["UserID"]);
 
         }
 
