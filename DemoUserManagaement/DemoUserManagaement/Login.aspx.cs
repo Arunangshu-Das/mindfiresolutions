@@ -21,7 +21,7 @@ namespace DemoUserManagaement
         }
 
         [WebMethod]
-        public static string ProcessIT(string email, string password)
+        public static string UserLogin(string email, string password)
         {
             LoginModel l = new LoginModel
             {
@@ -31,7 +31,10 @@ namespace DemoUserManagaement
 
             List<RoleModel> roles = DataAccess.LoginUser(l);
 
-            HttpContext.Current.Session["role"] = roles[0].Id;
+            if (roles !=null)
+            {
+                HttpContext.Current.Session["role"] = roles[0].Id;
+            }
 
             if (roles!=null && roles.Count>0)
             {

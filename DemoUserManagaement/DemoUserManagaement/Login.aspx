@@ -7,7 +7,7 @@
             var name = document.getElementById('email').value;
             var address = document.getElementById('password').value;
 
-            PageMethods.ProcessIT(name, address, onSucess, onError);
+            PageMethods.UserLogin(name, address, onSucess, onError);
 
             function onSucess(result) {
                 if (result !== "") {

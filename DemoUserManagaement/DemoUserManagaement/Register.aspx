@@ -263,8 +263,15 @@
                             <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" max="2016-12-31" min="2000-01-01" data-take="input" data-name="DateOfBirth" data-validate="validate">
                         </div>
                     </div>
-
-
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <label for="txtPassword">Password<span class="star">*</span>:</label>
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text" id="addon-wrapping"><i class="bi bi-envelope-at-fill"></i></span>
+                            <input type="password" class="form-control" id="txtPassword" name="txtPassword" placeholder="password" data-take="input" data-validate="validate" data-name="Password" data-toggle="tooltip" title="">
+                        </div>
+                    </div>
                 </div>
             </fieldset>
             <fieldset>
@@ -364,7 +371,6 @@
                 </div>
 
                 <input type="text" class="form-control" id="CurrentAddressID" name="CurrentAddressID" placeholder="CurrentAddressID" data-take="input" data-name="CurrentAddressID" hidden>
-
             </fieldset>
 
             <fieldset>
@@ -542,11 +548,11 @@
 
         <div class="row mt-5 mb-5">
             <div class="col-xs-6 col-sm-6">
-                <note:uc id="notes" runat="server"></note:uc>
+                <note:uc ID="notes" runat="server"></note:uc>
             </div>
 
             <div class="col-xs-6 col-sm-6">
-                <doc:uc id="docs" runat="server"></doc:uc>
+                <doc:uc ID="docs" runat="server"></doc:uc>
             </div>
         </div>
     </div>
@@ -1001,12 +1007,10 @@
 
             uploadFile();
 
-            if (userId == null)
-            {
+            if (userId == null) {
                 PageMethods.UserSave(jsonData, onSucess, onError);
             }
-            else
-            {
+            else {
                 PageMethods.UserUpdate(jsonData, onSucess, onError);
             }
 
