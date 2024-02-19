@@ -65,13 +65,6 @@ namespace DemoUserManagaement
             }
         }
 
-        [WebMethod]
-        public static bool NoteSave(string jsonData)
-        {
-            NotesInfo noteInfo = JsonConvert.DeserializeObject<NotesInfo>(jsonData);
-            return service.NoteSave(noteInfo);
-        }
-
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;
@@ -87,8 +80,6 @@ namespace DemoUserManagaement
 
             BindGridView();
         }
-
-
 
         private void BindGridView()
         {

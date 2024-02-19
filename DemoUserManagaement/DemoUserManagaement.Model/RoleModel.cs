@@ -8,6 +8,7 @@ namespace DemoUserManagaement.Model
 {
     public class RoleModel
     {
+        public int UserId {  get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
     }

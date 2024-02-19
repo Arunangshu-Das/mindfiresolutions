@@ -756,6 +756,7 @@ namespace DemoUserManagaement.DAL
                             roles.Add(new RoleModel
                             {
                                 Id = item.RoleID,
+                                UserId=u.UserID,
                                 Name = r.RoleName
                             });
                         }

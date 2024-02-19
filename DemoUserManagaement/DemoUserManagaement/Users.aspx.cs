@@ -18,6 +18,10 @@ namespace DemoUserManagaement
         Service service = new Service();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["role"].ToString() == null || Session["role"].ToString()!="2")
+            {
+                Response.Redirect("~/Login.aspx");
+            }
             if (!IsPostBack)
             {
                 // By default, sort by first column in ascending order

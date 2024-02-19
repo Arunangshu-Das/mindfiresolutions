@@ -31,10 +31,11 @@ namespace DemoUserManagaement
 
             List<RoleModel> roles = DataAccess.LoginUser(l);
 
-            HttpContext.Current.Session["role"]=roles;
+            HttpContext.Current.Session["role"] = roles[0].Id;
 
             if (roles!=null && roles.Count>0)
             {
+                HttpContext.Current.Session["id"] = roles[0].UserId;
                 return JsonConvert.SerializeObject(roles);
             }
             return string.Empty;
