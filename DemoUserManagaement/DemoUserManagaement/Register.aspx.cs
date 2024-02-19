@@ -20,7 +20,7 @@ namespace DemoUserManagaement
             notes.IdValue = Request.QueryString["id"];
             docs.IdValue = Request.QueryString["id"];
 
-            if (Request.QueryString["id"]!=null && Session["id"]!=null && Session["id"].ToString()!= Request.QueryString["id"])
+            if (Request.QueryString["id"] != null && Session["id"] != null && Session["id"].ToString() != Request.QueryString["id"])
             {
                 Response.Redirect("Register.aspx?id=" + Session["id"].ToString());
             }
@@ -62,9 +62,10 @@ namespace DemoUserManagaement
             return service.FindEmail(id, email);
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession = false)]
         public static UserInfo LoadUser(int id)
         {
+            var test = Convert.ToInt32(HttpContext.Current.Session["id"].ToString());
             return service.UserGet(id);
         }
 
