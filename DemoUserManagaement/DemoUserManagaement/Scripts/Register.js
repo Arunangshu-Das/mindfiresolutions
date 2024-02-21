@@ -17,6 +17,11 @@ $(document).ready(function () {
         updateCountry();
         PageMethods.LoadUser(userId, onSucess, onError);
         function onSucess(result) {
+
+            if (result == null) {
+                window.location.href = "login.aspx";
+            }
+
             $.each(result, function (key, value) {
                 // Find the input element with the corresponding data-name attribute
                 var inputElement = $("[data-name='" + key + "']");
@@ -318,20 +323,20 @@ function validateForm() {
     var allList = $('[data-validate="validate"]');
     var flag = true;
 
-    //for (var i = 0; i < allList.length; i++) {
-    //    var element = $(allList[i])
-    //    var newError = $('<div class="alert alert-primary errormsg">Please fill this</div>');
-    //    var errDiv = $('<div class="err"></div>').append(newError);
+    for (var i = 0; i < allList.length; i++) {
+        var element = $(allList[i])
+        var newError = $('<div class="alert alert-primary errormsg">Please fill this</div>');
+        var errDiv = $('<div class="err"></div>').append(newError);
 
-    //    if (element.val() === "" && element.next() && element.next().hasClass('err')) {
-    //        flag = false;
-    //    } else if (element.val() === "") {
-    //        element.addClass("is-invalid")
-    //    }
-    //    else {
-    //        element.addClass("is-valid")
-    //    }
-    //}
+        if (element.val() === "" && element.next() && element.next().hasClass('err')) {
+            flag = false;
+        } else if (element.val() === "") {
+            element.addClass("is-invalid")
+        }
+        else {
+            element.addClass("is-valid")
+        }
+    }
 
     var pno = $("#txtPhoneNumber");
 
@@ -405,6 +410,8 @@ function validateForm() {
     //else {
     //    $("toast-message").addClass("hide");
     //}
+
+    return flag;
 
     var jsonObject = {};
 
@@ -490,7 +497,7 @@ function validateForm() {
     }
 
 
-    return false;
+    return flag;
 }
 
 const closeModal = function () {

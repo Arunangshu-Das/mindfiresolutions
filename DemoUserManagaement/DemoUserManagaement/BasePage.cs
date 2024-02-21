@@ -7,6 +7,8 @@ using System.Web.Services.Description;
 using DemoUserManagaement.Business;
 using DemoUserManagaement.Model;
 using Newtonsoft.Json;
+using WebGrease.Css.Ast;
+using DemoUserManagaement.Utils;
 
 namespace DemoUserManagaement
 {
@@ -14,6 +16,7 @@ namespace DemoUserManagaement
     {
         protected void Page_Init(object sender, EventArgs e)
         {
+
         }
 
         [WebMethod]
@@ -31,8 +34,8 @@ namespace DemoUserManagaement
         [WebMethod(EnableSession = false)]
         public static UserInfo LoadUser(int id)
         {
-            SessionClassModel Obj = (SessionClassModel)HttpContext.Current.Session["role"];
-            if (Obj == null)
+            SessionClassModel Obj = SessionUtil.GetSession();
+            if (Obj.UserInfo== null)
             {
                 return null;
             }
@@ -101,7 +104,7 @@ namespace DemoUserManagaement
         }
 
         [WebMethod]
-        public static string UserLogin(string email, string password)
+        public static string Authenticate(string email, string password)
         {
             LoginModel l = new LoginModel
             {
@@ -113,23 +116,19 @@ namespace DemoUserManagaement
 
             if (roles != null)
             {
-                HttpContext.Current.Session["role"] = roles;
+                SessionUtil.SetSession(roles);
                 return JsonConvert.SerializeObject(roles.Roles);
             }
             return string.Empty;
         }
 
         [WebMethod]
-        public static bool SaveNotes(string Text)
+        public static bool SaveNotes(NotesInfo note)
         {
             bool flag = false;
             try
             {
-                NotesInfo note = new NotesInfo
-                {
-                    NoteText = Text,
-                };
-                SessionClassModel Obj = (SessionClassModel)HttpContext.Current.Session["role"];
+                SessionClassModel Obj = SessionUtil.GetSession();
                 note.ObjectID = Obj.UserInfo.UserID;
                 new DemoUserManagaement.Business.Service().NoteSave(note);
                 flag = true;
@@ -139,6 +138,42 @@ namespace DemoUserManagaement
                 flag = false;
             }
             return flag;
+        }
+
+        protected bool AuthorizeUser()
+        {
+            bool flag = false;
+            SessionClassModel Obj = SessionUtil.GetSession();
+            if (Obj.Roles == null)
+            {
+                return false;
+            }
+            foreach (RoleModel r in Obj.Roles)
+            {
+                if (r.Id == 2)
+                {
+                    flag = true;
+                }
+            }
+            if (flag == false)
+            {
+                Response.Redirect("~/login.aspx");
+            }
+            return flag;
+        }
+
+        [WebMethod]
+        public static bool DocumentSave(DocumentInfo Document)
+        {
+            SessionClassModel Obj = SessionUtil.GetSession();
+            Document.ObjectID=Obj.UserInfo.UserID;
+            return new DemoUserManagaement.Business.Service().DocumentSave(Document);
+        }
+
+        [WebMethod]
+        public static List<DocumentTypeModel> GetAllOptions()
+        {
+            return new DemoUserManagaement.Business.Service().DocumentTypeNames(1);
         }
     }
 }

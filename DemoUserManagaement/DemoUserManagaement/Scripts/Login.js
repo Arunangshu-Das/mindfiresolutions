@@ -2,7 +2,7 @@
     var name = document.getElementById('email').value;
     var address = document.getElementById('password').value;
 
-    PageMethods.UserLogin(name, address, onSucess, onError);
+    PageMethods.Authenticate(name, address, onSucess, onError);
 
     function onSucess(result) {
         if (result !== "") {

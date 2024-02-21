@@ -13,28 +13,12 @@ using System.Web.Services.Description;
 
 namespace DemoUserManagaement
 {
-    public partial class Users : System.Web.UI.Page
+    public partial class Users : BasePage
     {
 
         DemoUserManagaement.Business.Service service = new DemoUserManagaement.Business.Service();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["role"].ToString() == null )
-            {
-                SessionClassModel Obj = (SessionClassModel)Session["role"];
-                bool flag = false;
-                foreach(RoleModel r in Obj.Roles)
-                {
-                    if (r.Id == 2)
-                    {
-                        flag = true;
-                    }
-                }
-                if (flag == false)
-                {
-                    Response.Redirect("~/Login.aspx");
-                }
-            }
             if (!IsPostBack)
             {
                 // By default, sort by first column in ascending order
@@ -83,16 +67,23 @@ namespace DemoUserManagaement
 
         private void BindGridView()
         {
-            int currentPageIndex = GridView1.PageIndex;
-            int pageSize = GridView1.PageSize;
-            string sortExpression = ViewState["SortExpression"].ToString();
-            string sortDirection = ViewState["SortDirection"].ToString();
-            int totalCount = GetTotalCount();
+            if (AuthorizeUser())
+            {
+                int currentPageIndex = GridView1.PageIndex;
+                int pageSize = GridView1.PageSize;
+                string sortExpression = ViewState["SortExpression"].ToString();
+                string sortDirection = ViewState["SortDirection"].ToString();
+                int totalCount = GetTotalCount();
 
-            GridView1.VirtualItemCount = totalCount;
+                GridView1.VirtualItemCount = totalCount;
 
-            GridView1.DataSource = service.Allusers(sortExpression, sortDirection, currentPageIndex * pageSize, pageSize);
-            GridView1.DataBind();
+                GridView1.DataSource = service.Allusers(sortExpression, sortDirection, currentPageIndex * pageSize, pageSize);
+                GridView1.DataBind();
+            }
+            else
+            {
+                Response.Redirect("~/login.aspx");
+            }
         }
 
 

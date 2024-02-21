@@ -23,20 +23,20 @@ namespace DemoUserManagaement
             if (Session["role"] != null)
             {
                 AddNavItem("Home", "~/");
-                AddNavItem("About", "~/About.aspx");
-                AddNavItem("Contact", "~/Contact.aspx");
-                AddNavItem("All User", "~/Users.aspx");
-                AddNavItem("New User", "~/UserDetails.aspx");
-                AddNavItem("Logout", "~/Logout.aspx");
+                AddNavItem("About", "~/about.aspx");
+                AddNavItem("Contact", "~/contact.aspx");
+                AddNavItem("All User", "~/users.aspx");
+                AddNavItem("New User", "~/register.aspx");
+                AddNavItem("Logout", "~/logout.aspx");
             }
             else
             {
                 AddNavItem("Home", "~/");
-                AddNavItem("About", "~/About.aspx");
-                AddNavItem("Contact", "~/Contact.aspx");
-                AddNavItem("All User", "~/Users.aspx");
-                AddNavItem("New User", "~/UserDetails.aspx");
-                AddNavItem("Login", "~/Login.aspx");
+                AddNavItem("About", "~/about.aspx");
+                AddNavItem("Contact", "~/contact.aspx");
+                AddNavItem("All User", "~/users.aspx");
+                AddNavItem("New User", "~/register.aspx");
+                AddNavItem("Login", "~/login.aspx");
             }
         }
 

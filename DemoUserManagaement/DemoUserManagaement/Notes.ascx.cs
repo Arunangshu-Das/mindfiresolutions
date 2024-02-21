@@ -25,6 +25,7 @@ namespace DemoUserManagaement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                 // By default, sort by first column in ascending order

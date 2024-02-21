@@ -20,11 +20,6 @@ namespace DemoUserManagaement
             notes.IdValue = Request.QueryString["id"];
             docs.IdValue = Request.QueryString["id"];
 
-            if (Request.QueryString["id"] != null && Session["id"] != null && Session["id"].ToString() != Request.QueryString["id"])
-            {
-                Response.Redirect("Register.aspx?id=" + Session["id"].ToString());
-            }
-
             if (Request.QueryString["id"] != null)
             {
 

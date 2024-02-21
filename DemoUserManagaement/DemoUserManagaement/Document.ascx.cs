@@ -40,20 +40,6 @@ namespace DemoUserManagaement
             BindGridView();
         }
 
-
-        [WebMethod]
-        public static bool DocumentSave(string jsonData)
-        {
-            DocumentInfo userInfo = JsonConvert.DeserializeObject<DocumentInfo>(jsonData);
-            return service.DocumentSave(userInfo);
-        }
-
-        [WebMethod]
-        public static List<DocumentTypeModel> GetAllOptions()
-        {
-            return service.DocumentTypeNames(1);
-        }
-
         protected void SortingGridView(object sender, GridViewSortEventArgs e)
         {
             string sortExpression = e.SortExpression;
