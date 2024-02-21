@@ -46,24 +46,24 @@ namespace DemoUserManagaement
             BindGridView(); // Call a method to rebind the GridView
         }
 
-        protected void InsertButton(object sender, EventArgs e)
-        {
-            try
-            {
-                NotesInfo n = new NotesInfo
-                {
-                    NoteText = Textarea1.Value,
-                    ObjectID = Convert.ToInt32(IdValue),
-                };
-                service.NoteSave(n);
-                Textarea1.Value = "";
-                BindGridView();
-            }
-            catch (Exception ex)
-            {
-                Logger.AddData(ex);
-            }
-        }
+        //protected void InsertButton(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        NotesInfo n = new NotesInfo
+        //        {
+        //            NoteText = Textarea1.Value,
+        //            ObjectID = Convert.ToInt32(IdValue),
+        //        };
+        //        service.NoteSave(n);
+        //        Textarea1.Value = "";
+        //        BindGridView();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.AddData(ex);
+        //    }
+        //}
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace DemoUserManagaement
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class Register : BasePage
     {
         public static Service service = new Service();
         protected void Page_Load(object sender, EventArgs e)
@@ -36,45 +36,14 @@ namespace DemoUserManagaement
             }
         }
 
-        [WebMethod]
-        public static List<CountryName> GetAllCountries()
-        {
-            return service.CountryNames();
-        }
+        
 
-        [WebMethod]
-        public static List<StateName> GetAllStates(int id)
-        {
-            return service.AllStates(id);
-        }
+        //[WebMethod]
+        //public static bool FindEmail(int id, string email)
+        //{
+        //    return service.FindEmail(id, email);
+        //}
 
-
-        [WebMethod]
-        public static bool UserSave(string jsonData)
-        {
-            UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
-            return service.UserSave(userInfo);
-        }
-
-        [WebMethod]
-        public static bool FindEmail(int id, string email)
-        {
-            return service.FindEmail(id, email);
-        }
-
-        [WebMethod(EnableSession = false)]
-        public static UserInfo LoadUser(int id)
-        {
-            var test = Convert.ToInt32(HttpContext.Current.Session["id"].ToString());
-            return service.UserGet(id);
-        }
-
-        [WebMethod]
-        public static bool UserUpdate(string jsonData)
-        {
-            UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
-            Console.WriteLine("Hello");
-            return service.UserUpdate(userInfo);
-        }
+        
     }
 }

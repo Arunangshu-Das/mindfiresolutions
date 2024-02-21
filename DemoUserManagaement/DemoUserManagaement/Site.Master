@@ -64,14 +64,15 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between text-white p-3">
+                    <asp:PlaceHolder runat="server" ID="navbarList"></asp:PlaceHolder>
+                    <%--<ul class="navbar-nav flex-grow-1">
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Users">All User</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/UserDetails">New User</a></li>
-                    </ul>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About.aspx">About</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact.aspx">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Users.aspx">All User</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/UserDetails.aspx">New User</a></li>
+                    </ul>--%>
                 </div>
                 <asp:Label CssClass="navbar-brand" runat="server" ClientIDMode="Static" ID="Name"></asp:Label>
             </div>

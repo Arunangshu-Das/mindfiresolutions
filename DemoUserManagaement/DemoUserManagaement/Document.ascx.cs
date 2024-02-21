@@ -9,12 +9,14 @@ using DemoUserManagaement.Utils;
 using DemoUserManagaement.Model;
 using System.IO;
 using System.Configuration;
+using Newtonsoft.Json;
+using System.Web.Services;
 
 namespace DemoUserManagaement
 {
     public partial class Document : System.Web.UI.UserControl
     {
-        Service service = new Service();
+        public static Service service = new Service();
         public string IdValue { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,11 +26,11 @@ namespace DemoUserManagaement
                 ViewState["SortExpression"] = "DocumentID";
                 ViewState["SortDirection"] = "ASC";
                 BindGridView();
-                List<DocumentTypeModel> documentTypes= service.DocumentTypeNames(1);
-                ddlSelectDocumentTypeFor.DataSource = documentTypes;
-                ddlSelectDocumentTypeFor.DataValueField = "Id"; // Property of your State class representing the value
-                ddlSelectDocumentTypeFor.DataTextField = "Name";
-                ddlSelectDocumentTypeFor.DataBind();
+                //List<DocumentTypeModel> documentTypes= service.DocumentTypeNames(1);
+                //ddlSelectDocumentTypeFor.DataSource = documentTypes;
+                //ddlSelectDocumentTypeFor.DataValueField = "Id"; // Property of your State class representing the value
+                //ddlSelectDocumentTypeFor.DataTextField = "Name";
+                //ddlSelectDocumentTypeFor.DataBind();
             }
         }
 
@@ -36,6 +38,20 @@ namespace DemoUserManagaement
         {
             GridView1.PageIndex = e.NewPageIndex;
             BindGridView();
+        }
+
+
+        [WebMethod]
+        public static bool DocumentSave(string jsonData)
+        {
+            DocumentInfo userInfo = JsonConvert.DeserializeObject<DocumentInfo>(jsonData);
+            return service.DocumentSave(userInfo);
+        }
+
+        [WebMethod]
+        public static List<DocumentTypeModel> GetAllOptions()
+        {
+            return service.DocumentTypeNames(1);
         }
 
         protected void SortingGridView(object sender, GridViewSortEventArgs e)
@@ -48,46 +64,46 @@ namespace DemoUserManagaement
             BindGridView();
         }
 
-        protected void InsertButton(object sender, EventArgs e)
-        {
-            try
-            {
+        //protected void InsertButton(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
 
 
-                if ((FileUpload1.PostedFile != null) && (FileUpload1.PostedFile.ContentLength > 0))
-                {
-                    foreach (HttpPostedFile uploadedFile in FileUpload1.PostedFiles)
-                    {
-                        Guid obj = Guid.NewGuid();
-                        string fn = System.IO.Path.GetFileName(uploadedFile.FileName);
-                        string fileImageLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + fn;
-                        string guidFileImageLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + obj.ToString() + Path.GetExtension(uploadedFile.FileName);
-                        try
-                        {
-                            uploadedFile.SaveAs(guidFileImageLocation);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.AddData(ex);
-                        }
+        //        if ((FileUpload1.PostedFile != null) && (FileUpload1.PostedFile.ContentLength > 0))
+        //        {
+        //            foreach (HttpPostedFile uploadedFile in FileUpload1.PostedFiles)
+        //            {
+        //                Guid obj = Guid.NewGuid();
+        //                string fn = System.IO.Path.GetFileName(uploadedFile.FileName);
+        //                string fileImageLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + fn;
+        //                string guidFileImageLocation = ConfigurationManager.AppSettings["MyBasePath"] + "\\" + obj.ToString() + Path.GetExtension(uploadedFile.FileName);
+        //                try
+        //                {
+        //                    uploadedFile.SaveAs(guidFileImageLocation);
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    Logger.AddData(ex);
+        //                }
 
-                        DocumentInfo documentInfo = new DocumentInfo
-                        {
-                            DocumentGuidName = Path.GetFileName(guidFileImageLocation),
-                            DocumentOriginalName = Path.GetFileName(fileImageLocation),
-                            ObjectID = Convert.ToInt32(IdValue),
-                            DocumentType = Convert.ToInt32(ddlSelectDocumentTypeFor.SelectedValue),
-                        };
-                        service.DocumentSave(documentInfo);
-                    }
-                }
-                BindGridView();
-            }
-            catch (Exception ex)
-            {
-                Logger.AddData(ex);
-            }
-        }
+        //                DocumentInfo documentInfo = new DocumentInfo
+        //                {
+        //                    DocumentGuidName = Path.GetFileName(guidFileImageLocation),
+        //                    DocumentOriginalName = Path.GetFileName(fileImageLocation),
+        //                    ObjectID = Convert.ToInt32(IdValue),
+        //                    DocumentType = Convert.ToInt32(ddlSelectDocumentTypeFor.SelectedValue),
+        //                };
+        //                service.DocumentSave(documentInfo);
+        //            }
+        //        }
+        //        BindGridView();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.AddData(ex);
+        //    }
+        //}
 
         private void BindGridView()
         {

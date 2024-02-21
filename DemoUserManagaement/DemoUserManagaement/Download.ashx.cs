@@ -5,13 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Web;
+using System.Web.SessionState;
 
 namespace DemoUserManagaement
 {
     /// <summary>
     /// Summary description for Download
     /// </summary>
-    public class Download : IHttpHandler
+    public class Download : IHttpHandler, IRequiresSessionState
     {
 
         public void ProcessRequest(HttpContext context)

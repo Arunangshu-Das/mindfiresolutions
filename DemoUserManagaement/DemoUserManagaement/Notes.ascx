@@ -3,10 +3,10 @@
 <div>
     <div class="w-100">
         <label for="floatingTextarea2" class="form-label">Notes</label>
-        <textarea runat="server" class="form-control" placeholder="Leave a comment here" id="Textarea1" cols="40"></textarea>
+        <textarea class="form-control" placeholder="Leave a comment here" id="Textarea1" cols="40"></textarea>
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-center">
-        <asp:Button ID="Button1" CssClass="btn btn-primary mt-3" runat="server" Text="Insert" OnClick="InsertButton" />
+        <button id="Button1" class="btn btn-primary mt-3" onclick="Insert()">Insert</button>
     </div>
     <div>
         <asp:UpdatePanel runat="server">
@@ -63,5 +63,27 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-    
+    <script>
+        function Insert() {
+            var textarea = document.getElementById("Textarea1").value;
+
+            var jsonObject = {};
+            jsonObject['Text'] = textarea;
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "Register.aspx/SaveNotes",
+                data: JSON.stringify(jsonObject), // parameters for method
+                dataType: 'json',
+                success: function (result) {
+                    console.log("success" + result);
+                    //location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log("error", xhr, status, error);
+                }
+            });
+        }
+    </script>
 </div>

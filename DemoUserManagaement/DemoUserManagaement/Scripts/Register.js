@@ -393,18 +393,18 @@ function validateForm() {
         $("#txtEmail")[0].setAttribute("data-bs-original-title", "");
     }
 
-    if (!flag) {
-        window.scroll({
-            top: 0,
-            left: 0,
-            behavior: 'smooth',
-        });
-        $("#toast-message").removeClass("hide-toast");
-        return false;
-    }
-    else {
-        $("toast-message").addClass("hide");
-    }
+    //if (!flag) {
+    //    window.scroll({
+    //        top: 0,
+    //        left: 0,
+    //        behavior: 'smooth',
+    //    });
+    //    $("#toast-message").removeClass("hide-toast");
+    //    return false;
+    //}
+    //else {
+    //    $("toast-message").addClass("hide");
+    //}
 
     var jsonObject = {};
 
@@ -442,10 +442,37 @@ function validateForm() {
         jsonObject["UserID"] = id;
     }
 
+
+    var fileInput = document.getElementById('fileAadharCard');
+    var filename = uuidv4();
+
+    uploadFile(fileInput, filename);
+
+    jsonObject['GuidAadharcard'] = filename;
+    jsonObject['Aadharcard'] = fileInput.value.replace(/^.*[\\/]/, '');
+
+
+    fileInput = document.getElementById('fileImage');
+    filename = uuidv4();
+
+    uploadFile(fileInput, filename);
+
+
+    jsonObject['GuidProfilePhoto'] = filename;
+    jsonObject['ProfilePhoto'] = fileInput.value.replace(/^.*[\\/]/, '');
+
+    fileInput = document.getElementById('fileImage');
+    filename = uuidv4();
+
+    uploadFile(fileInput, filename);
+
+
+    jsonObject['GuidMyResume'] = filename;
+    jsonObject['MyResume'] = fileInput.value.replace(/^.*[\\/]/, '');
+
+
     // Print or use the jsonObject as needed
     var jsonData = JSON.stringify(jsonObject);
-
-    uploadFile();
 
     if (userId == null) {
         PageMethods.UserSave(jsonData, onSucess, onError);
@@ -558,26 +585,35 @@ const checkFieldsChangeOrNot = function (e) {
     element.removeClass("is-invalid")
 }
 
-function uploadFile() {
-    var fileInput = document.getElementById('fileAadharCard');
+function uploadFile(fileInput, filename) {
     var file = fileInput.files[0];
 
     if (file) {
-        var url = "/upload";
-        var http = new XMLHttpRequest();
-        http.open('POST', url, true);
-
-        //Send the proper header information along with the request
-        http.setRequestHeader('Content-type', 'image/jpeg');
-
-        http.onreadystatechange = function () {//Call a function when the state changes.
-            if (http.readyState == 4 && http.status == 200) {
-                alert(http.responseText);
-            }
-        }
         var formData = new FormData();
-        formData.append('file', file);
-        http.send(formData);
+        formData.append('image', file);
+        formData.append('name', filename);
 
+        $.ajax({
+            url: '/Upload.ashx',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                // Handle the response from the server, e.g., update UI or display a message
+                return response;
+            },
+            error: function (error) {
+                return error;
+            }
+        });
+    } else {
+        console.error('No file selected.');
     }
+}
+
+function uuidv4() {
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
 }

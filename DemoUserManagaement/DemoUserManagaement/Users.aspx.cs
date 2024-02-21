@@ -9,18 +9,31 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DemoUserManagaement.Model;
 using DemoUserManagaement.Business;
+using System.Web.Services.Description;
 
 namespace DemoUserManagaement
 {
     public partial class Users : System.Web.UI.Page
     {
 
-        Service service = new Service();
+        DemoUserManagaement.Business.Service service = new DemoUserManagaement.Business.Service();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["role"].ToString() == null || Session["role"].ToString()!="2")
+            if (Session["role"].ToString() == null )
             {
-                Response.Redirect("~/Login.aspx");
+                SessionClassModel Obj = (SessionClassModel)Session["role"];
+                bool flag = false;
+                foreach(RoleModel r in Obj.Roles)
+                {
+                    if (r.Id == 2)
+                    {
+                        flag = true;
+                    }
+                }
+                if (flag == false)
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
             }
             if (!IsPostBack)
             {

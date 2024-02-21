@@ -86,7 +86,7 @@ namespace DemoUserManagaement.Business
         {
             return dataAccess.DocumentTypeNames(id);
         }
-        public List<RoleModel> LoginUser(LoginModel login)
+        public SessionClassModel LoginUser(LoginModel login)
         {
             return dataAccess.LoginUser(login);
         }

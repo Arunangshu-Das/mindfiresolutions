@@ -36,7 +36,7 @@ namespace DemoUserManagaement.DAL
                         ContactNumber = userInfo.ContactNumber,
                         Gender = userInfo.Gender,
                         DateOfBirth = userInfo.DateOfBirth,
-                        Password=userInfo.Password,
+                        Password = userInfo.Password,
                         HighestEducation = userInfo.HighestEducation,
                         Branch = userInfo.Branch,
                         YearOfPassout = userInfo.YearOfPassout,
@@ -84,11 +84,11 @@ namespace DemoUserManagaement.DAL
                     context.AddressDetails.Add(permarentaddress);
                     context.SaveChanges();
 
-                    List<Role> role= context.Roles.Where(u => u.IsDefault == true).ToList();
-                    
-                    foreach(Role r in role)
+                    List<Role> role = context.Roles.Where(u => u.IsDefault == true).ToList();
+
+                    foreach (Role r in role)
                     {
-                        UserRole u=new UserRole();
+                        UserRole u = new UserRole();
                         u.UserId = userid;
                         u.RoleID = r.RoleID;
                         context.UserRoles.Add(u);
@@ -108,16 +108,16 @@ namespace DemoUserManagaement.DAL
 
         public bool FindEmail(int id, string email)
         {
-            bool flag= false;
+            bool flag = false;
             if (id == 0)
             {
                 using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
-                    List<UserDetail> u= (from user in context.UserDetails
-                                         where user.Email == email
-                                         select user)
+                    List<UserDetail> u = (from user in context.UserDetails
+                                          where user.Email == email
+                                          select user)
                                                     .ToList();
-                    if (u.Count>0)
+                    if (u.Count > 0)
                     {
                         flag = true;
                     }
@@ -133,9 +133,9 @@ namespace DemoUserManagaement.DAL
                                                     .ToList();
                     foreach (UserDetail user in u)
                     {
-                        if(user.UserID!=id)
+                        if (user.UserID != id)
                         {
-                            flag= true;
+                            flag = true;
                         }
                     }
                 }
@@ -165,7 +165,7 @@ namespace DemoUserManagaement.DAL
                     user.ContactNumber = userInfo.ContactNumber;
                     user.Gender = userInfo.Gender;
                     user.DateOfBirth = userInfo.DateOfBirth;
-                    if (userInfo.Password != "" && userInfo.Password!=null)
+                    if (userInfo.Password != "" && userInfo.Password != null)
                     {
                         user.Password = userInfo.Password;
                     }
@@ -181,17 +181,17 @@ namespace DemoUserManagaement.DAL
                     user.BTechMarks = userInfo.BTechMarks;
                     user.MTechMarks = userInfo.MTechMarks;
                     user.Hobbies = userInfo.Hobbies;
-                    if (userInfo.ProfilePhoto != null)
+                    if (userInfo.ProfilePhoto != null || userInfo.ProfilePhoto != "")
                         user.ProfilePhoto = userInfo.ProfilePhoto;
-                    if (userInfo.Aadharcard != null)
+                    if (userInfo.Aadharcard != null || userInfo.Aadharcard != "")
                         user.Aadharcard = userInfo.Aadharcard;
-                    if (userInfo.MyResume != null)
+                    if (userInfo.MyResume != null || userInfo.MyResume != "")
                         user.MyResume = userInfo.MyResume;
-                    if (userInfo.GuidMyResume != null)
+                    if (userInfo.GuidMyResume != null || userInfo.GuidMyResume != "")
                         user.GuidMyResume = userInfo.GuidMyResume;
-                    if (userInfo.GuidAadharcard != null)
+                    if (userInfo.GuidAadharcard != null || userInfo.GuidAadharcard != "")
                         user.GuidAadharcard = userInfo.GuidAadharcard;
-                    if (userInfo.GuidProfilePhoto != null)
+                    if (userInfo.GuidProfilePhoto != null || userInfo.GuidProfilePhoto != "")
                         user.GuidProfilePhoto = userInfo.GuidProfilePhoto;
                     int userid = user.UserID;
 
@@ -239,6 +239,7 @@ namespace DemoUserManagaement.DAL
                     {
                         users = new UserInfo
                         {
+                            UserID = user.UserID,
                             FirstName = user.FirstName,
                             MiddleName = user.MiddleName,
                             LastName = user.LastName,
@@ -252,7 +253,7 @@ namespace DemoUserManagaement.DAL
                             ContactNumber = user.ContactNumber,
                             Gender = user.Gender,
                             DateOfBirth = (DateTime)user.DateOfBirth,
-                            Password=user.Password,
+                            Password = user.Password,
                             HighestEducation = user.HighestEducation,
                             Branch = user.Branch,
                             YearOfPassout = user.YearOfPassout,
@@ -674,7 +675,7 @@ namespace DemoUserManagaement.DAL
                             DocumentOriginalName = doc.DocumentOriginalName,
                             DocumentGuidName = doc.DocumentGuidName,
                             TimeStamp = (DateTime)doc.TimeStamp,
-                            DocumentTypeName=documents[doc.DocumentType-1].Name,
+                            DocumentTypeName = documents[doc.DocumentType - 1].Name,
                             ObjectID = (int)doc.ObjectID,
                         });
                     }
@@ -716,7 +717,7 @@ namespace DemoUserManagaement.DAL
             {
                 using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
-                    IQueryable<DocumentType> query= context.DocumentTypes.Where(u=>u.DocumentTypeFor==id);
+                    IQueryable<DocumentType> query = context.DocumentTypes.Where(u => u.DocumentTypeFor == id);
 
                     docs = new List<DocumentTypeModel>();
                     foreach (DocumentType docType in query)
@@ -724,7 +725,7 @@ namespace DemoUserManagaement.DAL
                         docs.Add(new DocumentTypeModel
                         {
                             Id = docType.DocumentTypeID,
-                            Name=docType.DocumentTypeName
+                            Name = docType.DocumentTypeName
                         });
                     }
                 }
@@ -737,29 +738,35 @@ namespace DemoUserManagaement.DAL
             return docs;
         }
 
-        public List<RoleModel> LoginUser(LoginModel login)
+        public SessionClassModel LoginUser(LoginModel login)
         {
-            List<RoleModel> roles = null;
+            SessionClassModel result = null;
             try
             {
                 using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
                 {
-                    UserDetail u= context.UserDetails.FirstOrDefault(s=>s.Email==login.Email);
-                    
-                    if(u!=null && u.Password==login.Password )
+                    UserDetail u = context.UserDetails.FirstOrDefault(s => s.Email == login.Email);
+
+                    if (u != null && u.Password == login.Password)
                     {
-                        List<UserRole> role=context.UserRoles.Where(s => s.UserId == u.UserID).ToList();
-                        roles = new List<RoleModel>();
+                        List<UserRole> role = context.UserRoles.Where(s => s.UserId == u.UserID).ToList();
+                        List<RoleModel> roles = new List<RoleModel>();
+                        result = new SessionClassModel();
                         foreach (var item in role)
                         {
-                            Role r=context.Roles.Find(item.RoleID);
+                            Role r = context.Roles.Find(item.RoleID);
                             roles.Add(new RoleModel
                             {
                                 Id = item.RoleID,
-                                UserId=u.UserID,
                                 Name = r.RoleName
                             });
                         }
+
+                        UserInfo user = UserGet(u.UserID);
+
+                        result.Roles = roles;
+                        result.UserInfo = user;
+
                     }
                 }
             }
@@ -767,7 +774,7 @@ namespace DemoUserManagaement.DAL
             {
                 Logger.AddData(ex);
             }
-            return roles;
+            return result;
         }
     }
 }

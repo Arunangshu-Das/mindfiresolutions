@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DemoUserManagaement.Model
 {
-    public class RoleModel
+    public class SessionClassModel
     {
-        public int Id {  get; set; }
-        public string Name { get; set; }
+        public List<RoleModel> Roles { get; set; }
+        public UserInfo UserInfo { get; set; }
     }
 }

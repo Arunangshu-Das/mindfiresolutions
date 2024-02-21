@@ -16,7 +16,7 @@ namespace DemoUserManagaement
     public partial class UserDetails : System.Web.UI.Page
     {
         Service service = new Service();
-
+        public int test = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             int userid;
@@ -25,6 +25,7 @@ namespace DemoUserManagaement
             //checkboxSubscribe.CheckedChanged += new EventHandler(Copy_Address);
             if (!IsPostBack)
             {
+                test = 5;
                 List<CountryName> countryNames = service.CountryNames();
 
                 ddlPermanentCountryName.DataSource = countryNames;
@@ -47,6 +48,10 @@ namespace DemoUserManagaement
                     notes.Visible = false;
                     docs.Visible = false;
                 }
+            }
+            else
+            {
+                var test2 = test;
             }
         }
 

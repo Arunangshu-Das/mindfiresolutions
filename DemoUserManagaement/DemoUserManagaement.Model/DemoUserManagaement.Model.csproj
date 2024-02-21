@@ -47,6 +47,7 @@
     <Compile Include="LoginModel.cs" />
     <Compile Include="NotesInfo.cs" />
     <Compile Include="RoleModel.cs" />
+    <Compile Include="SessionClassModel.cs" />
     <Compile Include="StateName.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
