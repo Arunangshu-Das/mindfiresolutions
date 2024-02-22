@@ -4,7 +4,7 @@
     <div class="w-100">
         <label for="floatingTextarea2" class="form-label">Notes</label>
         <textarea class="form-control" placeholder="Leave a comment here" id="Textarea1" cols="40"></textarea>
-        <input type="hidden" id="id" >
+        <input type="hidden" id="noteid" >
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-center">
         <button id="Button1" class="btn btn-primary mt-3" onclick="Insert()">Insert</button>
@@ -67,14 +67,14 @@
     <script>
         $(document).ready(function () {
             var urlParams = new URLSearchParams(window.location.search);
-            document.getElementById("id").Text = urlParams.get('id');
+            document.getElementById("noteid").Text = urlParams.get('id');
         });
         function Insert() {
             var textarea = document.getElementById("Textarea1").value;
 
             var note = {
                 NoteText: textarea,
-                ObjectID: parseInt(document.getElementById("id").Text)
+                ObjectID: parseInt(document.getElementById("noteid").Text)
             };
 
             $.ajax({

@@ -14,7 +14,7 @@
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" ID="password" placeholder="Password"/>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="HandleIT(); return false;">Submit</button>
+        <button type="submit" class="btn btn-primary" onclick="Authenticate(); return false;">Submit</button>
     </div>
 </asp:Content>
 

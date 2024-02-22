@@ -9,6 +9,7 @@ using DemoUserManagaement.Model;
 using Newtonsoft.Json;
 using WebGrease.Css.Ast;
 using DemoUserManagaement.Utils;
+using System.IO;
 
 namespace DemoUserManagaement
 {
@@ -16,7 +17,72 @@ namespace DemoUserManagaement
     {
         protected void Page_Init(object sender, EventArgs e)
         {
+            string pagename = Path.GetFileNameWithoutExtension(Page.AppRelativeVirtualPath);
+            if (pagename == "users")
+            {
+                if (!(Authinticate() && AuthorizeUser()))
+                {
+                    Response.Redirect("~/login.aspx");
+                }
+            }
+            if (pagename == "register")
+            {
+                string requestid = Request.QueryString["id"];
+                int id = 0;
 
+                try
+                {
+                    id = Convert.ToInt32(requestid); ;
+                }
+                catch (Exception ex)
+                {
+                    id = 0;
+                }
+
+                SessionClassModel session = SessionUtil.GetSession();
+                if (id != 0)
+                {
+                    bool flag = false;
+                    if (session.UserInfo != null)
+                    {
+                        if (session.UserInfo.UserID == id)
+                        {
+                            flag = true;
+                        }
+                        else if (session.UserInfo.UserID != id)
+                        {
+                            foreach (RoleModel r in session.Roles)
+                            {
+                                if (r.Id == 2)
+                                {
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!flag)
+                    {
+                        Response.Redirect("~/login.aspx");
+                    }
+                }
+                else if (session.UserInfo != null)
+                {
+                    Response.Redirect("~/register.aspx?id=" + session.UserInfo.UserID);
+                }
+            }
+            else if (pagename == "login")
+            {
+                if (Authinticate())
+                {
+                    SessionClassModel session = SessionUtil.GetSession();
+                    Response.Redirect("~/Register.aspx?id=" + session.UserInfo.UserID);
+                }
+            }
+            else if (pagename != "login" && !Authinticate())
+            {
+                Response.Redirect("login.aspx");
+            }
         }
 
         [WebMethod]
@@ -34,26 +100,28 @@ namespace DemoUserManagaement
         [WebMethod(EnableSession = false)]
         public static UserInfo LoadUser(int id)
         {
-            SessionClassModel Obj = SessionUtil.GetSession();
-            if (Obj.UserInfo== null)
-            {
-                return null;
-            }
-            if (Obj.UserInfo.UserID == id)
-            {
-                return new DemoUserManagaement.Business.Service().UserGet(id);
-            }
-            else
-            {
-                foreach (RoleModel r in Obj.Roles)
-                {
-                    if (r.Id == 2)
-                    {
-                        return new DemoUserManagaement.Business.Service().UserGet(id);
-                    }
-                }
-            }
-            return new DemoUserManagaement.Business.Service().UserGet(Obj.UserInfo.UserID);
+            //SessionClassModel Obj = SessionUtil.GetSession();
+            //if (Obj.UserInfo == null)
+            //{
+            //    return null;
+            //}
+            //if (Obj.UserInfo.UserID == id)
+            //{
+            //    return new DemoUserManagaement.Business.Service().UserGet(id);
+            //}
+            //else
+            //{
+            //    foreach (RoleModel r in Obj.Roles)
+            //    {
+            //        if (r.Id == 2)
+            //        {
+            //            return new DemoUserManagaement.Business.Service().UserGet(id);
+            //        }
+            //    }
+            //}
+            //return new DemoUserManagaement.Business.Service().UserGet(Obj.UserInfo.UserID);
+
+            return new DemoUserManagaement.Business.Service().UserGet(id);
         }
 
         [WebMethod]
@@ -104,7 +172,7 @@ namespace DemoUserManagaement
         }
 
         [WebMethod]
-        public static string Authenticate(string email, string password)
+        public static string Login(string email, string password)
         {
             LoginModel l = new LoginModel
             {
@@ -120,6 +188,16 @@ namespace DemoUserManagaement
                 return JsonConvert.SerializeObject(roles.Roles);
             }
             return string.Empty;
+        }
+
+        public static bool Authinticate()
+        {
+            SessionClassModel session = SessionUtil.GetSession();
+            if (session.Roles != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         [WebMethod]
@@ -155,10 +233,10 @@ namespace DemoUserManagaement
                     flag = true;
                 }
             }
-            if (flag == false)
-            {
-                Response.Redirect("~/login.aspx");
-            }
+            //if (flag == false)
+            //{
+            //    Response.Redirect("~/login.aspx");
+            //}
             return flag;
         }
 
@@ -166,7 +244,7 @@ namespace DemoUserManagaement
         public static bool DocumentSave(DocumentInfo Document)
         {
             SessionClassModel Obj = SessionUtil.GetSession();
-            Document.ObjectID=Obj.UserInfo.UserID;
+            Document.ObjectID = Obj.UserInfo.UserID;
             return new DemoUserManagaement.Business.Service().DocumentSave(Document);
         }
 

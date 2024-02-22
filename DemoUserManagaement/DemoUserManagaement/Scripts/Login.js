@@ -1,8 +1,8 @@
-﻿function HandleIT() {
+﻿function Authenticate() {
     var name = document.getElementById('email').value;
     var address = document.getElementById('password').value;
 
-    PageMethods.Authenticate(name, address, onSucess, onError);
+    PageMethods.Login(name, address, onSucess, onError);
 
     function onSucess(result) {
         if (result !== "") {
@@ -14,10 +14,10 @@
 
             // Redirect to Home.aspx or perform other actions based on roles
             if (roles[0]["Id"] == 1) {
-                window.location.href = "Home.aspx";
+                window.location.href = "home.aspx";
             }
             else {
-                window.location.href = "Users.aspx";
+                window.location.href = "users.aspx";
             }
         } else {
             alert('Login failed. Check your credentials.');

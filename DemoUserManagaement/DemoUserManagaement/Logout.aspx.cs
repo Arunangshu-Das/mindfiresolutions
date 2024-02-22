@@ -12,7 +12,7 @@ namespace DemoUserManagaement
         protected void Page_Load(object sender, EventArgs e)
         {
             HttpContext.Current.Session.Clear();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("login.aspx");
         }
     }
 }
