@@ -4,7 +4,8 @@
     <div class="w-100">
         <label for="floatingTextarea2" class="form-label">Notes</label>
         <textarea class="form-control" placeholder="Leave a comment here" id="Textarea1" cols="40"></textarea>
-        <input type="hidden" id="noteid" >
+        <input type="hidden" id="noteid" />
+        <input type="hidden" id="noteobjecttype" />
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-center">
         <button id="Button1" class="btn btn-primary mt-3" onclick="Insert()">Insert</button>
@@ -64,35 +65,5 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-    <script>
-        $(document).ready(function () {
-            var urlParams = new URLSearchParams(window.location.search);
-            document.getElementById("noteid").Text = urlParams.get('id');
-        });
-        function Insert() {
-            var textarea = document.getElementById("Textarea1").value;
-
-            var note = {
-                NoteText: textarea,
-                ObjectID: parseInt(document.getElementById("noteid").Text)
-            };
-
-            $.ajax({
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                url: "Register.aspx/SaveNotes",
-                data: JSON.stringify({ note: note }), // send the note as a property
-                dataType: 'json',
-                success: function (result) {
-                    console.log("success", result);
-                    location.reload();
-                },
-                error: function (xhr, status, error) {
-                    console.log("error", xhr, status, error);
-                }
-            });
-        }
-
-
-    </script>
+    <script src="scripts/NotesControl.js"></script>
 </div>

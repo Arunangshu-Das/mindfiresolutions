@@ -16,12 +16,18 @@ namespace DemoUserManagaement.Utils
 
         public enum OBJECTS
         {
-            NOTE=1
+            USER=1
         }
 
         public enum DOCS
         {
             DOCUMENT=1
+        }
+
+        public enum ROLE 
+        {
+            GENERAL=1,
+            ADMIN
         }
 
     }

@@ -10,6 +10,7 @@ namespace DemoUserManagaement.Model
     {
         public int DocumentID { get; set; }
         public int ObjectID { get; set; }
+        public int ObjectType { get; set; }
         public int DocumentType { get; set; }
 
         public string DocumentTypeName {  get; set; }

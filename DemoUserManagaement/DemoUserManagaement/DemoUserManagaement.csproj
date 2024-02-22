@@ -158,7 +158,9 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\DocumentControl.js" />
     <Content Include="Scripts\Login.js" />
+    <Content Include="Scripts\NotesControl.js" />
     <Content Include="Scripts\Register.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="UserDetails.aspx" />

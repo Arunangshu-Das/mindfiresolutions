@@ -10,85 +10,87 @@ namespace DemoUserManagaement.Business
 {
     public class Service
     {
-        readonly DataAccess dataAccess = new DataAccess();
-
         public bool UserSave(UserInfo user)
         {
-            return dataAccess.UserSave(user);
+            return new DataAccess().UserSave(user);
         }
 
         public UserInfo UserGet(int id)
         {
-            return dataAccess.UserGet(id);
+            return new DataAccess().UserGet(id);
         }
 
         public List<StateName> AllStates(int id)
         {
-            return dataAccess.AllStates(id);
+            return new DataAccess().AllStates(id);
         }
 
         public List<UserInfo> Allusers(string sortExpression, string sortDirection, int startRowIndex, int maximumRows)
         {
-            return dataAccess.Allusers(sortExpression, sortDirection, startRowIndex, maximumRows);
+            return new DataAccess().Allusers(sortExpression, sortDirection, startRowIndex, maximumRows);
         }
 
         public List<CountryName> CountryNames()
         {
-            return dataAccess.CountryNames();
+            return new DataAccess().CountryNames();
         }
 
         public bool FindEmail(int id, string email)
         {
-            return dataAccess.FindEmail(id, email);
+            return new DataAccess().FindEmail(id, email);
         }
 
         public int Lenusers()
         {
-            return dataAccess.Lenusers();
+            return new DataAccess().Lenusers();
         }
 
         public bool UserUpdate(UserInfo userInfo)
         {
-            return dataAccess.UserUpdate(userInfo);
+            return new DataAccess().UserUpdate(userInfo);
         }
 
         public bool NoteSave(NotesInfo noteinfo)
         {
-            return dataAccess.NoteSave(noteinfo);
+            return new DataAccess().NoteSave(noteinfo);
         }
 
         public List<NotesInfo> NotesInfos(string sortExpression, string sortDirection, int startRowIndex, int maximumRows, int id)
         {
-            return dataAccess.NotesInfos(sortExpression, sortDirection, startRowIndex, maximumRows, id);
+            return new DataAccess().NotesInfos(sortExpression, sortDirection, startRowIndex, maximumRows, id);
         }
 
         public int LenNotes(int id)
         {
-            return dataAccess.LenNotes(id);
+            return new DataAccess().LenNotes(id);
         }
 
         public bool DocumentSave(DocumentInfo docinfo)
         {
-            return dataAccess.DocumentSave(docinfo);
+            return new DataAccess().DocumentSave(docinfo);
         }
 
         public List<DocumentInfo> DocumentsInfos(string sortExpression, string sortDirection, int startRowIndex, int maximumRows, int id)
         {
-            return dataAccess.DocumentsInfos(sortExpression, sortDirection, startRowIndex, maximumRows, id);
+            return new DataAccess().DocumentsInfos(sortExpression, sortDirection, startRowIndex, maximumRows, id);
         }
 
         public int LenDocs(int id)
         {
-            return dataAccess.LenDocs(id);
+            return new DataAccess().LenDocs(id);
         }
 
         public List<DocumentTypeModel> DocumentTypeNames(int id)
         {
-            return dataAccess.DocumentTypeNames(id);
+            return new DataAccess().DocumentTypeNames(id);
         }
         public SessionClassModel LoginUser(LoginModel login)
         {
-            return dataAccess.LoginUser(login);
+            return new DataAccess().LoginUser(login);
+        }
+        public bool DownloadCheck(FileDownloadModel download)
+        {
+            return new DataAccess().DownloadCheck(download);
         }
     }
 }

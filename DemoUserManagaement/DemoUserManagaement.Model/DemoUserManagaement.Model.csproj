@@ -44,6 +44,7 @@
     <Compile Include="CountryName.cs" />
     <Compile Include="DocumentInfo.cs" />
     <Compile Include="DocumentTypeModel.cs" />
+    <Compile Include="FileDownloadModel.cs" />
     <Compile Include="LoginModel.cs" />
     <Compile Include="NotesInfo.cs" />
     <Compile Include="RoleModel.cs" />

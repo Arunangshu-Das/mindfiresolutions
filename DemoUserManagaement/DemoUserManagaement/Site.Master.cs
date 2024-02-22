@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DemoUserManagaement.Model;
+using DemoUserManagaement.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,12 +22,16 @@ namespace DemoUserManagaement
 
         private void GenerateNavigationLinks()
         {
-            if (Session["role"] != null)
+            SessionClassModel session = SessionUtil.GetSession();
+            if (session.UserInfo != null)
             {
                 AddNavItem("Home", "~/");
                 AddNavItem("About", "~/about.aspx");
                 AddNavItem("Contact", "~/contact.aspx");
-                AddNavItem("All User", "~/users.aspx");
+                if (session.Roles[0].Id == (int)Enums.ROLE.ADMIN)
+                {
+                    AddNavItem("All User", "~/users.aspx");
+                }
                 AddNavItem("New User", "~/register.aspx");
                 AddNavItem("Logout", "~/logout.aspx");
             }
@@ -34,8 +40,7 @@ namespace DemoUserManagaement
                 AddNavItem("Home", "~/");
                 AddNavItem("About", "~/about.aspx");
                 AddNavItem("Contact", "~/contact.aspx");
-                AddNavItem("All User", "~/users.aspx");
-                AddNavItem("New User", "~/register.aspx");
+                AddNavItem("User Details", "~/register.aspx");
                 AddNavItem("Login", "~/login.aspx");
             }
         }

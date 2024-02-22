@@ -53,7 +53,7 @@ namespace DemoUserManagaement
                         {
                             foreach (RoleModel r in session.Roles)
                             {
-                                if (r.Id == 2)
+                                if (r.Id == (int)Enums.ROLE.ADMIN)
                                 {
                                     flag = true;
                                 }

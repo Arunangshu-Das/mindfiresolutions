@@ -434,7 +434,6 @@ namespace DemoUserManagaement.DAL
             return query;
         }
 
-
         public int Lenusers()
         {
             int lenuser = 0;
@@ -480,7 +479,6 @@ namespace DemoUserManagaement.DAL
             return countrynames;
 
         }
-
 
         private static IQueryable<Note> ApplySorting(IQueryable<Note> query, string sortExpression, string sortDirection)
         {
@@ -557,7 +555,7 @@ namespace DemoUserManagaement.DAL
                         TimeStamp = DateTime.Now,
                         NoteText = noteinfo.NoteText,
                         ObjectID = noteinfo.ObjectID,
-                        ObjectType = (int)Enums.OBJECTS.NOTE,
+                        ObjectType = noteinfo.ObjectType,
                     };
                     context.Notes.Add(note);
                     context.SaveChanges();
@@ -606,7 +604,7 @@ namespace DemoUserManagaement.DAL
                         DocumentType = docinfo.DocumentType,
                         DocumentGuidName = docinfo.DocumentGuidName,
                         ObjectID = docinfo.ObjectID,
-                        ObjectType = (int)Enums.DOCS.DOCUMENT,
+                        ObjectType = docinfo.ObjectType,
                     };
                     context.Documents.Add(doc);
                     context.SaveChanges();
@@ -775,6 +773,27 @@ namespace DemoUserManagaement.DAL
                 Logger.AddData(ex);
             }
             return result;
+        }
+
+        public bool DownloadCheck(FileDownloadModel download)
+        {
+            bool flag=false;
+            try
+            {
+                using (DemoUserManagaementEntities24 context = new DemoUserManagaementEntities24())
+                {
+                    List<Document> doc= context.Documents.Where(d=>d.ObjectID==download.Id && d.DocumentGuidName==download.Url).ToList();
+                    if (doc.Count == 1)
+                    {
+                        flag = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData (ex);
+            }
+            return flag;
         }
     }
 }

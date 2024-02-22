@@ -6,6 +6,9 @@ using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Web;
 using System.Web.SessionState;
+using DemoUserManagaement.Business;
+using DemoUserManagaement.Model;
+using DemoUserManagaement.Utils;
 
 namespace DemoUserManagaement
 {
@@ -17,32 +20,58 @@ namespace DemoUserManagaement
 
         public void ProcessRequest(HttpContext context)
         {
+            SessionClassModel session = SessionUtil.GetSession();
             string file = ConfigurationManager.AppSettings["MyBasePath"] + context.Request.QueryString["file"];
-            file = HttpUtility.UrlDecode(file);
-
-            //file = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["myBasePath"] +file);
-
-            if (!string.IsNullOrEmpty(file) && File.Exists(file))
+            bool flag = new Service().DownloadCheck(new Model.FileDownloadModel
             {
-                string extension = Path.GetExtension(file).ToLower();
-                if (extension == ".jpg" || extension == ".jpeg" || extension == ".png")
-                {
-                    context.Response.ContentType = "image/jpeg";
-                }
-                else if (extension == ".pdf")
-                {
-                    context.Response.ContentType = "application/pdf";
-                    context.Response.AddHeader("Content-Disposition", "inline; filename=\"" + Path.GetFileName(file) + "\"");
-                }
-                else
-                {
-                    context.Response.ContentType = "application/octet-stream";
-                    context.Response.AddHeader("Content-Disposition", "attachment; filename=\"" + Path.GetFileName(file) + "\"");
-                }
-                context.Response.WriteFile(file);
-                //context.Response.End();
-                context.ApplicationInstance.CompleteRequest();
+                Id = session.UserInfo.UserID,
+                Url = context.Request.QueryString["file"]
+            });
 
+            if (flag != true)
+            {
+                foreach(RoleModel role in session.Roles)
+                {
+                    if (role.Id == (int)Enums.ROLE.ADMIN)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+
+            if (flag)
+            {
+                file = HttpUtility.UrlDecode(file);
+
+                //file = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["myBasePath"] +file);
+
+                if (!string.IsNullOrEmpty(file) && File.Exists(file))
+                {
+                    string extension = Path.GetExtension(file).ToLower();
+                    if (extension == ".jpg" || extension == ".jpeg" || extension == ".png")
+                    {
+                        context.Response.ContentType = "image/jpeg";
+                    }
+                    else if (extension == ".pdf")
+                    {
+                        context.Response.ContentType = "application/pdf";
+                        context.Response.AddHeader("Content-Disposition", "inline; filename=\"" + Path.GetFileName(file) + "\"");
+                    }
+                    else
+                    {
+                        context.Response.ContentType = "application/octet-stream";
+                        context.Response.AddHeader("Content-Disposition", "attachment; filename=\"" + Path.GetFileName(file) + "\"");
+                    }
+                    context.Response.WriteFile(file);
+                    //context.Response.End();
+                    context.ApplicationInstance.CompleteRequest();
+
+                }
+            }
+            else
+            {
+                context.ApplicationInstance.CompleteRequest();
             }
         }
 
