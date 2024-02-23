@@ -36,7 +36,7 @@ namespace DemoUserManagaement.DAL
                         ContactNumber = userInfo.ContactNumber,
                         Gender = userInfo.Gender,
                         DateOfBirth = userInfo.DateOfBirth,
-                        Password = userInfo.Password,
+                        Password = BCryptConvertion.Encrypt(userInfo.Password),
                         HighestEducation = userInfo.HighestEducation,
                         Branch = userInfo.Branch,
                         YearOfPassout = userInfo.YearOfPassout,
@@ -181,31 +181,27 @@ namespace DemoUserManagaement.DAL
                     user.BTechMarks = userInfo.BTechMarks;
                     user.MTechMarks = userInfo.MTechMarks;
                     user.Hobbies = userInfo.Hobbies;
-                    if (userInfo.ProfilePhoto != null || userInfo.ProfilePhoto != "")
+                    if (userInfo.ProfilePhoto != null && userInfo.ProfilePhoto != "")
                         user.ProfilePhoto = userInfo.ProfilePhoto;
-                    if (userInfo.Aadharcard != null || userInfo.Aadharcard != "")
+                    if (userInfo.Aadharcard != null && userInfo.Aadharcard != "")
                         user.Aadharcard = userInfo.Aadharcard;
-                    if (userInfo.MyResume != null || userInfo.MyResume != "")
+                    if (userInfo.MyResume != null && userInfo.MyResume != "")
                         user.MyResume = userInfo.MyResume;
-                    if (userInfo.GuidMyResume != null || userInfo.GuidMyResume != "")
+                    if (userInfo.GuidMyResume != null && userInfo.GuidMyResume != "")
                         user.GuidMyResume = userInfo.GuidMyResume;
-                    if (userInfo.GuidAadharcard != null || userInfo.GuidAadharcard != "")
+                    if (userInfo.GuidAadharcard != null && userInfo.GuidAadharcard != "")
                         user.GuidAadharcard = userInfo.GuidAadharcard;
-                    if (userInfo.GuidProfilePhoto != null || userInfo.GuidProfilePhoto != "")
+                    if (userInfo.GuidProfilePhoto != null && userInfo.GuidProfilePhoto != "")
                         user.GuidProfilePhoto = userInfo.GuidProfilePhoto;
                     int userid = user.UserID;
 
-
                     AddressDetail currentaddress = context.AddressDetails.Find(userInfo.CurrentAddressID);
-
 
                     currentaddress.AddressField = userInfo.CurrentAddressField;
                     currentaddress.Pincode = userInfo.CurrentPincode;
                     currentaddress.StateId = userInfo.CurrentStateId;
 
-
                     AddressDetail permarentaddress = context.AddressDetails.Find(userInfo.PermarentAddressID);
-
 
                     permarentaddress.StateId = userInfo.PermarentStateId;
                     permarentaddress.AddressField = userInfo.PermarentAddressField;
@@ -509,16 +505,13 @@ namespace DemoUserManagaement.DAL
                 {
                     IQueryable<Note> query = context.Notes;
 
-
                     // Sorting
                     query = ApplySorting(query, sortExpression, sortDirection);
-
 
                     query = query.Where(u => u.ObjectID == id);
 
                     // Pagination
                     query = query.Skip(startRowIndex).Take(maximumRows);
-
 
                     List<Note> alluser = query.ToList();
                     notes = new List<NotesInfo>();
@@ -649,16 +642,13 @@ namespace DemoUserManagaement.DAL
                 {
                     IQueryable<Document> query = context.Documents;
 
-
                     // Sorting
                     query = ApplySorting(query, sortExpression, sortDirection);
-
 
                     query = query.Where(u => u.ObjectID == id);
 
                     // Pagination
                     query = query.Skip(startRowIndex).Take(maximumRows);
-
 
                     List<Document> alldocs = query.ToList();
                     docs = new List<DocumentInfo>();
@@ -745,7 +735,7 @@ namespace DemoUserManagaement.DAL
                 {
                     UserDetail u = context.UserDetails.FirstOrDefault(s => s.Email == login.Email);
 
-                    if (u != null && u.Password == login.Password)
+                    if (u != null && BCryptConvertion.Verify(u.Password, login.Password))
                     {
                         List<UserRole> role = context.UserRoles.Where(s => s.UserId == u.UserID).ToList();
                         List<RoleModel> roles = new List<RoleModel>();

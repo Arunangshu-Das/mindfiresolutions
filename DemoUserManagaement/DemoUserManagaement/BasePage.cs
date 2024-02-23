@@ -26,7 +26,7 @@ namespace DemoUserManagaement
                     Response.Redirect("~/login.aspx");
                 }
             }
-            if (string.Equals(pagename, "register", StringComparison.OrdinalIgnoreCase))
+            else if (string.Equals(pagename, "register", StringComparison.OrdinalIgnoreCase))
             {
                 string requestid = Request.QueryString["id"];
                 int id = 0;
@@ -80,7 +80,7 @@ namespace DemoUserManagaement
                     Response.Redirect("~/Register.aspx?id=" + session.UserInfo.UserID);
                 }
             }
-            else if (pagename.ToLower() != "login" && !Authinticate())
+            else
             {
                 Response.Redirect("login.aspx");
             }

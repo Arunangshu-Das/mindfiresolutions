@@ -13,15 +13,16 @@ $(document).ready(function () {
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get('id');
 
+    updateCountry();
+
     if (userId) {
-        updateCountry();
         PageMethods.LoadUser(userId, onSucess, onError);
         function onSucess(result) {
 
             if (result == null) {
                 window.location.href = "login.aspx";
             }
-            
+
             $.each(result, function (key, value) {
                 // Find the input element with the corresponding data-name attribute
                 var inputElement = $("[data-name='" + key + "']");
@@ -101,10 +102,10 @@ $(document).ready(function () {
             var dateOfBirth = new Date(timestamp);
             console.log(dateOfBirth);
             console.log(typeof (dateOfBirth));
-            $("#dateOfBirth").val(dateOfBirth.getFullYear() + "-" + dateOfBirth.getMonth() + "-" + dateOfBirth.getDate());
+            $("#dateOfBirth").val(dateOfBirth.getFullYear() + "-" + (dateOfBirth.getMonth() + 1) + "-" + dateOfBirth.getDate());
         }
         function onError(result) {
-            alert('Something wrong.');
+            console.log(result);
         }
     }
 
@@ -147,7 +148,6 @@ $(document).ready(function () {
         }
     });
 
-    updateCountry();
 });
 
 $(document).ready(function () {
@@ -190,12 +190,13 @@ function updateCountry() {
         countryId2.empty();
         console.log(result);
         $.each(result, function (index, item) {
+            console.log(item.CountryId)
             countryId1.append($("<option></option>").val(item.CountryId).html(item.CountryNames));
             countryId2.append($("<option></option>").val(item.CountryId).html(item.CountryNames));
         });
     }
     function onError(result) {
-        alert('Something wrong.');
+        console.log(result);
     }
 
 }
@@ -217,7 +218,7 @@ function updateStates(countryDropdownId, stateDropdownId) {
     }
 
     function onError(result) {
-        alert('Something wrong.');
+        console.log(result);
     }
 }
 
@@ -428,7 +429,6 @@ function validateForm() {
     //    $("toast-message").addClass("hide");
     //}
 
-    return flag;
 
     var jsonObject = {};
 
@@ -472,7 +472,7 @@ function validateForm() {
 
     uploadFile(fileInput, filename);
 
-    jsonObject['GuidAadharcard'] = filename;
+    jsonObject['GuidAadharcard'] = filename + "." + fileInput.files[0].name.split('.').pop();
     jsonObject['Aadharcard'] = fileInput.value.replace(/^.*[\\/]/, '');
 
 
@@ -482,7 +482,7 @@ function validateForm() {
     uploadFile(fileInput, filename);
 
 
-    jsonObject['GuidProfilePhoto'] = filename;
+    jsonObject['GuidProfilePhoto'] = filename + "." + fileInput.files[0].name.split('.').pop();
     jsonObject['ProfilePhoto'] = fileInput.value.replace(/^.*[\\/]/, '');
 
     fileInput = document.getElementById('fileImage');
@@ -491,7 +491,7 @@ function validateForm() {
     uploadFile(fileInput, filename);
 
 
-    jsonObject['GuidMyResume'] = filename;
+    jsonObject['GuidMyResume'] = filename + "." + fileInput.files[0].name.split('.').pop();
     jsonObject['MyResume'] = fileInput.value.replace(/^.*[\\/]/, '');
 
 
@@ -510,7 +510,7 @@ function validateForm() {
     }
 
     function onError(result) {
-        alert('Something wrong.');
+        alert('Something goes wrong.');
     }
 
 
@@ -548,10 +548,6 @@ const openModal = function () {
     getitem();
 };
 
-
-const allDone = function () {
-    window.open("save.html", "_self");
-}
 
 const saveData = function () {
     var allList = $('[data-take="input"]');
