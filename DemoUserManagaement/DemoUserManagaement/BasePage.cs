@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using WebGrease.Css.Ast;
 using DemoUserManagaement.Utils;
 using System.IO;
+using Microsoft.Ajax.Utilities;
 
 namespace DemoUserManagaement
 {
@@ -18,14 +19,14 @@ namespace DemoUserManagaement
         protected void Page_Init(object sender, EventArgs e)
         {
             string pagename = Path.GetFileNameWithoutExtension(Page.AppRelativeVirtualPath);
-            if (pagename == "users")
+            if (string.Equals(pagename, "users", StringComparison.OrdinalIgnoreCase))
             {
                 if (!(Authinticate() && AuthorizeUser()))
                 {
                     Response.Redirect("~/login.aspx");
                 }
             }
-            if (pagename == "register")
+            if (string.Equals(pagename, "register", StringComparison.OrdinalIgnoreCase))
             {
                 string requestid = Request.QueryString["id"];
                 int id = 0;
@@ -71,7 +72,7 @@ namespace DemoUserManagaement
                     Response.Redirect("~/register.aspx?id=" + session.UserInfo.UserID);
                 }
             }
-            else if (pagename == "login")
+            else if (string.Equals(pagename, "login", StringComparison.OrdinalIgnoreCase))
             {
                 if (Authinticate())
                 {
@@ -79,7 +80,7 @@ namespace DemoUserManagaement
                     Response.Redirect("~/Register.aspx?id=" + session.UserInfo.UserID);
                 }
             }
-            else if (pagename != "login" && !Authinticate())
+            else if (pagename.ToLower() != "login" && !Authinticate())
             {
                 Response.Redirect("login.aspx");
             }
@@ -91,7 +92,7 @@ namespace DemoUserManagaement
             return new DemoUserManagaement.Business.Service().CountryNames();
         }
 
-        [WebMethod]
+        [WebMethod] 
         public static List<StateName> GetAllStates(int id)
         {
             return new DemoUserManagaement.Business.Service().AllStates(id);
@@ -207,7 +208,6 @@ namespace DemoUserManagaement
             try
             {
                 SessionClassModel Obj = SessionUtil.GetSession();
-                note.ObjectID = Obj.UserInfo.UserID;
                 new DemoUserManagaement.Business.Service().NoteSave(note);
                 flag = true;
             }
@@ -244,7 +244,6 @@ namespace DemoUserManagaement
         public static bool DocumentSave(DocumentInfo Document)
         {
             SessionClassModel Obj = SessionUtil.GetSession();
-            Document.ObjectID = Obj.UserInfo.UserID;
             return new DemoUserManagaement.Business.Service().DocumentSave(Document);
         }
 

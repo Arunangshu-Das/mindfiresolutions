@@ -21,7 +21,7 @@ $(document).ready(function () {
             if (result == null) {
                 window.location.href = "login.aspx";
             }
-
+            
             $.each(result, function (key, value) {
                 // Find the input element with the corresponding data-name attribute
                 var inputElement = $("[data-name='" + key + "']");
@@ -85,6 +85,23 @@ $(document).ready(function () {
                     break; // Break out of the loop once the value is set
                 }
             }
+
+            var timestamp;
+
+            if (result.DateOfBirth instanceof Date) {
+                // If it's already a Date object, get the timestamp directly
+                timestamp = result.DateOfBirth.getTime();
+            } else if (typeof result.DateOfBirth === 'string') {
+                // If it's a string, extract digits and convert to timestamp
+                timestamp = parseInt(result.DateOfBirth.match(/\d+/)[0]);
+            } else {
+                // Handle other cases or throw an error if needed
+                console.error('Invalid type for DateOfBirth:', typeof result.DateOfBirth);
+            }
+            var dateOfBirth = new Date(timestamp);
+            console.log(dateOfBirth);
+            console.log(typeof (dateOfBirth));
+            $("#dateOfBirth").val(dateOfBirth.getFullYear() + "-" + dateOfBirth.getMonth() + "-" + dateOfBirth.getDate());
         }
         function onError(result) {
             alert('Something wrong.');
