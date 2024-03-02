@@ -31,7 +31,7 @@ $(document).ready(function () {
                 statesDropdown.empty();
                 $.each(data, function (index, item) {
                     statesDropdown.append($('<option>', {
-                        value: item.StateId,
+                        value: item.StateId, 
                         text: item.StateNames
                     }));
                 });
