@@ -1,0 +1,390 @@
+﻿@model  DemoUserManagaement.Model.UserInfo
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="~/Content/Register.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/Scripts/UserRegistration.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<form action="@Url.Action("UserSave","UserRegistration2")" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div class="container w-100 m-auto mt-5" st yle="background-color: white; box-shadow: -5px -5px 5px 5px #5c5656;">
+
+        <div class="form-floating p-2">
+
+            <!-- Your Details -->
+            <h3>Name</h3>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.FirstName)
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First name" })
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.MiddleName)
+                    @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control", placeholder = "Middle name" })
+                    @Html.ValidationMessageFor(model => model.MiddleName)
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.LastName)
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last name" })
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+            </div>
+
+            <h3>Father Name</h3>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.FatherFirstName)
+                    @Html.TextBoxFor(model => model.FatherFirstName, new { @class = "form-control", placeholder = "First name" })
+                    @Html.ValidationMessageFor(model => model.FatherFirstName)
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.FatherMiddleName)
+                    @Html.TextBoxFor(model => model.FatherMiddleName, new { @class = "form-control", placeholder = "Middle name" })
+                    @Html.ValidationMessageFor(model => model.FatherMiddleName)
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.FatherLastName)
+                    @Html.TextBoxFor(model => model.FatherLastName, new { @class = "form-control", placeholder = "Last name" })
+                    @Html.ValidationMessageFor(model => model.FatherLastName)
+                </div>
+            </div>
+
+            <h3>Mother Name</h3>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.MotherFirstName)
+                    @Html.TextBoxFor(model => model.MotherFirstName, new { @class = "form-control", placeholder = "First name" })
+                    @Html.ValidationMessageFor(model => model.MotherFirstName)
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.MotherMiddleName)
+                    @Html.TextBoxFor(model => model.MotherMiddleName, new { @class = "form-control", placeholder = "Middle name" })
+                    @Html.ValidationMessageFor(model => model.MotherMiddleName)
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    @Html.LabelFor(model => model.MotherLastName)
+                    @Html.TextBoxFor(model => model.MotherLastName, new { @class = "form-control", placeholder = "Last name" })
+                    @Html.ValidationMessageFor(model => model.MotherLastName)
+                </div>
+            </div>
+
+
+            <fieldset>
+                <legend>
+                    Personal Details
+                </legend>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.Email, "Email address")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-envelope-at-fill"></i></span>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "email@gmail.com", data_take = "input", data_validate = "validate", data_name = "Email", data_toggle = "tooltip", title = "", onchange = "CheckEmail()" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.ContactNumber, "Phone no<span class=\"star\">*</span>:")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                            @Html.TextBoxFor(model => model.ContactNumber, new { @class = "form-control", placeholder = "+91", oninput = "validateNo(this)", data_take = "input", data_name = "ContactNumber", data_validate = "validate", data_toggle = "tooltip", title = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ContactNumber)
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3" style="margin-top: -10px;">
+                        <p>Choose your Gender<span class="star">*</span>:</p>
+                        <div class="gender d-flex">
+                            <div class="d-flex input-group w-75 flex-nowrap" data-toggle="tooltip" title="Male">
+                                <div class="input-group-text">
+                                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "radioMale", data_name = "Gender", @checked = "checked" })
+                                </div>
+                                <label for="radioMale">
+                                    <span class="form-control"><i class="bi bi-gender-male"></i></span>
+                                </label>
+                            </div>
+                            <div class="d-flex input-group w-75 flex-nowrap" data-toggle="tooltip" title="Female">
+                                <div class="input-group-text">
+                                    @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "radioFemale", data_name = "Gender" })
+                                </div>
+                                <label for="radioFemale">
+                                    <span class="form-control"><i class="bi bi-gender-female"></i></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.DateOfBirth, "Enter Date of Birth")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-cake2-fill"></i></span>
+                            @Html.TextBoxFor(model => model.DateOfBirth, new { @type = "date", @class = "form-control", id = "dateOfBirth", data_take = "input", data_name = "DateOfBirth", data_validate = "validate", @max = "2016-12-31", @min = "2000-01-01" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.DateOfBirth)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.Password, "Password")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-envelope-at-fill"></i></span>
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "password", data_take = "input", data_validate = "validate", data_name = "Password", data_toggle = "tooltip", title = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Current Address</legend>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.CurrentCountry, "Enter Country")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-building-fill"></i></span>
+                            @Html.DropDownListFor(model => model.CurrentCountry, ViewBag.CountryList as SelectList, new { @class = "form-select", id = "selectCurrentCountry", data_name = "CurrentCountry", data_take = "input" })
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.CurrentStateField, "Enter State")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-shop"></i></span>
+                            @Html.DropDownListFor(model => model.CurrentStateField, new SelectList(new List<string>()), new { @class = "form-select", id = "selectCurrentState", data_name = "CurrentStateField", data_take = "input" })
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.CurrentAddressField, "Address")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-house-door-fill"></i></span>
+                            @Html.TextBoxFor(model => model.CurrentAddressField, new { @class = "form-control", id = "txtCurrentAddress", placeholder = "Address", data_take = "input", data_name = "CurrentAddressField", data_validate = "validate" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CurrentAddressField)
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.CurrentPincode, "Pincode")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                            @Html.TextBoxFor(model => model.CurrentPincode, new { @class = "form-control", id = "txtCurrentPincode", placeholder = "Pincode", oninput = "validateNo(this)", data_take = "input", data_name = "CurrentPincode", data_validate = "validate", data_toggle = "tooltip", title = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CurrentPincode)
+                    </div>
+                </div>
+                @Html.HiddenFor(model => model.PermarentAddressID, new { id = "PermarentAddressID", data_take = "input", data_name = "PermanentAddressID" })
+            </fieldset>
+
+            <fieldset>
+                <legend>Permanent Address</legend>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.PermarentCountry, "Enter Country")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-building-fill"></i></span>
+                            @Html.DropDownListFor(model => model.PermarentCountry, ViewBag.CountryList as SelectList, new { @class = "form-select", id = "selectPermarentCountry", data_name = "PermarentCountry", data_take = "input" })
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.PermarentStateField, "Enter State")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-shop"></i></span>
+                            @Html.DropDownListFor(model => model.PermarentStateField, new SelectList(new List<string>()), new { @class = "form-select", id = "selectPermanentState", data_name = "PermanentStateField", data_take = "input" })
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.PermarentAddressField, "Address")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-house-door-fill"></i></span>
+                            @Html.TextBoxFor(model => model.PermarentAddressField, new { @class = "form-control", id = "txtPermanentAddress", placeholder = "Address", data_take = "input", data_name = "PermanentAddressField", data_validate = "validate" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PermarentAddressField)
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3">
+                        @Html.LabelFor(model => model.PermarentPincode, "Pincode")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                            @Html.TextBoxFor(model => model.PermarentPincode, new { @class = "form-control", id = "txtPermanentPincode", placeholder = "Pincode", oninput = "validateNo(this)", data_take = "input", data_name = "PermanentPincode", data_validate = "validate", data_toggle = "tooltip", title = "" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PermarentPincode)
+                    </div>
+                </div>
+
+                @Html.HiddenFor(model => model.CurrentAddressID, new { id = "CurrentAddressID", data_take = "input", data_name = "CurrentAddressID" })
+            </fieldset>
+
+            <fieldset>
+                <legend>Educational Details</legend>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        @Html.LabelFor(model => model.HighestEducation, "Highest Education")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-backpack-fill"></i></span>
+                            @Html.DropDownListFor(model => model.HighestEducation, new SelectList(new[] { "Secondary", "Higher Secondary", "B.Tech", "M.Tech" }), new { @class = "form-select", id = "selectEducation", data_name = "HighestEducation", data_take = "input" })
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4">
+                        @Html.LabelFor(model => model.Branch, "Branch")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-motherboard-fill"></i></span>
+                            @Html.DropDownListFor(model => model.Branch, new SelectList(new[] { "All" }), new { @class = "form-select w-100", id = "selectBranch", data_name = "Branch", data_take = "input" })
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4">
+                        @Html.LabelFor(model => model.YearOfPassout, "Year of passout")
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-calendar-fill"></i></span>
+                            @Html.DropDownListFor(model => model.YearOfPassout, new SelectList(new[] { "2024", "2025", "2026", "2027" }), new { @class = "form-select", id = "selectYearOfPassout", data_name = "YearOfPassout", data_take = "input" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-around flex-row-reverse flex-wrap" style="margin-top: 10px;">
+                    <div class="flex-fill">
+                        <div>
+                            <div class="col-xs-12" id="secondary-marks">
+                                @Html.LabelFor(model => model.SecondaryMarks, "Enter Secondary marks out of 100")
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="bi bi-mortarboard-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.SecondaryMarks, new { @class = "form-control", id = "txtSecondaryMarks", placeholder = "100", oninput = "validateNo(this)", data_name = "SecondaryMarks", data_take = "input" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.SecondaryMarks)
+                            </div>
+                            <div class="col-xs-12 flex-column" id="higher-secondary-marks">
+                                @Html.LabelFor(model => model.HigherSecondaryMarks, "Enter Higher Secondary marks out of 100")
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="bi bi-mortarboard-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.HigherSecondaryMarks, new { @class = "form-control", id = "txtHigherSecondaryMarks", placeholder = "100", oninput = "validateNo(this)", data_name = "HigherSecondaryMarks", data_take = "input" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.HigherSecondaryMarks)
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col-xs-12 flex-column" id="b-tech-marks">
+                                @Html.LabelFor(model => model.BTechMarks, "Enter B.Tech marks out of 100")
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="bi bi-mortarboard-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.BTechMarks, new { @class = "form-control", id = "txtBTechMarks", placeholder = "100", oninput = "validateNo(this)", data_name = "BTechMarks", data_take = "input" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.BTechMarks)
+                            </div>
+                            <div class="col-xs-12 flex-column" id="m-tech-marks">
+                                @Html.LabelFor(model => model.MTechMarks, "Enter M.Tech marks out of 100")
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class=\"bi bi-mortarboard-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.MTechMarks, new { @class = "form-control", id = "txtMTechMarks", placeholder = "100", oninput = "validateNo(this)", data_name = "MTechMarks", data_take = "input" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.MTechMarks)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-fill">
+                        <div>
+                            <div class="col-xs-12" id="secondary-school-name">
+                                @Html.LabelFor(model => model.SecondarySchoolName, "Enter Secondary School name")
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="bi bi-building-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.SecondarySchoolName, new { @class = "form-control", id = "txtSecondarySchoolName", placeholder = "ABC School", data_name = "SecondarySchoolName", data_take = "input" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.SecondarySchoolName)
+                            </div>
+                            <div class="col-xs-12 flex-column" id="higher-secondary-school-name">
+                                @Html.LabelFor(model => model.HigherSecondarySchoolName, "Enter Higher Secondary School name")
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="bi bi-building-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.HigherSecondarySchoolName, new { @class = "form-control", id = "txtHigherSecondarySchoolName", placeholder = "ABC School", data_name = "HigherSecondarySchoolName", data_take = "input" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.HigherSecondarySchoolName)
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="col-xs-12 flex-column" id="b-tech-college-name">
+                                @Html.LabelFor(model => model.BTechCollegeName, "Enter B.Tech college name")
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="bi bi-building-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.BTechCollegeName, new { @class = "form-control", id = "txtBTechCollegeName", placeholder = "XYZ College", data_name = "BTechCollegeName", data_take = "input" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.BTechCollegeName)
+                            </div>
+                            <div class="col-xs-12 flex-column" id="m-tech-college-name">
+                                @Html.LabelFor(model => model.MTechCollegeName, "Enter M.Tech college name")
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="bi bi-building-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.MTechCollegeName, new { @class = "form-control", id = "txtMTechCollegeName", placeholder = "XYZ College", data_name = "MTechCollegeName", data_take = "input" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.MTechCollegeName)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Documents</legend>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        @Html.LabelFor(model => model.ProfilePhoto, "Enter Your image", new { @class = "w-100" })
+                        <img id="imgOutput" class="showReponse" width="200" />
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-file-image-fill"></i></span>
+                            <input type="file" class="form-control upload" id="fileImage" name="fileImage" accept="image/png, image/jpg, image/jpeg" data-validate="validate" data-take="input">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        @Html.LabelFor(model => model.Aadharcard, "Enter Your Aadhaar Card", new { @class = "w-100" })
+                        <img id="imgAadharCard" class="showReponse" width="200" />
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="bi bi-file-image-fill"></i></span>
+                            <input type="file" class="form-control upload" id="fileAadharCard" name="fileAadharCard" accept="image/png, image/jpg, image/jpeg" data-validate="validate" data-take="input">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        @Html.LabelFor(model => model.MyResume, "Enter Resume", new { @class = "w-100" })
+                        <iframe id="showResume" class="showReponse" width="200" style="display: none;"></iframe>
+                        <div class="input-group flex-nowrap mt-4">
+                            <span class="input-group-text"><i class="bi bi-file-earmark-pdf-fill"></i></span>
+                            <input type="file" class="form-control upload mt-3" id="fileResume" name="fileResume" accept="application/pdf" data-validate="validate" data-take="input">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <h3>About You</h3>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        @Html.LabelFor(model => model.AboutMyself, "Tell me about Yourself:")
+                        <textarea class="form-control w-75" style="height: 100px" id="txtAboutYourself" name="txtAboutYourself" cols="80" rows="5" data-take="input"></textarea>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        @Html.LabelFor(model => model.Hobbies, "Enter your hobbies:")
+                        <textarea class="form-control w-75" style="height: 100px" id="txtHobbies" name="txtHobbies" cols="80" rows="5" data-take="input"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+
+
+            <div class="d-flex w-100 justify-content-between flex-wrap">
+                <button class="col-xs-12 col-sm-4 m-auto btn btn-outline-success" onclick="validateForm()">Submit</button>
+                <button type="reset" class="col-xs-12 col-sm-4 m-auto btn btn-outline-danger">Reset</button>
+            </div>
+        </div>
+    </div>
+</form>
