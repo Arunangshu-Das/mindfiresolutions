@@ -1,0 +1,137 @@
+﻿@model List<DemoUserManagaement.Model.UserInfo>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/Users.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            background-color: #fff;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .pagination {
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .page-item {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .page-link {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>User Details</h2>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th><a href="@Url.Action("Index", new { Order = "UserID", Direction = ViewBag.CurrentSortDir == "ASC" ? "DESC" : "ASC" })">User ID</a></th>
+                        <th><a href="@Url.Action("Index", new { Order = "FirstName", Direction = ViewBag.CurrentSortDir == "ASC" ? "DESC" : "ASC" })">First Name</a></th>
+                        <th><a href="@Url.Action("Index", new { Order = "MiddleName", Direction = ViewBag.CurrentSortDir == "ASC" ? "DESC" : "ASC" })">Middle Name</a></th>
+                        <th><a href="@Url.Action("Index", new { Order = "LastName", Direction = ViewBag.CurrentSortDir == "ASC" ? "DESC" : "ASC" })">Last Name</a></th>
+                        <th><a href="@Url.Action("Index", new { Order = "FatherFirstName", Direction = ViewBag.CurrentSortDir == "ASC" ? "DESC" : "ASC" })">Father's Name</a></th>
+                        <th><a href="@Url.Action("Index", new { Order = "MotherFirstName", Direction = ViewBag.CurrentSortDir == "ASC" ? "DESC" : "ASC" })">Mother's Name</a></th>
+                        <th><a href="@Url.Action("Index", new { Order = "Email", Direction = ViewBag.CurrentSortDir == "ASC" ? "DESC" : "ASC" })">Email</a></th>
+                        <th><a href="@Url.Action("Index", new { Order = "ContactNumber", Direction = ViewBag.CurrentSortDir == "ASC" ? "DESC" : "ASC" })">Contact Number</a></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.UserID</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.MiddleName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.FatherFirstName</td>
+                            <td>@user.MotherFirstName</td>
+                            <td>@user.Email</td>
+                            <td>@user.ContactNumber</td>
+
+                            <td>
+                                <a href="@Url.Action("GetUserDetails", "UserDetails", new { id = user.UserID })" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if (ViewBag.PageSize > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { Page = ViewBag.PageSize - 1, Order = ViewBag.CurrentSort, Direction = ViewBag.CurrentSortDir })">Previous</a>
+                        </li>
+                    }
+
+                    @for (int i = ViewBag.PageSize - 2; i <= ViewBag.PageSize + 2; i++)
+                    {
+                        if (i > 0 && i <= ViewBag.TotalPages)
+                        {
+                            <li class="@(i == ViewBag.PageSize ? "page-item active" : "page-item")">
+                                <a class="page-link" href="@Url.Action("Index", new { Page = i, Order = ViewBag.CurrentSort, Direction = ViewBag.CurrentSortDir })">@i</a>
+                            </li>
+                        }
+                    }
+
+                    @if (ViewBag.PageSize <= ViewBag.TotalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { Page = ViewBag.PageSize, Order = ViewBag.CurrentSort, Direction = ViewBag.CurrentSortDir })">Next</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</body>
+</html>

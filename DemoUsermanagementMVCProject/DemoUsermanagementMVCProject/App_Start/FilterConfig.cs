@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using DemoUsermanagementMVCProject.Helper;
+using System.Web;
 using System.Web.Mvc;
 
 namespace DemoUsermanagementMVCProject
@@ -8,6 +9,8 @@ namespace DemoUsermanagementMVCProject
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new CustomFilterAttribute());
+
         }
     }
 }

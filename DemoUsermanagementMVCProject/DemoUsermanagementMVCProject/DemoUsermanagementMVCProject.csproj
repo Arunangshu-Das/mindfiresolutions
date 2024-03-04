@@ -122,11 +122,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Login2Controller.cs" />
+    <Compile Include="Controllers\UserList2Controller.cs" />
     <Compile Include="Controllers\UserRegistration2Controller.cs" />
     <Compile Include="Controllers\UserRegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CustomFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +187,7 @@
     <Content Include="Views\UserRegistration\Index.cshtml" />
     <Content Include="Views\UserRegistration2\Index.cshtml" />
     <Content Include="Views\Login2\Index.cshtml" />
+    <Content Include="Views\UserList2\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

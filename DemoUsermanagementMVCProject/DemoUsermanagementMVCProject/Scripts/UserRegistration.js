@@ -12,6 +12,14 @@ $(document).ready(function () {
 
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get('id');
+
+    $("#selectCurrentState").change(function () {
+        $('currentstateid').val($('#selectCurrentState').val());
+    })
+
+    $("#selectPermanentState").change(function () {
+        $('permarentstateid').val($('#selectPermanentState').val());
+    })
     
     $("#selectPermarentCountry").change(function () {
         // Get the selected country value

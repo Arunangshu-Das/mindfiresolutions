@@ -27,7 +27,7 @@ namespace DemoUsermanagementMVCProject.Controllers
                 SessionUtil.SetSession(roles);
                 
             }
-            return View(model);
+            return RedirectToAction("EditUser", "UserRegistration2", new { id = SessionUtil.GetSession().UserInfo.UserID });
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using DemoUserManagaement.Business;
 
 namespace DemoUsermanagementMVCProject.Controllers
 {
@@ -78,6 +79,17 @@ namespace DemoUsermanagementMVCProject.Controllers
             {
                 return null;
             }
+        }
+
+        public ActionResult EditUser(int id)
+        {
+            
+            UserInfo user = new Service().UserGet(id);
+            List<CountryName> countries = new DemoUserManagaement.Business.Service().CountryNames();
+
+            // Store the list of countries in ViewBag
+            ViewBag.CountryList = new SelectList(countries, "CountryId", "CountryNames");
+            return View("Index", user);
         }
 
     }
