@@ -384,10 +384,25 @@
 
 
 
+            <div class="row mt-5 mb-5">
+                <div class="col-xs-6 col-sm-6">
+                    @if (ViewBag.EditMode == true)
+                    {
+                        @Html.Action("_Notes", "Notes", new { objectId = Model.UserID });
+                    }
+                </div>
+
+                <div class="col-xs-6 col-sm-6">
+                </div>
+            </div>
+
+
+
             <div class="d-flex w-100 justify-content-between flex-wrap">
                 <button class="col-xs-12 col-sm-4 m-auto btn btn-outline-success" onclick="validateForm()">Submit</button>
                 <button type="reset" class="col-xs-12 col-sm-4 m-auto btn btn-outline-danger">Reset</button>
             </div>
         </div>
     </div>
+
 </form>

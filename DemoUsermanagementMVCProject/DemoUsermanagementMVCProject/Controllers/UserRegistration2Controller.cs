@@ -83,7 +83,7 @@ namespace DemoUsermanagementMVCProject.Controllers
 
         public ActionResult EditUser(int id)
         {
-            
+            ViewBag.EditMode = true;
             UserInfo user = new Service().UserGet(id);
             List<CountryName> countries = new DemoUserManagaement.Business.Service().CountryNames();
 

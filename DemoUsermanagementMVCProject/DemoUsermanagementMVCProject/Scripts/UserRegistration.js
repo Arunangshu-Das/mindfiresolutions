@@ -30,7 +30,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "GetAllStates", // replace with the correct URL
+            url: "/UserRegistration2/GetAllStates", // replace with the correct URL
             data: JSON.stringify({ countryId: selectedCountryId }),
             dataType: "json",
             success: function (data) {
@@ -60,7 +60,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "GetAllStates", // replace with the correct URL
+            url: "/UserRegistration2/GetAllStates", // replace with the correct URL
             data: JSON.stringify({ countryId: selectedCountryId }),
             dataType: "json",
             success: function (data) {

@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Login2Controller.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\UserList2Controller.cs" />
     <Compile Include="Controllers\UserRegistration2Controller.cs" />
     <Compile Include="Controllers\UserRegistrationController.cs" />
@@ -188,6 +189,7 @@
     <Content Include="Views\UserRegistration2\Index.cshtml" />
     <Content Include="Views\Login2\Index.cshtml" />
     <Content Include="Views\UserList2\Index.cshtml" />
+    <Content Include="Views\Notes\_Notes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

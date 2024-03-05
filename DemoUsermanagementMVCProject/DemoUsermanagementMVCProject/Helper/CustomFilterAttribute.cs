@@ -67,7 +67,7 @@ namespace DemoUsermanagementMVCProject.Helper
 
                     if (!flag)
                     {
-                        new RedirectResult("~/Login2/Index");
+                        filterContext.Result = new RedirectResult("~/Login2/Index");
                     }
                 }
                 else if (session.UserInfo != null)
@@ -82,10 +82,6 @@ namespace DemoUsermanagementMVCProject.Helper
                     SessionClassModel session = SessionUtil.GetSession();
                     filterContext.Result = new RedirectResult("~/UserRegistration2/EditUser/" + SessionUtil.GetSession().UserInfo.UserID);
                 }
-            }
-            else
-            {
-                filterContext.Result = new RedirectResult("~/UserList2/Index");
             }
         }
 
