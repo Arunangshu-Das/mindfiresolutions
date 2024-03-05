@@ -696,6 +696,9 @@ namespace DemoUserManagaement.DAL
                 case "TimeStamp":
                     query = sortDirection == "ASC" ? query.OrderBy(u => u.TimeStamp) : query.OrderByDescending(u => u.TimeStamp);
                     break;
+                default:
+                    query = sortDirection == "DESC" ? query.OrderBy(u => u.DocumentID) : query.OrderBy(u => u.DocumentID);
+                    break;
             }
 
             return query;

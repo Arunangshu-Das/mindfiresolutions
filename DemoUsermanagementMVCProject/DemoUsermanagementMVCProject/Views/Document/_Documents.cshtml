@@ -1,0 +1,136 @@
+﻿@model List<DemoUserManagaement.Model.DocumentInfo>
+
+<h5>Add Document:</h5>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="notesDisplay">
+                <input type="hidden" id="documentobjecttype" />
+                <div class="form-group">
+                    <input type="file" class="form-control upload mt-3" id="inputfile" name="fileResume" multiple data-validate="validate" data-take="input">
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                    <select id="selectDropDown" class="form-select" name="selectCurrentCountry" data-name="CurrentCountry" data-take="input">
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Singapore">Singapore</option>
+                    </select>
+                </div>
+                <br />
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="Insert()">Add</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <table id="docsGrid" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href="#" class="documents-sort-link" data-sortby="DocumentID">Document ID</a>
+                            </th>
+                            <th>
+                                <a href="#" class="documents-sort-link" data-sortby="DocumentOriginalName">Document Name</a>
+                            </th>
+                            <th>
+                                <a href="#" class="documents-sort-link" data-sortby="TimeStamp">Time Stamp</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (var document in Model)
+                    {
+                        <tr>
+                            <td>@document.DocumentID</td>
+                            <td>@document.DocumentOriginalName</td>
+                            <td>@document.TimeStamp</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    var currentPage = ViewBag.DocumentsPage ?? 0;
+    var documentsSortBy = ViewBag.DocumentsSortBy;
+    var pageSize = ViewBag.DocumentsPageSize ?? 3;
+    var objectId = ViewBag.DocumentsObjectId;
+    var totalDoc = new DemoUserManagaement.Business.Service().LenDocs(objectId);
+    var totalPages = (int)Math.Ceiling((double)totalDoc / pageSize);
+
+}
+
+<ul class="pagination">
+
+    @for (int i = 1; i <= totalPages - 1; i++)
+    {
+        <li class="page-item @(i == currentPage ? "active" : "")">
+            <a class="page-link" href="?page=@i&sortBy=@documentsSortBy">@i</a>
+        </li>
+    }
+</ul>
+
+<script>
+    $(document).ready(function () {
+        $('#docsGrid').on('click', 'th a', function (e) {
+            e.preventDefault();
+
+            var sortBy = $(this).data('sortby');
+            $(this).toggleClass('asc desc');
+            $('.documents-sort-link').not(this).removeClass('active');
+            $(this).addClass('active');
+
+            var sortOrder = $(this).hasClass('asc') ? 'asc' : 'desc';
+            var objectId = @ViewBag.DocumentsObjectId;
+
+            $.ajax({
+                url: '/Document/_Documents',
+                type: 'GET',
+                data: { objectId: objectId, page: 0, sortBy: sortBy, sortOrder: sortOrder },
+                success: function (result) {
+                    $('#docsGrid tbody').html($(result).find('tbody').html());
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    });
+
+    function Insert() {
+        var fileInput = document.querySelectorAll('#inputfile');
+        var files = fileInput[0].files; // Access files from the first element in NodeList
+        var ObjectID = @ViewBag.DocumentsObjectId;
+
+        for (var i = 0; i < files.length; i++) {
+
+            var filename = uuidv4();
+            var selected = document.getElementById("selectDropDown").value;
+            var formData = new FormData();
+            formData.append("file", files[i]); // Access files from the array
+            formData.append("documenttype", "2");
+            formData.append("id", ObjectID);
+            $.ajax({
+                type: "POST",
+                url: "/Document/SaveDocs",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false, // Add this line to ensure proper content type
+                success: function (result) {
+                    console.log("success", result);
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log("error", xhr, status, error);
+                },
+            });
+        }
+    }
+
+</script>

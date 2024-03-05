@@ -393,6 +393,10 @@
                 </div>
 
                 <div class="col-xs-6 col-sm-6">
+                    @if (ViewBag.EditMode == true)
+                    {
+                        @Html.Action("_Documents", "Document", new { objectId = Model.UserID });
+                    }
                 </div>
             </div>
 
