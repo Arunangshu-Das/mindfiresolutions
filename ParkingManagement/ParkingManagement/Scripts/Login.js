@@ -22,16 +22,16 @@
 //    });
 //});
 
-$('#loginForm').submit(function (e) {
-    var formData = $(this).serialize();
-    $.ajax({
-        type: "POST",
-        url: '/Login/Login',
-        data: formData,
-        success: function (result) {
-            console.log(result);
-        },
-        error: function (xhr, status, error) {
-        }
-    });
-});
+//$('#loginForm').submit(function (e) {
+//    var formData = $(this).serialize();
+//    $.ajax({
+//        type: "POST",
+//        url: '/Login/Login',
+//        data: formData,
+//        success: function (result) {
+//            console.log(result);
+//        },
+//        error: function (xhr, status, error) {
+//        }
+//    });
+//});

@@ -6,7 +6,7 @@
 @using (Html.BeginForm("Login", "Login", FormMethod.Post))
 {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <script src="scripts/Login.js"></script>
+    @*<script src="scripts/Login.js"></script>*@
     <style>
         .login-container {
             max-width: 400px;
@@ -34,6 +34,6 @@
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="Authenticate(); return false;">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 }

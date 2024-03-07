@@ -86,23 +86,26 @@
     </form>
 </section>
 
-<section>
-    <h2>Book Parking Space</h2>
-    <form id="bookForm">
-        <label for="registrationNumber">Vehicle Registration Number:</label>
-        <input type="text" id="registrationNumber" name="registrationNumber" required>
-        <button type="button" onclick="bookSpace()">Book Space</button>
-    </form>
-</section>
+@if (ViewBag.IsAuthorize)
+{
+    <section>
+        <h2>Book Parking Space</h2>
+        <form id="bookForm">
+            <label for="registrationNumber">Vehicle Registration Number:</label>
+            <input type="text" id="registrationNumber" name="registrationNumber" required>
+            <button type="button" onclick="bookSpace()">Book Space</button>
+        </form>
+    </section>
 
-<section>
-    <h2>Release Parking Space</h2>
-    <form id="releaseForm">
-        <label for="releaseRegistrationNumber">Vehicle Registration Number:</label>
-        <input type="text" id="releaseRegistrationNumber" name="releaseRegistrationNumber" required>
-        <button type="button" onclick="releaseSpace()">Release Space</button>
-    </form>
-</section>
+    <section>
+        <h2>Release Parking Space</h2>
+        <form id="releaseForm">
+            <label for="releaseRegistrationNumber">Vehicle Registration Number:</label>
+            <input type="text" id="releaseRegistrationNumber" name="releaseRegistrationNumber" required>
+            <button type="button" onclick="releaseSpace()">Release Space</button>
+        </form>
+    </section>
+}
 
 <script>
     $(document).ready(function () {
@@ -142,7 +145,7 @@
     function showAllData() {
         // Restore the original table content
         $('#parkingTable tbody tr').each(function () {
-                $(this).show();
+            $(this).show();
         });
     }
 

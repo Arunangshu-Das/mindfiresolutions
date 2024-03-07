@@ -26,5 +26,9 @@ namespace ParkingManagement.Business
         {
             return new DataAccess().FreeSpace(vehicleRegistrationNumber);
         }
+        public List<ReportModel> GenerateParkingReport(DateTime startDate, DateTime endDate)
+        {
+            return new DataAccess().GenerateParkingReport(startDate, endDate);
+        }
     }
 }

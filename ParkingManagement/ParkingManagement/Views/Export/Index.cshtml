@@ -1,0 +1,260 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Zone Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #555;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="checkbox"] {
+            margin-bottom: 8px;
+        }
+
+        input[type="date"],
+        input[type="checkbox"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        fieldset {
+            display: flex;
+        }
+
+            fieldset label {
+                display: flex;
+                padding: 8px;
+            }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+        #reportContainer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Parking Zone Report</h2>
+
+    <form id="parkingForm">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" required>
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" required>
+
+        <fieldset>
+            <legend>Parking Zone:</legend>
+            <label>
+                <input type="checkbox" name="zone" value="A"> A
+            </label>
+            <label>
+                <input type="checkbox" name="zone" value="B"> B
+            </label>
+            <label>
+                <input type="checkbox" name="zone" value="C"> C
+            </label>
+        </fieldset>
+
+        <button type="button" onclick="generateReport()">Generate Report</button>
+        <button type="button" onclick="generatePDF()">Generate PDF</button>
+    </form>
+
+    <div id="reportContainer"></div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+    <script>
+         function generateReport() {
+            // Make AJAX call to Export action
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+                $.ajax({
+                    url: '@Url.Action("Export", "Export")', // Replace with the actual URL of your Export action
+                    type: 'GET',
+                    data: { startDate: startDate, endDate: endDate },
+                    dataType: 'json',
+                    success: function (data) {
+                        // Perform the report generation logic
+                        var reportContent = `<h3>Generated Report</h3>`;
+
+                        // Generate the table header
+                        reportContent += `<table id="reporttable">
+                            <tr>
+                                <th>Parking Zone</th>
+                                <th>Parking Space</th>
+                                <th># of Booking</th>
+                                <th># of Vehicle Parked (0/1)</th>
+                            </tr>`;
+
+                        // Iterate over the data to populate the table rows
+                        for (var i = 0; i < data.length; i++) {
+                            var entry = data[i];
+
+                            // If it's the first entry for a zone, add a row with rowspan
+                            if (i === 0 || entry.ParkingZone !== data[i - 1].ParkingZone) {
+                                reportContent += `<tr>
+                                        <td rowspan="${data.filter(item => item.ParkingZone === entry.ParkingZone).length}">${entry.ParkingZone}</td>
+                                        <td>${entry.ParkingSpace}</td>
+                                        <td>${entry.NumberOfBookings}</td>
+                                        <td>${entry.NumberOfVehiclesParked}</td>
+                                    </tr>`;
+                            } else {
+                                // For subsequent entries in the same zone, add rows without rowspan
+                                reportContent += `<tr>
+                                    <td>${entry.ParkingSpace}</td>
+                                    <td>${entry.NumberOfBookings}</td>
+                                    <td>${entry.NumberOfVehiclesParked}</td>
+                                </tr>`;
+                            }
+                        }
+
+                        // Close the table tag
+                        reportContent += `</table>`;
+
+                        // Display the report in the reportContainer
+                        document.getElementById("reportContainer").innerHTML = reportContent;
+                    },
+                    error: function (error) {
+                        // Handle the error response
+                        console.log(error);
+
+                        // Replace the following line with your logic to handle the error
+                        alert('Export failed. Check the console for error details.');
+                    }
+                });
+
+         }
+
+        function generatePDF() {
+
+
+            // Make AJAX call to Export action
+var startDate = $("#startDate").val();
+var endDate = $("#endDate").val();
+    $.ajax({
+        url: '@Url.Action("Export", "Export")', // Replace with the actual URL of your Export action
+        type: 'GET',
+        data: { startDate: startDate, endDate: endDate },
+        dataType: 'json',
+        success: function (data) {
+            // Perform the report generation logic
+            var reportContent = `<h3>Generated Report</h3>`;
+
+            // Generate the table header
+            reportContent += `<div><table id="reporttable">
+                <tr>
+                    <th>Parking Zone</th>
+                    <th>Parking Space</th>
+                    <th># of Booking</th>
+                    <th># of Vehicle Parked (0/1)</th>
+                </tr>`;
+
+            // Iterate over the data to populate the table rows
+            for (var i = 0; i < data.length; i++) {
+                var entry = data[i];
+                    reportContent += `<tr>
+                        <td>${entry.ParkingZone}</td>
+                        <td>${entry.ParkingSpace}</td>
+                        <td>${entry.NumberOfBookings}</td>
+                        <td>${entry.NumberOfVehiclesParked}</td>
+                    </tr>`;
+            }
+
+            // Close the table tag
+            reportContent += `</table></div>`;
+
+            // Create a new jsPDF instance
+            var pdf = new jsPDF();
+
+            // Add the content to the PDF
+            pdf.fromHTML(reportContent, 15, 30);
+
+            // Save the PDF
+            pdf.save('exported_report.pdf');
+
+        },
+        error: function (error) {
+            // Handle the error response
+            console.log(error);
+
+            // Replace the following line with your logic to handle the error
+            alert('Export failed. Check the console for error details.');
+        }
+    });
+        }
+
+    </script>
+
+</body>
+</html>

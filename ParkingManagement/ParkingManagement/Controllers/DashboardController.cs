@@ -4,15 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ParkingManagement.Business;
+using ParkingManagement.Helper;
 using ParkingManagement.Model;
+using ParkingManagement.Utils;
 
 namespace ParkingManagement.Controllers
 {
     public class DashboardController : Controller
     {
         // GET: Dashboard
+        [CustomFilterAttribute]
         public ActionResult Dashboard()
         {
+            ViewBag.IsAuthorize = Convert.ToInt32(SessionUtil.GetSession().Type)==1;
             return View();
         }
 

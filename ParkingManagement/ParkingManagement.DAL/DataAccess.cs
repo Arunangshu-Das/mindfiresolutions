@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using ParkingManagement.Model;
@@ -49,7 +50,7 @@ namespace ParkingManagement.DAL
                                                     {
                                                         ParkingSpaceTitle = p.ParkingSpaceTitle,
                                                         ParkingStatus = p.VehicleParkings.OrderByDescending(vp => vp.VehicleParkingID).Select(vp => vp.ReleaseDateTime).FirstOrDefault(),
-                                                        RegistrationNumber = p.VehicleParkings.OrderByDescending(vp => vp.VehicleParkingID).Where(vp => vp.BookingDateTime != null).Count(vp => vp.ReleaseDateTime==null) != 0 ? p.VehicleParkings.OrderByDescending(Vp => Vp.VehicleParkingID).Select(vp => vp.RegistrationNumber).FirstOrDefault() : null
+                                                        RegistrationNumber = p.VehicleParkings.OrderByDescending(vp => vp.VehicleParkingID).Where(vp => vp.BookingDateTime != null).Count(vp => vp.ReleaseDateTime == null) != 0 ? p.VehicleParkings.OrderByDescending(Vp => Vp.VehicleParkingID).Select(vp => vp.RegistrationNumber).FirstOrDefault() : null
                                                     })
                                                     .ToList();
 
@@ -80,12 +81,17 @@ namespace ParkingManagement.DAL
             {
                 using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
                 {
-                    //var vacantParkingSpace = context.ParkingSpaces.FirstOrDefault(ps => ps.ParkingAvailability == 1);
 
                     var vacantParkingSpace = context.ParkingSpaces
-        .Where(ps => !context.VehicleParkings.Any(vp => vp.ParkingSpaceID == ps.ParkingSpaceID))
-        .Select(ps => new { ps.ParkingSpaceID, ps.ParkingZoneID })
-        .FirstOrDefault();
+                .Where(ps => !context.VehicleParkings.Any(vp =>
+                    vp.ParkingSpaceID == ps.ParkingSpaceID &&
+                    (vp.ReleaseDateTime == null || vp.BookingDateTime == null)))
+                .Select(ps => new
+                {
+                    ParkingSpaceID = ps.ParkingSpaceID,
+                    ParkingZoneID = ps.ParkingZoneID
+                })
+                .FirstOrDefault();
 
                     if (vacantParkingSpace != null)
                     {
@@ -119,32 +125,46 @@ namespace ParkingManagement.DAL
 
         public bool FreeSpace(string vehicleRegistrationNumber)
         {
-            bool flag = true;
-            //try
-            //{
-            //    using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
-            //    {
-            //        Vehicle vehicle = context.Vehicles.FirstOrDefault(v => v.RegistrationNumber == vehicleRegistrationNumber);
-            //        if (vehicle != null)
-            //        {
-            //            VehicleParking vehiclepark = context.VehicleParkings.FirstOrDefault(v => v.VehicleID == vehicle.VehicleID && v.ReleaseDateTime == null);
+            bool flag = false;
+            try
+            {
+                using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                {
+                    VehicleParking vehicleparking = context.VehicleParkings.Where(vp => vp.RegistrationNumber == vehicleRegistrationNumber && vp.ReleaseDateTime == null).OrderByDescending(vp => vp.VehicleParkingID).FirstOrDefault();
+                    if (vehicleparking != null)
+                    {
+                        vehicleparking.ReleaseDateTime = DateTime.Now;
+                        context.SaveChanges();
+                        flag = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
 
-            //            if (vehiclepark != null)
-            //            {
-            //                vehiclepark.ReleaseDateTime = DateTime.Now;
-            //                var ParkingSpace = context.ParkingSpaces.FirstOrDefault(ps => ps.ParkingSpaceID == vehiclepark.ParkingSpaceID);
-            //                ParkingSpace.ParkingAvailability = 1;
-            //                context.SaveChanges();
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
+            }
 
             return flag;
+        }
+
+        public List<ReportModel> GenerateParkingReport(DateTime startDate, DateTime endDate)
+        {
+            List<ReportModel> report = null;
+            using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+            {
+                report = (from pz in context.ParkingZones
+                          from ps in context.ParkingSpaces.Where(x => x.ParkingZoneID == pz.ParkingZoneID).DefaultIfEmpty()
+                          from vp in context.VehicleParkings.Where(x => x.ParkingSpaceID == ps.ParkingSpaceID && x.BookingDateTime >= startDate && x.BookingDateTime <= endDate).OrderByDescending(x=>x.VehicleParkingID).Take(1).DefaultIfEmpty()
+                          select new ReportModel
+                          {
+                              ParkingZone = pz.ParkingZoneTitle,
+                              ParkingSpace = ps.ParkingSpaceTitle,
+                              NumberOfBookings = context.VehicleParkings.Count(x => x.ParkingSpaceID == ps.ParkingSpaceID && x.BookingDateTime >= startDate && x.BookingDateTime <= endDate),
+                              NumberOfVehiclesParked = ((vp != null && vp.ReleaseDateTime.HasValue )|| vp==null) ? 0 : 1
+                          }).Distinct().ToList();
+
+                return report;
+            }
         }
     }
 }
