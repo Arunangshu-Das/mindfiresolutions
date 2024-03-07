@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    header {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    section {
+        margin: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .available {
+        background-color: #8eff8e; /* Green for available spaces */
+    }
+
+    .occupied {
+        background-color: #d9d9d9; /* Gray for occupied spaces */
+    }
+
+    .vacant {
+        background-color: green; /* Green for vacant spaces */
+        color: #ffffff;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+</style>
+
+<header>
+    <h1>Parking Management Dashboard</h1>
+</header>
+
+<section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <h2>Parking Space Listing</h2>
+    <table id="parkingTable">
+        <thead>
+            <tr>
+                <th>Parking Space Title</th>
+                <th>Status</th>
+                <th>Vehicle Registration Number</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+    <form id="filterspace">
+        <label for="filterZone">Filter by Parking Zone:</label>
+        <select id="filterZone" name="filterZone">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+        <button type="button" onclick="filterSpaces()">Apply Filter</button>
+        <button type="button" id="showAll">Show All</button>
+    </form>
+</section>
+
+<section>
+    <h2>Book Parking Space</h2>
+    <form id="bookForm">
+        <label for="registrationNumber">Vehicle Registration Number:</label>
+        <input type="text" id="registrationNumber" name="registrationNumber" required>
+        <button type="button" onclick="bookSpace()">Book Space</button>
+    </form>
+</section>
+
+<section>
+    <h2>Release Parking Space</h2>
+    <form id="releaseForm">
+        <label for="releaseRegistrationNumber">Vehicle Registration Number:</label>
+        <input type="text" id="releaseRegistrationNumber" name="releaseRegistrationNumber" required>
+        <button type="button" onclick="releaseSpace()">Release Space</button>
+    </form>
+</section>
+
+<script>
+    $(document).ready(function () {
+        fetchAllData();
+    });
+
+    // Make an AJAX request to fetch parking space data
+    function fetchAllData() {
+        $('#parkingTable tbody').empty();
+        $.ajax({
+            url: '/Dashboard/FetchAllData', // Replace with the actual controller and action names
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Loop through the data and fill the table
+                $.each(data, function (index, item) {
+                    var statusClass = item.Availability === 'occupied' ? 'occupied' : 'vacant';
+                    var RegistrationNumber = item.RegistrationNumber == null ? "" : item.RegistrationNumber;
+                    var newRow = '<tr>' +
+                        '<td>' + item.ParkingSpaceTitle + '</td>' +
+                        '<td class="' + statusClass + '">' + item.Availability + '</td>' +
+                        '<td>' + RegistrationNumber + '</td>' +
+                        '</tr>';
+                    $('#parkingTable tbody').append(newRow);
+                });
+            },
+            error: function (error) {
+                console.log('Error fetching data: ', error);
+            }
+        });
+    }
+
+    $('#showAll').on('click', function () {
+        showAllData();
+    });
+
+    function showAllData() {
+        // Restore the original table content
+        $('#parkingTable tbody tr').each(function () {
+                $(this).show();
+        });
+    }
+
+    // JavaScript functions for handling dynamic content and interactions
+    function filterSpaces() {
+        var selectedZone = $('#filterZone').val();
+
+        // Loop through table rows and hide/show based on the selected zone
+        $('#parkingTable tbody tr').each(function () {
+            var spaceTitle = $(this).find('td:first').text();
+            var showRow = spaceTitle.startsWith(selectedZone);
+
+            if (showRow) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+
+    function bookSpace() {
+        var registrationNumber = $('#registrationNumber').val();
+        $.ajax({
+            url: '/Dashboard/BookParkingSpace', // Update the URL to match your controller and action
+            type: 'POST',
+            data: { vehicleRegistrationNumber: registrationNumber },
+            dataType: 'json',
+            success: function (result) {
+                if (result.success) {
+                    alert('Car booked successfully!');
+                } else {
+                    alert('Failed to book parking space.');
+                }
+            },
+            error: function () {
+                alert('Error while making the AJAX call.');
+            }
+        });
+        fetchAllData();
+    }
+
+    function releaseSpace() {
+        var registrationNumber = $('#releaseRegistrationNumber').val();
+        $.ajax({
+            url: '/Dashboard/FreeParkingSpace', // Update the URL to match your controller and action
+            type: 'POST',
+            data: { vehicleRegistrationNumber: registrationNumber },
+            dataType: 'json',
+            success: function (result) {
+                if (result.success) {
+                    alert('Car booked successfully!');
+                } else {
+                    alert('Failed to book parking space.');
+                }
+            },
+            error: function () {
+                alert('Error while making the AJAX call.');
+            }
+        });
+        fetchAllData();
+    }
+</script>

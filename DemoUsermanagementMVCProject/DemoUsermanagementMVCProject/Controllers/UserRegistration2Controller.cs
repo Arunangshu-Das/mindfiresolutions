@@ -36,16 +36,34 @@ namespace DemoUsermanagementMVCProject.Controllers
         {
             try
             {
-                var uploadResult = HandleFileUpload(fileImage);
-                userinfo.GuidProfilePhoto = uploadResult;
-                userinfo.ProfilePhoto = Path.GetFileName(fileImage.FileName);
-                uploadResult = HandleFileUpload(fileAadharCard);
-                userinfo.GuidAadharcard = uploadResult;
-                userinfo.Aadharcard = Path.GetFileName(fileAadharCard.FileName);
-                uploadResult = HandleFileUpload(fileResume);
-                userinfo.GuidMyResume = uploadResult;
-                userinfo.MyResume = Path.GetFileName(fileResume.FileName);
-                new DemoUserManagaement.Business.Service().UserSave(userinfo);
+                if(fileImage != null)
+                {
+                    var uploadResult = HandleFileUpload(fileImage);
+                    userinfo.GuidProfilePhoto = uploadResult;
+                    userinfo.ProfilePhoto = Path.GetFileName(fileImage.FileName);
+                }
+                if (fileAadharCard != null)
+                {
+                    var uploadResult = HandleFileUpload(fileAadharCard);
+                    userinfo.GuidAadharcard = uploadResult;
+                    userinfo.Aadharcard = Path.GetFileName(fileAadharCard.FileName);
+                }
+                if(fileResume != null)
+                {
+                    var uploadResult = HandleFileUpload(fileResume);
+                    userinfo.GuidMyResume = uploadResult;
+                    userinfo.MyResume = Path.GetFileName(fileResume.FileName);
+                }
+                if (userinfo.UserID == 0)
+                {
+                    new DemoUserManagaement.Business.Service().UserSave(userinfo);
+                    return RedirectToAction("Index", "Login2");
+                }
+                else
+                {
+                    new DemoUserManagaement.Business.Service().UserUpdate(userinfo);
+                    return RedirectToAction("Index", "Login2");
+                }
                 
             }
             catch(Exception ex)
