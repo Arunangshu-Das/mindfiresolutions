@@ -20,11 +20,11 @@ namespace ParkingManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Signup(Signup userdata)
+        public ActionResult Signup(SignupModel userdata)
         {
             try
             {
-                if (new Service().FindEmail(userdata.Email) == false)
+                if (new Service().FindEmail(userdata.Email) == true)
                 {
                     bool data = new Service().SignUp(userdata);
                     if (data == true)

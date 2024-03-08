@@ -1,9 +1,18 @@
-﻿@model ParkingManagement.Model.Signup
+﻿@model ParkingManagement.Model.SignupModel
 @{
     ViewBag.Title = "Index";
 }
 
 <link href="@Url.Content("~/Content/Signup.css")" rel="stylesheet" type="text/css" />
+
+<h2> SignUp</h2>
+
+@if (TempData["SignupErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["SignupErrorMessage"]
+    </div>
+}
 
 @using (Html.BeginForm("Signup", "Signup", FormMethod.Post))
 {

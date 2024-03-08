@@ -19,7 +19,6 @@ namespace ParkingManagement.Controllers
             ViewBag.IsAuthorize = Convert.ToInt32(SessionUtil.GetSession().Type)==1;
             List<ParkingZoneModel> zonelist = new Service().AllParkingZone();
 
-            // Store the list of countries in ViewBag
             ViewBag.zonelist = new SelectList(zonelist, "ParkingZoneID", "ParkingZoneTitle");
             return View();
         }

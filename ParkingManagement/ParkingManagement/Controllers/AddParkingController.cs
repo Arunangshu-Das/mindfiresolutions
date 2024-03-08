@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ParkingManagement.Business;
 using ParkingManagement.Helper;
+using ParkingManagement.Utils;
 
 namespace ParkingManagement.Controllers
 {
@@ -35,7 +36,7 @@ namespace ParkingManagement.Controllers
             }
             catch (Exception ex)
             {
-
+                Logger.AddData(ex);
             }
 
             return View(model);

@@ -30,7 +30,7 @@ namespace ParkingManagement.Business
         {
             return new DataAccess().GenerateParkingReport(startDate, endDate);
         }
-        public bool SignUp(Signup userdata)
+        public bool SignUp(SignupModel userdata)
         {
             return new DataAccess().SignUp(userdata);
         }

@@ -173,7 +173,7 @@ namespace ParkingManagement.DAL
             return report;
         }
 
-        public bool SignUp(Signup userdata)
+        public bool SignUp(SignupModel userdata)
         {
             bool flag = false;
             try
@@ -205,27 +205,22 @@ namespace ParkingManagement.DAL
 
                 using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
                 {
-                    // Check if parking zone with the same title already exists
                     ParkingZone existingZone = context.ParkingZones.FirstOrDefault(z => z.ParkingZoneTitle == model.ParkingZoneTitle);
 
                     if (existingZone == null)
                     {
-                        // If parking zone doesn't exist, add a new one
                         ParkingZone parkingzone = new ParkingZone();
                         parkingzone.ParkingZoneTitle = model.ParkingZoneTitle;
                         context.ParkingZones.Add(parkingzone);
 
                         context.SaveChanges();
 
-                        // Add parking spaces for the specified zone
                         for (int i = 1; i <= model.NumberOfSpaces; i++)
                         {
                             string spaceName = $"{model.ParkingZoneTitle}{i:D2}";
 
-                            // Check if parking space with the same title already exists
                             if (context.ParkingSpaces.Any(s => s.ParkingSpaceTitle == spaceName))
                             {
-                                // Increment the counter and update spaceName
                                 int counter = 1;
                                 do
                                 {
@@ -243,7 +238,6 @@ namespace ParkingManagement.DAL
                     }
                     else
                     {
-                        // Append parking spaces to the existing zone
                         var lastSpace = context.ParkingSpaces
                             .Where(s => s.ParkingZoneID == existingZone.ParkingZoneID)
                             .OrderByDescending(s => s.ParkingSpaceTitle)

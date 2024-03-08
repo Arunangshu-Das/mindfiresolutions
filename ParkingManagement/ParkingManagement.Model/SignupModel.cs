@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ParkingManagement.Model
 {
-    public class Signup
+    public class SignupModel
     {
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public String Type { get; set; }
+        public string Type { get; set; }
     }
 }

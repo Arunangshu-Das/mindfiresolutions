@@ -2,7 +2,7 @@
     var email = $('#Email').val();
 
     $.ajax({
-        url: 'EmailCheck',
+        url: 'Signup/EmailCheck',
         type: 'GET',
         data: { email: email },
         success: function (data) {

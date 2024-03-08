@@ -1,15 +1,12 @@
-﻿// Function to format the date as "YYYY-MM-DD"
-function formatDate(date) {
+﻿function formatDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
 
-// Get the current date
 const currentDate = new Date();
 
-// Set the current date for both input fields
 document.getElementById('startDate').value = formatDate(currentDate);
 document.getElementById('endDate').value = formatDate(currentDate);
 function generateReport() {
