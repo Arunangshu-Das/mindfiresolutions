@@ -7,7 +7,6 @@ using System.Runtime.Remoting.Contexts;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using DemoUserManagaement.Utils;
 using ParkingManagement.Model;
 using ParkingManagement.Utils;
 

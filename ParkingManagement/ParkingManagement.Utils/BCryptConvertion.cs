@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoUserManagaement.Utils
+namespace ParkingManagement.Utils
 {
     public class BCryptConvertion
     {

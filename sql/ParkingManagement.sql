@@ -30,15 +30,6 @@ CREATE TABLE VehicleParking (
     FOREIGN KEY (ParkingSpaceID) REFERENCES ParkingSpace(ParkingSpaceID)
 );
 
-drop table ParkingSpace;
-
-
-CREATE TABLE Vehicle (
-    VehicleID INT IDENTITY(1,1) PRIMARY KEY,
-    RegistrationNumber VARCHAR(20) UNIQUE NOT NULL
-);
-
-
 INSERT INTO Users (Name, Email, Password, Type)
 VALUES ('ffff', 'ffff@example.com', 'ffff', 2);
 
