@@ -25,7 +25,7 @@ namespace ParkingManagement.Controllers
 
         public ActionResult FetchAllData()
         {
-            List<ParkingSpaceShowModel> allspace = new Service().AllSpace();
+            List<ParkingSpaceShowModel> allspace = new Service().AllParkingSpace();
 
             return Json(allspace, JsonRequestBehavior.AllowGet);
         }

@@ -7,6 +7,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using DemoUserManagaement.Utils;
 using ParkingManagement.Model;
 using ParkingManagement.Utils;
 
@@ -14,6 +15,11 @@ namespace ParkingManagement.DAL
 {
     public class DataAccess
     {
+        /// <summary>
+        /// Check is valid credential or not if valid then user login
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public SessionModel Login(LoginModel model)
         {
             SessionModel session = null;
@@ -22,7 +28,7 @@ namespace ParkingManagement.DAL
                 using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
                 {
                     User user = context.Users.FirstOrDefault(u => u.Email == model.Email);
-                    if (user != null && user.Password == model.Password)
+                    if (user != null && BCryptConvertion.Verify(user.Password, model.Password))
                     {
                         session = new SessionModel();
                         session.Email = model.Email;
@@ -39,7 +45,11 @@ namespace ParkingManagement.DAL
             return session;
         }
 
-        public List<ParkingSpaceShowModel> AllSpace()
+        /// <summary>
+        /// Return AllParkingSpace
+        /// </summary>
+        /// <returns></returns>
+        public List<ParkingSpaceShowModel> AllParkingSpace()
         {
             List<ParkingSpaceShowModel> allparkingspace = null;
             try
@@ -75,6 +85,11 @@ namespace ParkingManagement.DAL
             return allparkingspace;
         }
 
+        /// <summary>
+        /// Book A parking Space for a valid car number
+        /// </summary>
+        /// <param name="vehicleRegistrationNumber"></param>
+        /// <returns></returns>
         public bool BookSpace(string vehicleRegistrationNumber)
         {
             bool flag = true;
@@ -122,6 +137,11 @@ namespace ParkingManagement.DAL
             return flag;
         }
 
+        /// <summary>
+        /// Free A parking Space for a car 
+        /// </summary>
+        /// <param name="vehicleRegistrationNumber"></param>
+        /// <returns></returns>
         public bool FreeSpace(string vehicleRegistrationNumber)
         {
             bool flag = false;
@@ -146,6 +166,12 @@ namespace ParkingManagement.DAL
             return flag;
         }
 
+        /// <summary>
+        /// Return Parking Report for car 
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public List<ReportModel> GenerateParkingReport(DateTime startDate, DateTime endDate)
         {
             List<ReportModel> report = null;
@@ -173,6 +199,11 @@ namespace ParkingManagement.DAL
             return report;
         }
 
+        /// <summary>
+        /// SignUp for new user
+        /// </summary>
+        /// <param name="userdata"></param>
+        /// <returns></returns>
         public bool SignUp(SignupModel userdata)
         {
             bool flag = false;
@@ -183,7 +214,7 @@ namespace ParkingManagement.DAL
                     User user = new User();
                     user.Name = userdata.Name;
                     user.Email = userdata.Email;
-                    user.Password = userdata.Password;
+                    user.Password = BCryptConvertion.Encrypt(userdata.Password);
                     user.Type = Convert.ToInt32(userdata.Type);
                     context.Users.Add(user);
                     context.SaveChanges();
@@ -197,6 +228,11 @@ namespace ParkingManagement.DAL
             return flag;
         }
 
+        /// <summary>
+        /// Add Parking Space for zones
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool AddParkingSpace(ParkingModel model)
         {
             bool flag = false;
@@ -264,6 +300,10 @@ namespace ParkingManagement.DAL
             return flag;
         }
 
+        /// <summary>
+        /// Return All parking zone
+        /// </summary>
+        /// <returns></returns>
         public List<ParkingZoneModel> AllParkingZone()
         {
             List<ParkingZoneModel> parkingzones = null;
@@ -287,6 +327,11 @@ namespace ParkingManagement.DAL
             return parkingzones;
         }
 
+        /// <summary>
+        /// Find out a email already exists or not
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool FindEmail(string email)
         {
             bool flag = false;
@@ -308,6 +353,10 @@ namespace ParkingManagement.DAL
             return flag;
         }
 
+        /// <summary>
+        /// Delete All transaction
+        /// </summary>
+        /// <returns></returns>
         public bool DeleteAllTransaction()
         {
             bool flag = false;

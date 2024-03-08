@@ -14,9 +14,9 @@ namespace ParkingManagement.Business
         {
             return new DataAccess().Login(model);
         }
-        public List<ParkingSpaceShowModel> AllSpace()
+        public List<ParkingSpaceShowModel> AllParkingSpace()
         {
-            return new DataAccess().AllSpace();
+            return new DataAccess().AllParkingSpace();
         }
         public bool BookSpace(string vehicleRegistrationNumber)
         {
