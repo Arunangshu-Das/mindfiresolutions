@@ -26,8 +26,8 @@ namespace ParkingManagement.DAL
         }
     
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<ParkingZone> ParkingZones { get; set; }
         public virtual DbSet<ParkingSpace> ParkingSpaces { get; set; }
+        public virtual DbSet<ParkingZone> ParkingZones { get; set; }
         public virtual DbSet<VehicleParking> VehicleParkings { get; set; }
     }
 }

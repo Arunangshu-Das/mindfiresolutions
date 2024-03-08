@@ -1,45 +1,44 @@
-﻿using System;
+﻿using ParkingManagement.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ParkingManagement.Model;
-using ParkingManagement.Utils;
 using ParkingManagement.Business;
-using System.Reflection;
+using ParkingManagement.Helper;
 
 namespace ParkingManagement.Controllers
 {
-    public class LoginController : Controller
+    public class AddParkingController : Controller
     {
-        // GET: Login
+        // GET: AddParking
+        [CustomFilterAttribute]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(LoginModel login)
+        public ActionResult InitializeParkingData(ParkingModel model)
         {
             try
             {
-                SessionModel session = new Service().Login(login);
-                if (session != null)
+                bool data = new Service().AddParkingSpace(model);
+                if (data == true)
                 {
                     return RedirectToAction("Dashboard", "Dashboard");
                 }
                 else
                 {
-                    TempData["LoginErrorMessage"] = "Invalid credentials. Please try again.";
-                    return RedirectToAction("Index", "Login");
+                    return View(model);
                 }
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+
             }
-            
-            return View(login);
+
+            return View(model);
         }
     }
 }

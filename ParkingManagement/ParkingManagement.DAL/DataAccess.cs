@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using ParkingManagement.Model;
@@ -31,9 +32,9 @@ namespace ParkingManagement.DAL
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                Logger.AddData(ex);
             }
             return session;
         }
@@ -67,9 +68,9 @@ namespace ParkingManagement.DAL
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                Logger.AddData(ex);
             }
             return allparkingspace;
         }
@@ -95,7 +96,6 @@ namespace ParkingManagement.DAL
 
                     if (vacantParkingSpace != null)
                     {
-                        // Create a new VehicleParking record
                         var newVehicleParking = new VehicleParking
                         {
                             ParkingZoneID = vacantParkingSpace.ParkingZoneID,
@@ -104,7 +104,6 @@ namespace ParkingManagement.DAL
                             BookingDateTime = DateTime.Now
                         };
 
-                        // Save changes to the database
                         context.VehicleParkings.Add(newVehicleParking);
                         context.SaveChanges();
                         flag = true;
@@ -117,7 +116,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-
+                Logger.AddData(ex);
             }
 
             return flag;
@@ -141,7 +140,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-
+                Logger.AddData(ex);
             }
 
             return flag;
@@ -150,21 +149,188 @@ namespace ParkingManagement.DAL
         public List<ReportModel> GenerateParkingReport(DateTime startDate, DateTime endDate)
         {
             List<ReportModel> report = null;
-            using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+            endDate = endDate.AddDays(1);
+            try
             {
-                report = (from pz in context.ParkingZones
-                          from ps in context.ParkingSpaces.Where(x => x.ParkingZoneID == pz.ParkingZoneID).DefaultIfEmpty()
-                          from vp in context.VehicleParkings.Where(x => x.ParkingSpaceID == ps.ParkingSpaceID && x.BookingDateTime >= startDate && x.BookingDateTime <= endDate).OrderByDescending(x=>x.VehicleParkingID).Take(1).DefaultIfEmpty()
-                          select new ReportModel
-                          {
-                              ParkingZone = pz.ParkingZoneTitle,
-                              ParkingSpace = ps.ParkingSpaceTitle,
-                              NumberOfBookings = context.VehicleParkings.Count(x => x.ParkingSpaceID == ps.ParkingSpaceID && x.BookingDateTime >= startDate && x.BookingDateTime <= endDate),
-                              NumberOfVehiclesParked = ((vp != null && vp.ReleaseDateTime.HasValue )|| vp==null) ? 0 : 1
-                          }).Distinct().ToList();
-
-                return report;
+                using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                {
+                    report = (from pz in context.ParkingZones
+                              from ps in context.ParkingSpaces.Where(x => x.ParkingZoneID == pz.ParkingZoneID).DefaultIfEmpty()
+                              from vp in context.VehicleParkings.Where(x => x.ParkingSpaceID == ps.ParkingSpaceID && x.BookingDateTime >= startDate && x.BookingDateTime <= endDate).OrderByDescending(x => x.VehicleParkingID).Take(1).DefaultIfEmpty()
+                              select new ReportModel
+                              {
+                                  ParkingZone = pz.ParkingZoneTitle,
+                                  ParkingSpace = ps.ParkingSpaceTitle,
+                                  NumberOfBookings = context.VehicleParkings.Count(x => x.ParkingSpaceID == ps.ParkingSpaceID && x.BookingDateTime >= startDate && x.BookingDateTime <= endDate),
+                                  NumberOfVehiclesParked = ((vp != null && vp.ReleaseDateTime.HasValue) || vp == null) ? 0 : 1
+                              }).Distinct().ToList();
+                }
             }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return report;
+        }
+
+        public bool SignUp(Signup userdata)
+        {
+            bool flag = false;
+            try
+            {
+                using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                {
+                    User user = new User();
+                    user.Name = userdata.Name;
+                    user.Email = userdata.Email;
+                    user.Password = userdata.Password;
+                    user.Type = Convert.ToInt32(userdata.Type);
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                    flag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return flag;
+        }
+
+        public bool AddParkingSpace(ParkingModel model)
+        {
+            bool flag = false;
+            try
+            {
+
+                using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                {
+                    // Check if parking zone with the same title already exists
+                    ParkingZone existingZone = context.ParkingZones.FirstOrDefault(z => z.ParkingZoneTitle == model.ParkingZoneTitle);
+
+                    if (existingZone == null)
+                    {
+                        // If parking zone doesn't exist, add a new one
+                        ParkingZone parkingzone = new ParkingZone();
+                        parkingzone.ParkingZoneTitle = model.ParkingZoneTitle;
+                        context.ParkingZones.Add(parkingzone);
+
+                        context.SaveChanges();
+
+                        // Add parking spaces for the specified zone
+                        for (int i = 1; i <= model.NumberOfSpaces; i++)
+                        {
+                            string spaceName = $"{model.ParkingZoneTitle}{i:D2}";
+
+                            // Check if parking space with the same title already exists
+                            if (context.ParkingSpaces.Any(s => s.ParkingSpaceTitle == spaceName))
+                            {
+                                // Increment the counter and update spaceName
+                                int counter = 1;
+                                do
+                                {
+                                    counter++;
+                                    spaceName = $"{model.ParkingZoneTitle}{counter:D2}";
+                                } while (context.ParkingSpaces.Any(s => s.ParkingSpaceTitle == spaceName));
+                            }
+
+                            ParkingSpace space = new ParkingSpace { ParkingSpaceTitle = spaceName, ParkingZoneID = parkingzone.ParkingZoneID };
+                            context.ParkingSpaces.Add(space);
+                        }
+
+                        context.SaveChanges();
+                        flag = true;
+                    }
+                    else
+                    {
+                        // Append parking spaces to the existing zone
+                        var lastSpace = context.ParkingSpaces
+                            .Where(s => s.ParkingZoneID == existingZone.ParkingZoneID)
+                            .OrderByDescending(s => s.ParkingSpaceTitle)
+                            .FirstOrDefault();
+
+                        int startCounter = (lastSpace != null) ? int.Parse(lastSpace.ParkingSpaceTitle.Substring(existingZone.ParkingZoneTitle.Length)) + 1 : 1;
+
+                        for (int i = startCounter; i < startCounter + model.NumberOfSpaces; i++)
+                        {
+                            string spaceName = $"{model.ParkingZoneTitle}{i:D2}";
+                            ParkingSpace space = new ParkingSpace { ParkingSpaceTitle = spaceName, ParkingZoneID = existingZone.ParkingZoneID };
+                            context.ParkingSpaces.Add(space);
+                        }
+
+                        context.SaveChanges();
+                        flag = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return flag;
+        }
+
+        public List<ParkingZoneModel> AllParkingZone()
+        {
+            List<ParkingZoneModel> parkingzones = null;
+            try
+            {
+                using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                {
+                    parkingzones = context.ParkingZones.Select(p => new ParkingZoneModel
+                    {
+                        ParkingZoneID = p.ParkingZoneID,
+                        ParkingZoneTitle = p.ParkingZoneTitle,
+                    })
+                                                             .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+
+            return parkingzones;
+        }
+
+        public bool FindEmail(string email)
+        {
+            bool flag = false;
+            try
+            {
+                using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                {
+                    int count = context.Users.Where(u => u.Email == email).Count();
+                    if (count == 0)
+                    {
+                        flag = true;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return flag;
+        }
+
+        public bool DeleteAllTransaction()
+        {
+            bool flag = false;
+            try
+            {
+                using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                {
+                    context.Database.ExecuteSqlCommand("truncate table vehicleparking");
+                    context.SaveChanges();
+                    flag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddData(ex);
+            }
+            return flag;
         }
     }
 }

@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using ParkingManagement.Business;
+using ParkingManagement.Helper;
 
 namespace ParkingManagement.Controllers
 {
+    [CustomFilterAttribute]
     public class ExportController : Controller
     {
         // GET: Export

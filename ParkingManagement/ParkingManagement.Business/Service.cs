@@ -30,5 +30,25 @@ namespace ParkingManagement.Business
         {
             return new DataAccess().GenerateParkingReport(startDate, endDate);
         }
+        public bool SignUp(Signup userdata)
+        {
+            return new DataAccess().SignUp(userdata);
+        }
+        public bool AddParkingSpace(ParkingModel model)
+        {
+            return new DataAccess().AddParkingSpace(model);
+        }
+        public List<ParkingZoneModel> AllParkingZone()
+        {
+            return new DataAccess().AllParkingZone();
+        }
+        public bool FindEmail(string email)
+        {
+            return new DataAccess().FindEmail(email);
+        }
+        public bool DeleteAllTransaction()
+        {
+            return new DataAccess().DeleteAllTransaction();
+        }
     }
 }

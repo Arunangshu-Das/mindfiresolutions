@@ -17,6 +17,10 @@ namespace ParkingManagement.Controllers
         public ActionResult Dashboard()
         {
             ViewBag.IsAuthorize = Convert.ToInt32(SessionUtil.GetSession().Type)==1;
+            List<ParkingZoneModel> zonelist = new Service().AllParkingZone();
+
+            // Store the list of countries in ViewBag
+            ViewBag.zonelist = new SelectList(zonelist, "ParkingZoneID", "ParkingZoneTitle");
             return View();
         }
 
@@ -30,7 +34,6 @@ namespace ParkingManagement.Controllers
         [HttpPost]
         public ActionResult BookParkingSpace(string vehicleRegistrationNumber)
         {
-            // Assuming you have a method in ParkingContext to book a space
             bool bookingResult = new Service().BookSpace(vehicleRegistrationNumber);
 
             return Json(new { success = bookingResult });
@@ -39,10 +42,17 @@ namespace ParkingManagement.Controllers
         [HttpPost]
         public ActionResult FreeParkingSpace(string vehicleRegistrationNumber)
         {
-            // Assuming you have a method in ParkingContext to book a space
             bool bookingResult = new Service().FreeSpace(vehicleRegistrationNumber);
 
             return Json(new { success = bookingResult });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAllTransaction()
+        {
+            bool result = new Service().DeleteAllTransaction();
+
+            return Json(new { success = result });
         }
     }
 }

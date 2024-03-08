@@ -15,7 +15,6 @@ CREATE TABLE ParkingSpace (
     ParkingSpaceID INT IDENTITY(1,1) PRIMARY KEY,
     ParkingSpaceTitle VARCHAR(255) NOT NULL,
     ParkingZoneID INT,
-	ParkingAvailability INT Default 1, 
     FOREIGN KEY (ParkingZoneID) REFERENCES ParkingZone(ParkingZoneID)
 );
 
@@ -24,15 +23,14 @@ CREATE TABLE VehicleParking (
     VehicleParkingID INT IDENTITY(1,1) PRIMARY KEY,
     ParkingZoneID INT,
     ParkingSpaceID INT,
-    VehicleID INT, 
+	RegistrationNumber VARCHAR(20) NOT NULL,
     BookingDateTime DATETIME NOT NULL,
     ReleaseDateTime DATETIME,
     FOREIGN KEY (ParkingZoneID) REFERENCES ParkingZone(ParkingZoneID),
-    FOREIGN KEY (ParkingSpaceID) REFERENCES ParkingSpace(ParkingSpaceID),
-    FOREIGN KEY (VehicleID) REFERENCES Vehicle(VehicleID)
+    FOREIGN KEY (ParkingSpaceID) REFERENCES ParkingSpace(ParkingSpaceID)
 );
 
-drop table VehicleParking;
+drop table ParkingSpace;
 
 
 CREATE TABLE Vehicle (
