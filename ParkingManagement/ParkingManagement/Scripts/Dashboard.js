@@ -38,6 +38,7 @@ $('#deleteAll').on('click', function () {
         success: function (result) {
             if (result.success) {
                 alert('Data Deleted successfully!');
+                fetchAllData();
             } else {
                 alert('Failed to Delete');
             }
@@ -46,7 +47,6 @@ $('#deleteAll').on('click', function () {
             alert('Failed to delete');
         }
     });
-    fetchAllData();
 });
 
 function showAllData() {
@@ -86,6 +86,7 @@ function bookSpace() {
                 if (result.success) {
                     alert('Car booked successfully!');
                     $('#registrationNumber').val("");
+                    fetchAllData();
                 } else {
                     alert('Failed to book parking space.');
                 }
@@ -97,7 +98,6 @@ function bookSpace() {
     } else {
         alert('Not a valid Registration Number')
     }
-    fetchAllData();
 }
 
 function releaseSpace() {
@@ -111,6 +111,7 @@ function releaseSpace() {
             if (result.success) {
                 alert('Car released successfully!');
                 $('#releaseRegistrationNumber').val("");
+                fetchAllData();
             } else {
                 alert('Failed to release parking space.');
             }
@@ -119,5 +120,4 @@ function releaseSpace() {
             alert('Error while making the AJAX call.');
         }
     });
-    fetchAllData();
 }

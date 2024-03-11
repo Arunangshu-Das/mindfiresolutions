@@ -21,7 +21,7 @@ namespace ParkingManagement.Controllers
             ViewBag.IsAuthorize = Convert.ToInt32(SessionUtil.GetSession().Type)== (int)ADDRESS.BOOKING_COUNTER_AGENT;
             List<ParkingZoneModel> zonelist = new ParkingManagement.Business.Service().AllParkingZone();
 
-            ViewBag.zonelist = new SelectList(zonelist, "ParkingZoneID", "ParkingZoneTitle");
+            ViewBag.ZoneList = new SelectList(zonelist, "ParkingZoneID", "ParkingZoneTitle");
             return View();
         }
 

@@ -13,18 +13,18 @@
             @if (TempData["LoginErrorMessage"] != null)
             {
                 <div class="alert alert-danger" role="alert">
-                    @TempData["ErrorMessage"]
+                    @TempData["LoginErrorMessage"]
                 </div>
             }
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, new { @class = "control-label" })
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter email" })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter email", required = "required", type = "email" })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Password, new { @class = "control-label" })
-                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", required = "required" })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>

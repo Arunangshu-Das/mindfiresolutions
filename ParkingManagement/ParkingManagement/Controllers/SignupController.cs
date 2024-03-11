@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Xml;
 using ParkingManagement.Utils;
 using System.Web.Helpers;
+using System.Text.RegularExpressions;
 
 namespace ParkingManagement.Controllers
 {
@@ -26,7 +27,7 @@ namespace ParkingManagement.Controllers
             {
                 if (new Service().FindEmail(userdata.Email) == true)
                 {
-                    bool data = new Service().SignUp(userdata);
+                    bool data = new Service().Signup(userdata);
                     if (data == true)
                     {
                         return RedirectToAction("Index", "Login");
@@ -51,9 +52,17 @@ namespace ParkingManagement.Controllers
             return View(userdata);
         }
 
+        static bool IsValidEmail(string email)
+        {
+            string emailRegex = @"^[^\s@]+@[^\s@]+\.[^\s@]+$";
+            Regex regex = new Regex(emailRegex);
+
+            return regex.IsMatch(email);
+        }
+
         public ActionResult EmailCheck(string email)
         {
-            return Json(new Service().FindEmail(email), JsonRequestBehavior.AllowGet);
+            return Json(IsValidEmail(email) && new Service().FindEmail(email), JsonRequestBehavior.AllowGet);
         }
 
     }

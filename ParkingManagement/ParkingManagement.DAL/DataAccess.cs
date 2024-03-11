@@ -62,7 +62,7 @@ namespace ParkingManagement.DAL
                                                         ParkingStatus = p.VehicleParkings.OrderByDescending(vp => vp.VehicleParkingID).Select(vp => vp.ReleaseDateTime).FirstOrDefault(),
                                                         RegistrationNumber = p.VehicleParkings.OrderByDescending(vp => vp.VehicleParkingID).Where(vp => vp.BookingDateTime != null).Count(vp => vp.ReleaseDateTime == null) != 0 ? p.VehicleParkings.OrderByDescending(Vp => Vp.VehicleParkingID).Select(vp => vp.RegistrationNumber).FirstOrDefault() : null
                                                     })
-                                                    .ToList();
+                                                    .OrderBy(p=>p.ParkingSpaceTitle).ToList();
 
 
                     allparkingspace = new List<ParkingSpaceShowModel>();
@@ -203,7 +203,7 @@ namespace ParkingManagement.DAL
         /// </summary>
         /// <param name="userdata"></param>
         /// <returns></returns>
-        public bool SignUp(SignupModel userdata)
+        public bool Signup(SignupModel userdata)
         {
             bool flag = false;
             try
