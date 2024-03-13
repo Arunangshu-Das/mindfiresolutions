@@ -39,7 +39,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
             return session;
         }
@@ -48,9 +48,9 @@ namespace ParkingManagement.DAL
         /// Return AllParkingSpace
         /// </summary>
         /// <returns></returns>
-        public List<ParkingSpaceShowModel> AllParkingSpace()
+        public List<ParkingSpaceModel> AllParkingSpace()
         {
-            List<ParkingSpaceShowModel> allparkingspace = null;
+            List<ParkingSpaceModel> allparkingspace = null;
             try
             {
                 using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
@@ -58,6 +58,7 @@ namespace ParkingManagement.DAL
                     var parkingSpacesInfo = context.ParkingSpaces
                                                     .Select(p => new
                                                     {
+                                                        ParkingSpaceId=p.ParkingSpaceID,
                                                         ParkingSpaceTitle = p.ParkingSpaceTitle,
                                                         ParkingStatus = p.VehicleParkings.OrderByDescending(vp => vp.VehicleParkingID).Select(vp => vp.ReleaseDateTime).FirstOrDefault(),
                                                         RegistrationNumber = p.VehicleParkings.OrderByDescending(vp => vp.VehicleParkingID).Where(vp => vp.BookingDateTime != null).Count(vp => vp.ReleaseDateTime == null) != 0 ? p.VehicleParkings.OrderByDescending(Vp => Vp.VehicleParkingID).Select(vp => vp.RegistrationNumber).FirstOrDefault() : null
@@ -65,11 +66,12 @@ namespace ParkingManagement.DAL
                                                     .OrderBy(p=>p.ParkingSpaceTitle).ToList();
 
 
-                    allparkingspace = new List<ParkingSpaceShowModel>();
+                    allparkingspace = new List<ParkingSpaceModel>();
 
                     foreach (var info in parkingSpacesInfo)
                     {
-                        ParkingSpaceShowModel parkingspace = new ParkingSpaceShowModel();
+                        ParkingSpaceModel parkingspace = new ParkingSpaceModel();
+                        parkingspace.ParkingSpaceId = info.ParkingSpaceId;
                         parkingspace.ParkingSpaceTitle = info.ParkingSpaceTitle;
                         parkingspace.Availability = info.ParkingStatus == null && info.RegistrationNumber != null ? "occupied" : "vacant";
                         parkingspace.RegistrationNumber = info.RegistrationNumber;
@@ -79,9 +81,62 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
             return allparkingspace;
+        }
+
+        public bool BookSpaceById(ParkingSpaceModel parkingmodel)
+        {
+            bool flag = false;
+            try
+            {
+                using(ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                {
+                    ParkingSpace parkingspace= context.ParkingSpaces.FirstOrDefault(u => u.ParkingSpaceID == parkingmodel.ParkingSpaceId);
+                    if (parkingspace != null)
+                    {
+                        var newVehicleParking = new VehicleParking
+                        {
+                            ParkingZoneID = parkingspace.ParkingZoneID,
+                            ParkingSpaceID = parkingspace.ParkingSpaceID,
+                            RegistrationNumber = parkingmodel.RegistrationNumber,
+                            BookingDateTime = DateTime.Now
+                        };
+                        context.VehicleParkings.Add(newVehicleParking);
+                        context.SaveChanges();
+                        flag = true;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.AddLog(ex);
+            }
+            return flag;
+        }
+
+        public bool FreeSpaceById(int id)
+        {
+            bool flag = false;
+            try
+            {
+                using (ParkingManagementEntities1 context = new ParkingManagementEntities1())
+                { 
+                    VehicleParking vehicleparking = context.VehicleParkings.OrderByDescending(v=>v.VehicleParkingID).FirstOrDefault(v=>v.ParkingSpaceID == id);
+                    if (vehicleparking != null)
+                    {
+                        vehicleparking.ReleaseDateTime = DateTime.Now;
+                        context.SaveChanges();
+                    }
+                }
+                flag = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.AddLog(ex);
+            }
+            return flag;
         }
 
         /// <summary>
@@ -130,7 +185,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
 
             return flag;
@@ -159,7 +214,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
 
             return flag;
@@ -193,7 +248,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
             return report;
         }
@@ -222,7 +277,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
             return flag;
         }
@@ -294,7 +349,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
             return flag;
         }
@@ -320,7 +375,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
 
             return parkingzones;
@@ -347,7 +402,7 @@ namespace ParkingManagement.DAL
             }
             catch(Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
             return flag;
         }
@@ -370,7 +425,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
             return flag;
         }

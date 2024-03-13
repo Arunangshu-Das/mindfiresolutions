@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,7 +10,8 @@ namespace ParkingManagement.Utils
 {
     public class BCryptConvertion
     {
-        public static byte[] salt = Convert.FromBase64String("Mind");
+        static string saltvalue = ConfigurationManager.AppSettings["SaltValue"];
+        public static byte[] salt = Convert.FromBase64String(saltvalue);
         public static string Encrypt(string input)
         {
             // Hash the password using the salt

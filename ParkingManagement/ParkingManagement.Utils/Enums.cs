@@ -8,7 +8,7 @@ namespace ParkingManagement.Utils
 {
     public class Enums
     {
-        public enum ADDRESS
+        public enum AGENT_TYPE
         {
             BOOKING_COUNTER_AGENT = 1,
             PARKING_ZONE_ASSISTANT = 2

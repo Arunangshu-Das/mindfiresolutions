@@ -14,7 +14,7 @@ namespace ParkingManagement.Business
         {
             return new DataAccess().Login(model);
         }
-        public List<ParkingSpaceShowModel> AllParkingSpace()
+        public List<ParkingSpaceModel> AllParkingSpace()
         {
             return new DataAccess().AllParkingSpace();
         }
@@ -49,6 +49,14 @@ namespace ParkingManagement.Business
         public bool DeleteAllTransaction()
         {
             return new DataAccess().DeleteAllTransaction();
+        }
+        public bool BookSpaceById(ParkingSpaceModel parkingmodel)
+        {
+            return new DataAccess().BookSpaceById(parkingmodel);
+        }
+        public bool FreeSpaceById(int id)
+        {
+            return new DataAccess().FreeSpaceById(id);
         }
     }
 }

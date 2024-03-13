@@ -31,6 +31,16 @@
                     }
                 </ul>
             </div>
+            <div class="text-white">
+                @if (Session["info"] != null)
+                {
+                    var session = ParkingManagement.Utils.SessionUtil.GetSession();
+                    if (session != null && session.Name != null)
+                    {
+                        <p>Welcome @session.Name </p>
+                    }
+                }
+            </div>
         </div>
     </nav>
     <div class="container body-content">

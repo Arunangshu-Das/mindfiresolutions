@@ -3,7 +3,6 @@
     ViewBag.Title = "Dashboard";
 }
 
-
 <link href="@Url.Content("~/Content/Dashboard.css")" rel="stylesheet" type="text/css" />
 
 <header>
@@ -15,20 +14,15 @@
 
     <form id="filterspace">
         <label for="filterZone">Filter by Parking Zone:</label>
-        @Html.DropDownListFor(model => model.ParkingZoneTitle, ViewBag.ZoneList as SelectList, new { id = "filterZone" })
-        <button type="button" onclick="filterSpaces()">Apply Filter</button>
-        <button type="button" id="showAll">Show All</button>
-        <button type="button" id="deleteAll">Delete All</button>
+        @Html.DropDownListFor(model => model.ParkingZoneTitle, ViewBag.ZoneList as SelectList, new { id = "filterZone", style = "width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; background-color: #fff; color: #333;" })
+        <button type="button" onclick="filterSpaces()" class="actionButton">Apply Filter</button>
+        <button type="button" id="showAll" class="actionButton">Show All</button>
+        <button type="button" id="deleteAll" class="actionButton">Delete All</button>
     </form>
 
     <h2>Parking Space Listing</h2>
     <table id="parkingTable">
         <thead>
-            <tr>
-                <th>Parking Space Title</th>
-                <th>Status</th>
-                <th>Vehicle Registration Number</th>
-            </tr>
         </thead>
         <tbody>
         </tbody>
@@ -43,7 +37,7 @@
         <form id="bookForm">
             <label for="registrationNumber">Vehicle Registration Number:</label>
             <input type="text" id="registrationNumber" name="registrationNumber" required>
-            <button type="button" onclick="bookSpace()">Book Space</button>
+            <button type="button" class="actionButton" id="bookSpace" onclick="bookSpace()">Book Space</button>
         </form>
     </section>
 
@@ -52,7 +46,7 @@
         <form id="releaseForm">
             <label for="releaseRegistrationNumber">Vehicle Registration Number:</label>
             <input type="text" id="releaseRegistrationNumber" name="releaseRegistrationNumber" required>
-            <button type="button" onclick="releaseSpace()">Release Space</button>
+            <button type="button" class="actionButton" id="freeSpace" onclick="releaseSpace()">Release Space</button>
         </form>
     </section>
 }

@@ -46,7 +46,7 @@ namespace ParkingManagement.Controllers
             }
             catch (Exception ex)
             {
-                Logger.AddData(ex);
+                Logger.AddLog(ex);
             }
 
             return View(userdata);

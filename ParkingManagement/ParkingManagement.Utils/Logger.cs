@@ -10,14 +10,20 @@ namespace ParkingManagement.Utils
 {
     public class Logger
     {
-        public static void AddData(Exception inputData)
+        public static void AddLog(Exception inputData)
         {
             String fileName = DateTime.Now.ToString("yyyyMMdd") + ".txt";
             try
             {
-                string file = ConfigurationManager.AppSettings["LogFileFolderPath"];
-                file = file + "\\" + fileName;
-                using (StreamWriter writer = new StreamWriter(file, true))
+                string folderpath = ConfigurationManager.AppSettings["LogFileFolderPath"];
+
+                if (!Directory.Exists(folderpath))
+                {
+                    Directory.CreateDirectory(folderpath);
+                }
+
+                folderpath = folderpath + "\\" + fileName;
+                using (StreamWriter writer = new StreamWriter(folderpath, true))
                 {
                     writer.WriteLine(inputData.ToString());
                 }

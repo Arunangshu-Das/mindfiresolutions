@@ -18,7 +18,7 @@ namespace ParkingManagement.Controllers
         [CustomFilterAttribute]
         public ActionResult Dashboard()
         {
-            ViewBag.IsAuthorize = Convert.ToInt32(SessionUtil.GetSession().Type)== (int)ADDRESS.BOOKING_COUNTER_AGENT;
+            ViewBag.IsAuthorize = Convert.ToInt32(SessionUtil.GetSession().Type)== (int)AGENT_TYPE.BOOKING_COUNTER_AGENT;
             List<ParkingZoneModel> zonelist = new ParkingManagement.Business.Service().AllParkingZone();
 
             ViewBag.ZoneList = new SelectList(zonelist, "ParkingZoneID", "ParkingZoneTitle");
@@ -27,9 +27,16 @@ namespace ParkingManagement.Controllers
 
         public ActionResult FetchAllData()
         {
-            List<ParkingSpaceShowModel> allspace = new ParkingManagement.Business.Service().AllParkingSpace();
+            List<ParkingSpaceModel> allspace = new ParkingManagement.Business.Service().AllParkingSpace();
+            var sessionType = SessionUtil.GetSession().Type;
 
-            return Json(allspace, JsonRequestBehavior.AllowGet);
+            var jsonData = new
+            {
+                allspace = allspace,
+                sessionType = sessionType
+            };
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -41,9 +48,25 @@ namespace ParkingManagement.Controllers
         }
 
         [HttpPost]
+        public ActionResult BookParkingSpaceById(ParkingSpaceModel parkingmodel)
+        {
+            bool bookingResult = new ParkingManagement.Business.Service().BookSpaceById(parkingmodel);
+
+            return Json(new { success = bookingResult });
+        }
+
+        [HttpPost]
         public ActionResult FreeParkingSpace(string vehicleRegistrationNumber)
         {
             bool bookingResult = new ParkingManagement.Business.Service().FreeSpace(vehicleRegistrationNumber);
+
+            return Json(new { success = bookingResult });
+        }
+
+        [HttpPost]
+        public ActionResult FreeParkingSpaceById(ParkingSpaceModel parkingmodel)
+        {
+            bool bookingResult = new ParkingManagement.Business.Service().FreeSpaceById(parkingmodel.ParkingSpaceId);
 
             return Json(new { success = bookingResult });
         }

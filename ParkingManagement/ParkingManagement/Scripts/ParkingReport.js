@@ -12,16 +12,20 @@ document.getElementById('endDate').value = formatDate(currentDate);
 function generateReport() {
     var startDate = $("#startDate").val();
     var endDate = $("#endDate").val();
-    console.log(endDate);
-    $.ajax({
-        url: '/Export/Export',
-        type: 'GET',
-        data: { startDate: startDate, endDate: endDate },
-        dataType: 'json',
-        success: function (data) {
-            var reportContent = `<h3>Generated Report</h3>`;
+    if (endDate < startDate) {
+        alert("Can't procced");
+    }
+    else {
+        console.log(endDate);
+        $.ajax({
+            url: '/Export/Export',
+            type: 'GET',
+            data: { startDate: startDate, endDate: endDate },
+            dataType: 'json',
+            success: function (data) {
+                var reportContent = `<h3>Generated Report</h3>`;
 
-            reportContent += `<table id="reporttable">
+                reportContent += `<table id="reporttable">
                             <tr>
                                 <th>Parking Zone</th>
                                 <th>Parking Space</th>
@@ -29,36 +33,36 @@ function generateReport() {
                                 <th># of Vehicle Parked (0/1)</th>
                             </tr>`;
 
-            for (var i = 0; i < data.length; i++) {
-                var entry = data[i];
+                for (var i = 0; i < data.length; i++) {
+                    var entry = data[i];
 
-                if (i === 0 || entry.ParkingZone !== data[i - 1].ParkingZone) {
-                    reportContent += `<tr>
+                    if (i === 0 || entry.ParkingZone !== data[i - 1].ParkingZone) {
+                        reportContent += `<tr>
                                         <td rowspan="${data.filter(item => item.ParkingZone === entry.ParkingZone).length}">${entry.ParkingZone}</td>
                                         <td>${entry.ParkingSpace}</td>
                                         <td>${entry.NumberOfBookings}</td>
                                         <td>${entry.NumberOfVehiclesParked}</td>
                                     </tr>`;
-                } else {
-                    reportContent += `<tr>
+                    } else {
+                        reportContent += `<tr>
                                     <td>${entry.ParkingSpace}</td>
                                     <td>${entry.NumberOfBookings}</td>
                                     <td>${entry.NumberOfVehiclesParked}</td>
                                 </tr>`;
+                    }
                 }
+
+                reportContent += `</table>`;
+
+                document.getElementById("reportContainer").innerHTML = reportContent;
+            },
+            error: function (error) {
+                console.log(error);
+
+                alert('Export failed. Check the console for error details.');
             }
-
-            reportContent += `</table>`;
-
-            document.getElementById("reportContainer").innerHTML = reportContent;
-        },
-        error: function (error) {
-            console.log(error);
-
-            alert('Export failed. Check the console for error details.');
-        }
-    });
-
+        });
+    }
 }
 
 function generatePDF() {
@@ -66,15 +70,19 @@ function generatePDF() {
 
     var startDate = $("#startDate").val();
     var endDate = $("#endDate").val();
-    $.ajax({
-        url: '/Export/Export',
-        type: 'GET',
-        data: { startDate: startDate, endDate: endDate },
-        dataType: 'json',
-        success: function (data) {
-            var reportContent = `<h3>Generated Report</h3>`;
+    if (endDate < startDate) {
+        alert("Can't procced");
+    }
+    else {
+        $.ajax({
+            url: '/Export/Export',
+            type: 'GET',
+            data: { startDate: startDate, endDate: endDate },
+            dataType: 'json',
+            success: function (data) {
+                var reportContent = `<h3>Generated Report</h3>`;
 
-            reportContent += `<div><table id="reporttable">
+                reportContent += `<div><table id="reporttable">
                 <tr>
                     <th>Parking Zone</th>
                     <th>Parking Space</th>
@@ -82,29 +90,30 @@ function generatePDF() {
                     <th># of Vehicle Parked (0/1)</th>
                 </tr>`;
 
-            for (var i = 0; i < data.length; i++) {
-                var entry = data[i];
-                reportContent += `<tr>
+                for (var i = 0; i < data.length; i++) {
+                    var entry = data[i];
+                    reportContent += `<tr>
                         <td>${entry.ParkingZone}</td>
                         <td>${entry.ParkingSpace}</td>
                         <td>${entry.NumberOfBookings}</td>
                         <td>${entry.NumberOfVehiclesParked}</td>
                     </tr>`;
+                }
+
+                reportContent += `</table></div>`;
+
+                var pdf = new jsPDF();
+
+                pdf.fromHTML(reportContent, 15, 30);
+
+                pdf.save('exported_report.pdf');
+
+            },
+            error: function (error) {
+                console.log(error);
+
+                alert('Export failed. Check the console for error details.');
             }
-
-            reportContent += `</table></div>`;
-
-            var pdf = new jsPDF();
-
-            pdf.fromHTML(reportContent, 15, 30);
-
-            pdf.save('exported_report.pdf');
-
-        },
-        error: function (error) {
-            console.log(error);
-
-            alert('Export failed. Check the console for error details.');
-        }
-    });
+        });
+    }
 }
