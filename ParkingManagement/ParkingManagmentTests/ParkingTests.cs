@@ -17,8 +17,8 @@ namespace ParkingManagmentTests
                 Email = "ffff@gmail.com",
                 Password = "ffff"
             };
-            LoginController controller=new LoginController();
-            var result=controller.Login(l);
+            LoginController controller = new LoginController();
+            var result = controller.Login(l);
             Assert.IsNotNull(result);
         }
 
@@ -26,7 +26,44 @@ namespace ParkingManagmentTests
         public void SignupTest()
         {
             SignupController signupcontroller = new SignupController();
-            var result = signupcontroller.Signup(new SignupModel { Email="AS@gmail.com",Name="AS",Password="AS",Type="1"});
+            var result = signupcontroller.Signup(new SignupModel { Email = "AS@gmail.com", Name = "AS", Password = "AS", Type = "1" });
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void ExportTest()
+        {
+            ExportController export = new ExportController();
+            var result = export.Export(DateTime.Now, DateTime.Now);
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void AddParkingTest()
+        {
+            AddParkingController controller = new AddParkingController();
+            var result = controller.InitializeParkingData(new ParkingModel
+            {
+                ParkingZoneTitle="D",
+                NumberOfSpaces=4,
+            });
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void BookParkingSpaceTest()
+        {
+            DashboardController controller = new DashboardController();
+            var result=controller.BookParkingSpace("WB 24 BJ 4118");
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void FreeParkingSpaceTest()
+        {
+            DashboardController controller = new DashboardController();
+            var result = controller.FreeParkingSpace("WB 24 BJ 4118");
             Assert.IsNotNull(result);
         }
     }
