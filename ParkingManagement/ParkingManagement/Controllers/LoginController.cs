@@ -7,6 +7,7 @@ using ParkingManagement.Model;
 using ParkingManagement.Utils;
 using ParkingManagement.Business;
 using System.Reflection;
+using ParkingManagement.Logger;
 
 namespace ParkingManagement.Controllers
 {
@@ -36,7 +37,7 @@ namespace ParkingManagement.Controllers
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             
             return View(login);

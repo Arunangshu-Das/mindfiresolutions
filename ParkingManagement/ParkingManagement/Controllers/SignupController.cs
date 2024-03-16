@@ -9,6 +9,7 @@ using System.Xml;
 using ParkingManagement.Utils;
 using System.Web.Helpers;
 using System.Text.RegularExpressions;
+using ParkingManagement.Logger;
 
 namespace ParkingManagement.Controllers
 {
@@ -46,7 +47,7 @@ namespace ParkingManagement.Controllers
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
 
             return View(userdata);

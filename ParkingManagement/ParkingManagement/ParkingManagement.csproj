@@ -236,6 +236,10 @@
       <Project>{2c704476-9268-49de-acd0-e14e4948bff0}</Project>
       <Name>ParkingManagement.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ParkingManagement.Logger\ParkingManagement.Logger.csproj">
+      <Project>{8f64bd99-cbc8-4e22-aacf-204a383769d5}</Project>
+      <Name>ParkingManagement.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParkingManagement.Model\ParkingManagement.Model.csproj">
       <Project>{5569ed19-9998-4d16-a619-03efe3ccabe2}</Project>
       <Name>ParkingManagement.Model</Name>

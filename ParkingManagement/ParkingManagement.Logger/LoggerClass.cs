@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-namespace ParkingManagement.Utils
+namespace ParkingManagement.Logger
 {
-    public class Logger
+    public class LoggerClass
     {
         public static void AddLog(Exception inputData)
         {

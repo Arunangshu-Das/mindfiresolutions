@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ParkingManagement.Model;
 using ParkingManagement.Utils;
+using ParkingManagement.Logger;
 
 namespace ParkingManagement.DAL
 {
@@ -39,7 +40,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return session;
         }
@@ -81,7 +82,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return allparkingspace;
         }
@@ -111,7 +112,7 @@ namespace ParkingManagement.DAL
             }
             catch(Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return flag;
         }
@@ -134,7 +135,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return flag;
         }
@@ -185,7 +186,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
 
             return flag;
@@ -214,7 +215,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
 
             return flag;
@@ -248,7 +249,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return report;
         }
@@ -277,7 +278,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return flag;
         }
@@ -349,7 +350,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return flag;
         }
@@ -375,7 +376,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
 
             return parkingzones;
@@ -402,7 +403,7 @@ namespace ParkingManagement.DAL
             }
             catch(Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return flag;
         }
@@ -425,7 +426,7 @@ namespace ParkingManagement.DAL
             }
             catch (Exception ex)
             {
-                Logger.AddLog(ex);
+                LoggerClass.AddLog(ex);
             }
             return flag;
         }
