@@ -1,14 +1,18 @@
 using Microsoft.EntityFrameworkCore;
-using PracCrudMvcCore.Models;
+using PracCrudLayerMvcCore.Business;
+using PracCrudLayerMvcCore.DAL;
+using PracCrudLayerMvcCore.DAL.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var provider=builder.Services.BuildServiceProvider();
-var config=provider.GetService<IConfiguration>();
-builder.Services.AddDbContext<PracticeContext>(item => item.UseSqlServer(config.GetConnectionString("dbcs")));
+builder.Services.AddScoped<IService, Service>();
+builder.Services.AddScoped<IDataAccess, DataAccess>();
+
+builder.Services.AddDbContext<PracticeContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBCS")));
 
 var app = builder.Build();
 

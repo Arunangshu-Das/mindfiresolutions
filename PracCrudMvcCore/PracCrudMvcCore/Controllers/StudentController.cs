@@ -5,18 +5,24 @@ namespace PracCrudMvcCore.Controllers
 {
     public class StudentController : Controller
     {
+        PracticeContext context;
+
         public IActionResult Index()
         {
             return View();
         }
 
+        public StudentController(PracticeContext context)
+        {
+            this.context = context;
+        }
+
         public IActionResult FetchAllData()
         {
             List<Student> alldata;
-            using (PracticeContext context = new PracticeContext())
-            {
-                alldata = context.Students.ToList();
-            }
+            
+            alldata = context.Students.ToList();
+            
             return Json(alldata);
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace PracCrudMvcCore.Models;
+namespace PracCrudLayerMvcCore.DAL.Models;
 
 public partial class PracticeContext : DbContext
 {
@@ -21,10 +21,7 @@ public partial class PracticeContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if(!optionsBuilder.IsConfigured)
-        {
 
-        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
