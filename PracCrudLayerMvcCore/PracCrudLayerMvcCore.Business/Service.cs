@@ -11,24 +11,24 @@ namespace PracCrudLayerMvcCore.Business
         {
             _dataAccess = dataAccess;
         }
-        public bool AddData(StudentModel s)
+        public async Task<bool> AddData(StudentModel s)
         {
-            return _dataAccess.AddData(s);
+            return await _dataAccess.AddData(s);
         }
 
-        public bool DeleteData(StudentModel s)
+        public async Task<bool> DeleteData(StudentModel s)
         {
-            return _dataAccess.DeleteData(s);
+            return await _dataAccess.DeleteData(s);
         }
 
-        public List<StudentModel> ListData()
+        public async Task<List<StudentModel>> ListData()
         {
-            return _dataAccess.ListData();
+            return await _dataAccess.ListData();
         }
 
-        public bool UpdateData(StudentModel s)
+        public async Task<bool> UpdateData(StudentModel s)
         {
-            return _dataAccess.UpdateData(s);
+            return await _dataAccess.UpdateData(s);
         }
     }
 }

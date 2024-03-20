@@ -18,24 +18,28 @@ namespace PracCrudLayerMvcCore.Controllers
             return View();
         }
 
-        public IActionResult FetchAllData()
+        public async Task<IActionResult> FetchAllData()
         {
-            return Json(_service.ListData());
+            List<StudentModel> data = await _service.ListData();
+            return Json(data);
         }
 
-        public IActionResult AddData(StudentModel s)
+        public async Task<IActionResult> AddData(StudentModel s)
         {
-            return Json(_service.AddData(s));
+            bool flag = await _service.AddData(s);
+            return Json(flag);
         }
 
-        public IActionResult UpdateData(StudentModel s)
+        public async Task<IActionResult> UpdateData(StudentModel s)
         {
-            return Json(_service.UpdateData(s));
+            bool flag = await _service.UpdateData(s);
+            return Json(flag);
         }
 
-        public IActionResult DeleteData(int id)
+        public async Task<IActionResult> DeleteData(int id)
         {
-            return Json(_service.DeleteData(new StudentModel { StudentId=id}));
+            bool flag = await _service.DeleteData(new StudentModel { StudentId = id });
+            return Json(flag);
         }
     }
 }

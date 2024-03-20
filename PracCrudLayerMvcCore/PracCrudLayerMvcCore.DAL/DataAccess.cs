@@ -1,4 +1,5 @@
-﻿using PracCrudLayerMvcCore.DAL.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PracCrudLayerMvcCore.DAL.Models;
 using PracCrudLayerMvcCore.Models;
 using System;
 using System.Collections.Generic;
@@ -18,67 +19,95 @@ namespace PracCrudLayerMvcCore.DAL
             this.context = context;
         }
 
-        public bool UpdateData(StudentModel s)
+        public async Task<bool> UpdateData(StudentModel s)
         {
             bool flag = false;
-            var studentToUpdate = context.Students.FirstOrDefault(stu => stu.StudentId == s.StudentId);
-            if (studentToUpdate != null)
+            using (var transaction = await context.Database.BeginTransactionAsync())
             {
-                studentToUpdate.Name = s.Name;
-                studentToUpdate.Email = s.Email;
-                studentToUpdate.Salaryamt = s.Salaryamt;
-                context.SaveChanges();
-                flag = true;
-            }
-            else
-            {
-            }
-            return flag;
-        }
-
-        public bool DeleteData(StudentModel s)
-        {
-            bool flag = false;
-            var studentToUpdate = context.Students.FirstOrDefault(stu => stu.StudentId == s.StudentId);
-            if (studentToUpdate != null)
-            {
-                context.Students.Remove(studentToUpdate);
-                context.SaveChanges();
-                flag = true;
-            }
-            else
-            {
-            }
-            return flag;
-        }
-
-        public bool AddData(StudentModel s)
-        {
-            bool flag = false;
-            var newStudent = new Student
-            {
-                Name = s.Name,
-                Email = s.Email,
-                Salaryamt = s.Salaryamt
-            };
-            context.Students.Add(newStudent);
-            context.SaveChanges();
-            flag = true;
-            return flag;
-        }
-
-        public List<StudentModel> ListData()
-        {
-            List<StudentModel> alldata = new List<StudentModel>(); ;
-            List<Student> result;
-            result = context.Students.ToList();
-            if (result.Count > 0)
-            {
-                for (int i = 0; i < result.Count; i++)
+                var studentToUpdate = await context.Students.FirstOrDefaultAsync(stu => stu.StudentId == s.StudentId);
+                if (studentToUpdate != null)
                 {
-                    alldata.Add(new StudentModel { Name = result[i].Name, Email = result[i].Email, Salaryamt = result[i].Salaryamt, StudentId = result[i].StudentId });
+                    studentToUpdate.Name = s.Name;
+                    studentToUpdate.Email = s.Email;
+                    studentToUpdate.Salaryamt = s.Salaryamt;
+
+                    await context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    flag = true;
+                }
+                else
+                {
+                    await transaction.RollbackAsync();
                 }
             }
+
+            return flag;
+        }
+
+        public async Task<bool> DeleteData(StudentModel s)
+        {
+            bool flag = false;
+            using (var transaction = await context.Database.BeginTransactionAsync())
+            {
+                var studentToUpdate = await context.Students.FirstOrDefaultAsync(stu => stu.StudentId == s.StudentId);
+                if (studentToUpdate != null)
+                {
+                    context.Students.Remove(studentToUpdate);
+                    await context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    flag = true;
+                }
+                else
+                {
+                    await transaction.RollbackAsync();
+                }
+            }
+            return flag;
+        }
+
+        public async Task<bool> AddData(StudentModel s)
+        {
+            bool flag = false;
+            using (var transaction = await context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    var newStudent = new Student
+                    {
+                        Name = s.Name,
+                        Email = s.Email,
+                        Salaryamt = s.Salaryamt
+                    };
+                    await context.Students.AddAsync(newStudent);
+                    await context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    flag = true;
+                }
+                catch(Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                }
+            }
+            return flag;
+        }
+
+        public async Task<List<StudentModel>> ListData()
+        {
+            var alldata = new List<StudentModel>(); 
+
+            var result = await context.Students.ToListAsync(); 
+
+            foreach (var student in result)
+            {
+                alldata.Add(new StudentModel
+                {
+                    Name = student.Name,
+                    Email = student.Email,
+                    Salaryamt = student.Salaryamt,
+                    StudentId = student.StudentId
+                });
+            }
+
             return alldata;
         }
 

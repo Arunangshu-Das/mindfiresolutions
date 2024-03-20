@@ -10,9 +10,9 @@ namespace PracCrudLayerMvcCore.DAL
 {
     public interface IDataAccess
     {
-        public bool UpdateData(StudentModel s);
-        public bool DeleteData(StudentModel s);
-        public bool AddData(StudentModel s);
-        public List<StudentModel> ListData();
+        public Task<bool> UpdateData(StudentModel s);
+        public Task<bool> DeleteData(StudentModel s);
+        public Task<bool> AddData(StudentModel s);
+        public Task<List<StudentModel>> ListData();
     }
 }
