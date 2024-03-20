@@ -1,15 +1,20 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PracCrudLayerMvcCore.Business;
 using PracCrudLayerMvcCore.DAL;
 using PracCrudLayerMvcCore.DAL.Models;
+using PracCrudLayerMvcCore.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+string loggingFolderPath = builder.Configuration.GetValue<string>("LoggingFolderPath");
+
 builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IDataAccess, DataAccess>();
+builder.Services.AddSingleton<PracCrudLayerMvcCore.Logger.ILogger>(new Logger(loggingFolderPath));
 
 builder.Services.AddDbContext<PracticeContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBCS")));

@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PracCrudLayerMvcCore.Logger\PracCrudLayerMvcCore.Logger.csproj" />
     <ProjectReference Include="..\PracCrudLayerMvcCore.Models\PracCrudLayerMvcCore.Models.csproj" />
   </ItemGroup>
 
