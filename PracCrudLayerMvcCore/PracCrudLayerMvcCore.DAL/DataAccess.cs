@@ -106,6 +106,7 @@ namespace PracCrudLayerMvcCore.DAL
                     catch (Exception ex)
                     {
                         await transaction.RollbackAsync();
+                        logger.AddException(ex);
                     }
                 }
             }

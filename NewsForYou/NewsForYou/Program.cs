@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using PracCrudLayerMvcCore.Business;
-using PracCrudLayerMvcCore.DAL;
-using PracCrudLayerMvcCore.DAL.Models;
-using PracCrudLayerMvcCore.Logger;
+using NewsForYou.Models;
+using NewsForYou.Business;
+using NewsForYou.DAL;
+using NewsForYou.DAL.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +16,15 @@ string loggingFolderPath = builder.Configuration.GetValue<string>("LoggingFolder
 
 builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IDataAccess, DataAccess>();
-builder.Services.AddSingleton<PracCrudLayerMvcCore.Logger.ILogger>(new Logger(loggingFolderPath));
+builder.Services.AddSingleton<NewsForYou.Logger.ILogger>(new NewsForYou.Logger.Logger(loggingFolderPath));
 
-builder.Services.AddDbContext<PracticeContext>(
+builder.Services.AddDbContext<NewsForYouContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBCS")));
+
+
+builder.Services.AddEndpointsApiExplorer(); 
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -35,12 +41,21 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseSwagger();
+app.UseSwaggerUI(
+    options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+        options.DocumentTitle = "Login";
+    }
+    );
+
 
 app.Run();

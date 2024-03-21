@@ -17,11 +17,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PracCrudLayerMvcCore.Business\PracCrudLayerMvcCore.Business.csproj" />
-    <ProjectReference Include="..\PracCrudLayerMvcCore.Models\PracCrudLayerMvcCore.Models.csproj" />
+    <ProjectReference Include="..\NewsForYou.Business\NewsForYou.Business.csproj" />
+    <ProjectReference Include="..\NewsForYou.DAL\NewsForYou.DAL.csproj" />
+    <ProjectReference Include="..\NewsForYou.Logger\NewsForYou.Logger.csproj" />
+    <ProjectReference Include="..\NewsForYou.Models\NewsForYou.Models.csproj" />
   </ItemGroup>
 
 </Project>
