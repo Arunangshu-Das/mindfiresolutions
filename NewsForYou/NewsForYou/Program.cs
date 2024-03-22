@@ -3,9 +3,21 @@ using NewsForYou.Models;
 using NewsForYou.Business;
 using NewsForYou.DAL;
 using NewsForYou.DAL.Models;
+using Microsoft.Extensions.Options;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowOrigin",
+        builder =>
+        {
+            builder.WithOrigins("http://127.0.0.1:5500", "https://127.0.0.1:5500")
+                   .AllowAnyMethod()  // You might need this to allow any method, or you can specify specific methods.
+                   .AllowAnyHeader()  // Allow any header, or you can specify specific headers.
+                   .AllowCredentials();  // If your request includes credentials like cookies, you need to allow credentials.
+        });
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -28,6 +40,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseCors("AllowOrigin");
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -46,6 +60,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.UseSwagger();
 app.UseSwaggerUI(

@@ -4,3 +4,4 @@ obj
 upload
 uploads/
 packages/
+node_modules/

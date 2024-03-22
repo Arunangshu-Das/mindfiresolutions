@@ -97,14 +97,14 @@ namespace NewsForYou.DAL
                         {
                     new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Name, user.Name) 
+                    new Claim(ClaimTypes.Name, user.Name)
                 };
 
             var token = new JwtSecurityToken(
                 issuer: "",
                 audience: "",
                 claims: claims,
-                expires: DateTime.UtcNow.AddDays(1), 
+                expires: DateTime.UtcNow.AddDays(1),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -185,13 +185,21 @@ namespace NewsForYou.DAL
                 {
                     try
                     {
-                        AgencyFeed newAgencyFeed = new AgencyFeed
+                        AgencyFeed newAgencyFeed = await context.AgencyFeeds.Where(a => a.AgencyId == agencyfeed.AgencyId && a.CategoryId == agencyfeed.CategoryId).FirstOrDefaultAsync();
+                        if (newAgencyFeed == null)
                         {
-                            AgencyId = agencyfeed.AgencyId,
-                            AgencyFeedUrl = agencyfeed.AgencyFeedUrl,
-                            CategoryId = agencyfeed.CategoryId,
-                        };
-                        await context.AgencyFeeds.AddAsync(newAgencyFeed);
+                            newAgencyFeed = new AgencyFeed
+                            {
+                                AgencyId = agencyfeed.AgencyId,
+                                AgencyFeedUrl = agencyfeed.AgencyFeedUrl,
+                                CategoryId = agencyfeed.CategoryId,
+                            };
+                            await context.AgencyFeeds.AddAsync(newAgencyFeed);
+                        }
+                        else
+                        {
+                            newAgencyFeed.AgencyFeedUrl=agencyfeed.AgencyFeedUrl;
+                        }
                         await context.SaveChangesAsync();
                         await transaction.CommitAsync();
                         flag = true;
@@ -212,11 +220,13 @@ namespace NewsForYou.DAL
 
         public async Task<List<CategoryModel>> GetCategory()
         {
-            List<CategoryModel> alldata = new List<CategoryModel>();
+            List<CategoryModel> alldata = null;
 
             try
             {
                 List<Category> result = await context.Categories.ToListAsync();
+
+                alldata = new List<CategoryModel>();
 
                 foreach (Category category in result)
                 {
@@ -287,8 +297,7 @@ namespace NewsForYou.DAL
                 {
                     try
                     {
-                        var newsEntries = context.News.ToListAsync();
-                        context.RemoveRange(newsEntries);
+                        await context.Database.ExecuteSqlRawAsync("TRUNCATE TABLE news");
                         await context.SaveChangesAsync();
                         await transaction.CommitAsync();
                         flag = true;
@@ -343,7 +352,7 @@ namespace NewsForYou.DAL
                     NewsPublishDateTime = c.NewsPublishDateTime,
                     NewsLink = c.NewsLink,
                     ClickCount = c.ClickCount,
-                }).OrderByDescending(c=>c.NewsId).ToListAsync();
+                }).OrderByDescending(c => c.NewsId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -358,16 +367,12 @@ namespace NewsForYou.DAL
             List<ReportModel> data = null;
             try
             {
-                data = await (from af in context.AgencyFeeds
-                              join a in context.Agencies on af.AgencyId equals a.AgencyId
-                              join c in context.Categories on af.CategoryId equals c.CategoryId
-                              join n in context.News on af.AgencyId equals n.AgencyId
-                              select new ReportModel
-                              {
-                                  AgencyName = a.AgencyName,
-                                  NewsTitle = n.NewsTitle,
-                                  ClickCount = (int)n.ClickCount
-                              }).ToListAsync();
+                data = await context.News.Select(n => new ReportModel
+                {
+                    AgencyName=context.Agencies.FirstOrDefault(a=>a.AgencyId==n.AgencyId).AgencyName,
+                    ClickCount= (int)n.ClickCount,
+                    NewsTitle=n.NewsTitle
+                }).ToListAsync();
 
             }
             catch (Exception ex)
@@ -379,7 +384,7 @@ namespace NewsForYou.DAL
 
         public async Task<List<NewsModel>> GetNewsByCategories(List<int> categories, int id)
         {
-            if(categories!=null && id > 0)
+            if (categories != null && id > 0)
             {
                 DataAccess d = new DataAccess(context, logger);
                 foreach (int catid in categories)

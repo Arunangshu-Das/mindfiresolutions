@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace NewsForYou.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class NewsForYouController : ControllerBase
     {
@@ -74,7 +74,7 @@ namespace NewsForYou.Controllers
             return Ok( new {result});
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("deleteall")]
         public async Task<IActionResult> DeleteAllNews()
         {
@@ -82,7 +82,7 @@ namespace NewsForYou.Controllers
             return Ok(new {flag});
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("getcategoriesfromagencyid")]
         public async Task<IActionResult> GetCategoriesFromAgencyId(int id)
         {
@@ -100,17 +100,17 @@ namespace NewsForYou.Controllers
 
         [HttpPost]
         [Route("generatepdf")]
-        public async Task<IActionResult> GeneratePdf(DateTime start, DateTime end)
+        public async Task<IActionResult> GeneratePdf(ExportModel export)
         {
-            List < ReportModel > report= await _service.GeneratePdf(start, end); 
+            List < ReportModel > report= await _service.GeneratePdf(export.Start, export.End); 
             return Ok(new { report });
         }
 
         [HttpPost]
         [Route("getnewsbycategories")]
-        public async Task<IActionResult> GetNewsByCategories(List<int> categories, int id)
+        public async Task<IActionResult> GetNewsByCategories(GetNewsByCategoriesModel model)
         {
-            List < NewsModel > getnesfromcategory= await _service.GetNewsByCategories(categories, id); ;
+            List < NewsModel > getnesfromcategory= await _service.GetNewsByCategories(model.categories, model.id); ;
             return Ok(new { getnesfromcategory });
         }
 
@@ -121,7 +121,6 @@ namespace NewsForYou.Controllers
             bool flag = await _service.IncrementNewsClickCount(id);
             return Ok(new { flag });
         }
-
 
     }
 }
