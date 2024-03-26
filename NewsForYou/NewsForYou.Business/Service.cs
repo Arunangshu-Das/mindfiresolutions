@@ -82,5 +82,10 @@ namespace NewsForYou.Business
         {
             return await _dataAccess.IncrementNewsClickCount(id);
         }
+
+        public async Task<bool> FindEmail(string email)
+        {
+            return await _dataAccess.FindEmail(email);
+        }
     }
 }

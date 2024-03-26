@@ -553,5 +553,23 @@ namespace NewsForYou.DAL
 
             return newsDataList;
         }
+
+        public async Task<bool> FindEmail(string email)
+        {
+            bool flag = false;
+            try
+            {
+                int count = context.Users.Where(u => u.Email == email).Count();
+                if (count == 0)
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.AddException(ex);
+            }
+            return flag;
+        }
     }
 }

@@ -36,6 +36,6 @@ namespace NewsForYou.DAL
 
         public Task<bool> IncrementNewsClickCount(int id);
 
-
+        public Task<bool> FindEmail(string email);
     }
 }

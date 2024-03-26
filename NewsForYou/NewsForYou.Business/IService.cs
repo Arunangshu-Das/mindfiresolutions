@@ -34,5 +34,7 @@ namespace NewsForYou.Business
         public Task<List<NewsModel>> GetNewsByCategories(List<int> categories, int id);
 
         public Task<bool> IncrementNewsClickCount(int id);
+
+        public Task<bool> FindEmail(string email);
     }
 }

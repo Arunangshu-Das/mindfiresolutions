@@ -122,5 +122,12 @@ namespace NewsForYou.Controllers
             return Ok(new { flag });
         }
 
+        [HttpGet]
+        [Route("checkemail")]
+        public async Task<IActionResult> FindEmail(string id)
+        {
+            bool flag = await _service.FindEmail(id);
+            return Ok(new { flag });
+        }
     }
 }
