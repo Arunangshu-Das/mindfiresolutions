@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    checkCookie();
+    $('#navbar').load('Navbar.html');
 });
 
 function login() {
@@ -22,7 +22,12 @@ function login() {
                 sessionStorage.setItem("credential", result.jwtToken);
                 var expirationDate = new Date();
                 expirationDate.setTime(expirationDate.getTime() + (2 * 60 * 60 * 1000)); 
-                document.cookie = `credential=${result.jwtToken};expires=${expirationDate.toUTCString()};path=/`;
+                if(payload.Email === 'admin@gmail.com' && payload.Password === 'admin') {
+                    document.cookie = `credential=${result.jwtToken};expires=${expirationDate.toUTCString()};path=/;`;
+                    document.cookie = `isAdmin=true;expires=${expirationDate.toUTCString()};path=/;`;
+                } else {
+                    document.cookie = `credential=${result.jwtToken};expires=${expirationDate.toUTCString()};path=/;`;
+                }
                 alert("Login Done");
                 window.location.href = 'Startup.html';
             } else {
@@ -35,23 +40,3 @@ function login() {
     });
 }
 
-
-// Check for the presence of the "credential" cookie
-function checkCookie() {
-    var cookies = document.cookie.split(';');
-    var isLoggedIn = cookies.some(cookie => cookie.trim().startsWith('credential='));
-    if (isLoggedIn) {
-        document.getElementById("logoutLink").style.display = "block";
-    } else {
-        document.getElementById("loginLink").style.display = "block";
-        document.getElementById("signupLink").style.display = "block";
-    }
-}
-
-// Function to logout
-function logout() {
-    // Clear the credential cookie
-    document.cookie = "credential=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // Redirect to login page
-    window.location.href = "login.html";
-}

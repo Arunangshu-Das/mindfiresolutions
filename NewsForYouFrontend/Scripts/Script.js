@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('#navbar').load('Navbar.html');
-    checkCookie();
     if(sessionStorage.getItem("newsid")==null){
         window.location.href = 'Startup.html';
     }
@@ -37,11 +36,18 @@ function fetchAllData(){
 
 function geturl(url){
     if(url==null) return null;
+    console.log(url)
     var tempElement = document.createElement('div');
     tempElement.innerHTML = url;
 
     // Get the src attribute value
-    var src = tempElement.firstChild.getAttribute('src');
+    var src=null;
+    try{
+    src = tempElement?.firstChild?.getAttribute('src');
+    }
+    catch(err){
+
+    }
 
     return src;
 }
@@ -64,7 +70,11 @@ function getallnews(data) {
             
             var cardInnerHtml = `
                 <div class="card flex-fill"> <!-- Add flex-fill class for flex items -->
-                    <img src="${geturl(element.newsDescription)}" class="card-img-top" alt="...">
+                    ${
+                        geturl(element.newsDescription) 
+                        ? `<img src="${geturl(element.newsDescription)}" class="card-img-top" alt="...">` 
+                        : ''
+                    }
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">${element.newsTitle}</h5>
                         <p class="card-text">${new Date(element.newsPublishDateTime).toISOString().slice(0, 10)}</p>
@@ -72,6 +82,7 @@ function getallnews(data) {
                     </div>
                 </div>
             `;
+
             
             cardDiv.innerHTML = cardInnerHtml;
             
@@ -145,22 +156,22 @@ function readit(e,link){
     window.location.href = link;
 }
 
-// Check for the presence of the "credential" cookie
-function checkCookie() {
-    var cookies = document.cookie.split(';');
-    var isLoggedIn = cookies.some(cookie => cookie.trim().startsWith('credential='));
-    if (isLoggedIn) {
-        document.getElementById("logoutLink").style.display = "block";
-    } else {
-        document.getElementById("loginLink").style.display = "block";
-        document.getElementById("signupLink").style.display = "block";
-    }
-}
+// // Check for the presence of the "credential" cookie
+// function checkCookie() {
+//     var cookies = document.cookie.split(';');
+//     var isLoggedIn = cookies.some(cookie => cookie.trim().startsWith('credential='));
+//     if (isLoggedIn) {
+//         document.getElementById("logoutLink").style.display = "block";
+//     } else {
+//         document.getElementById("loginLink").style.display = "block";
+//         document.getElementById("signupLink").style.display = "block";
+//     }
+// }
 
-// Function to logout
-function logout() {
-    // Clear the credential cookie
-    document.cookie = "credential=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // Redirect to login page
-    window.location.href = "login.html";
-}
+// // Function to logout
+// function logout() {
+//     // Clear the credential cookie
+//     document.cookie = "credential=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+//     // Redirect to login page
+//     window.location.href = "login.html";
+// }

@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    $('#navbar').load('Navbar.html');
+});
+
 function signup() {
     if (document.getElementById("name").value == ""||document.getElementById("emailid").value == ""||document.getElementById("password").value == "") {
         alert("Enter all value to procced");

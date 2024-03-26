@@ -1,5 +1,8 @@
 $(document).ready(function () {
-    checkCookie()
+    $('#navbar').load('Navbar.html');
+    if (!isAdmin()) {
+        window.location.href = "login.html";
+    }
     $.ajax({
         url: 'https://localhost:7235/api/getcategory',
         type: 'GET',
@@ -25,28 +28,6 @@ $(document).ready(function () {
         }
     });
 });
-
-// Check for the presence of the "credential" cookie
-function checkCookie() {
-    var cookies = document.cookie.split(';');
-    var isLoggedIn = cookies.some(cookie => cookie.trim().startsWith('credential='));
-    if (isLoggedIn) {
-        document.getElementById("logoutLink").style.display = "block";
-    } else {
-        document.getElementById("loginLink").style.display = "block";
-        document.getElementById("signupLink").style.display = "block";
-    }
-}
-
-// Function to logout
-function logout() {
-    // Clear the credential cookie
-    document.cookie = "credential=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // Redirect to login page
-    window.location.href = "login.html";
-}
-
-
 
 
 function addCategory() {
@@ -81,6 +62,7 @@ function addAgency() {
         Name: document.getElementById("agencyname").value,
         Logopath: document.getElementById("logopath").value,
     }
+    console.log(payload)
     $.ajax({
         url: 'https://localhost:7235/api/addagency',
         type: 'POST',
@@ -124,7 +106,7 @@ function addAgencyFeed() {
 
 function loadAllData(elementname, datastring) {
     dataObj = datastring;
-
+    console.log(dataObj);
     var dropdown = document.getElementById(elementname);
 
     dataObj.result.forEach(function (item) {
@@ -149,4 +131,10 @@ function deleteAll() {
             }
         });
     }
+}
+
+function isAdmin() {
+    var cookies = document.cookie.split(';');
+    var adminCookie = cookies.find(cookie => cookie.trim().startsWith('isAdmin='));
+    return adminCookie && adminCookie.split('=')[1] === 'true';
 }

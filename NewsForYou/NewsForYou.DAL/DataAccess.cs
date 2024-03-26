@@ -352,7 +352,7 @@ namespace NewsForYou.DAL
                     NewsPublishDateTime = c.NewsPublishDateTime,
                     NewsLink = c.NewsLink,
                     ClickCount = c.ClickCount,
-                }).OrderByDescending(c => c.NewsId).ToListAsync();
+                }).OrderByDescending(c => c.NewsPublishDateTime).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -420,7 +420,7 @@ namespace NewsForYou.DAL
                         NewsPublishDateTime = c.NewsPublishDateTime,
                         NewsLink = c.NewsLink,
                         ClickCount = c.ClickCount,
-                    }).OrderByDescending(c => c.NewsId)
+                    }).OrderByDescending(c => c.NewsPublishDateTime)
                     .ToListAsync();
             }
             catch (Exception ex)
