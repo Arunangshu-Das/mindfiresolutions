@@ -372,7 +372,7 @@ namespace NewsForYou.DAL
                     AgencyName=context.Agencies.FirstOrDefault(a=>a.AgencyId==n.AgencyId).AgencyName,
                     ClickCount= (int)n.ClickCount,
                     NewsTitle=n.NewsTitle
-                }).ToListAsync();
+                }).OrderByDescending(a=>a.ClickCount).ToListAsync();
 
             }
             catch (Exception ex)

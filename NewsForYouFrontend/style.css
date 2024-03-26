@@ -17,6 +17,21 @@ main {
     width: 82%;
 }
 
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+@media (min-width: 992px) {
+    .navbar-nav {
+        flex-direction: row;
+    }
+
+    .nav-item {
+        padding-left: 15px;
+    }
+}
+
 .left-bar{
     position: fixed;
 }

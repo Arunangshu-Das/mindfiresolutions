@@ -1,5 +1,8 @@
 $(document).ready(function () {
-    $('#navbar').load('Navbar.html');
+    checkCookie();
+    if (!isAdmin()) {
+        window.location.href = "login.html";
+    }
 });
 function formatDate(date) {
     const year = date.getFullYear();
@@ -41,19 +44,55 @@ function exportData() {
 }
 
 function exportHtml(data) {
-    $('#productTable').DataTable().clear().draw();
+    var dataTable = $('#productTable').DataTable(); // Get existing DataTable instance
+
+    // Clear existing data and redraw table
+    dataTable.clear().draw();
+
+    // Add new data to the table
     $.each(data, function (index, product) {
-        $('#productTable').DataTable().row.add([
+        dataTable.row.add([
             product.agencyName,
             product.newsTitle,
             product.clickCount,
-        ]).draw(false);
+        ]).draw(false); // Add data and redraw the table
     });
 
-    var dataTable = $('#productTable').DataTable();
     // Disable default sorting
     dataTable.order([]).draw();
 }
+
+function checkCookie() {
+    var cookies = document.cookie.split(';');
+    var isLoggedIn = cookies.some(cookie => cookie.trim().startsWith('credential='));
+    var isAdmin = cookies.some(cookie => cookie.trim().startsWith('isAdmin=true'));
+
+    // Always show logout if logged in, additionally show admin control if isAdmin
+    if (isLoggedIn) {
+        document.getElementById("logoutLink").style.display = "block";
+        document.getElementById("shownews").style.display = "none";
+        if (isAdmin) {
+            document.getElementById("adminControlLink").style.display = "block";
+            document.getElementById("adminControlExport").style.display = "block";
+            document.getElementById("shownews").style.display = "block";
+        }
+    } else {
+        document.getElementById("loginLink").style.display = "block";
+        document.getElementById("signupLink").style.display = "block";
+    }
+}
+
+$(document).ready(function(){
+    checkCookie();
+});
+
+function logout() {
+    document.cookie = "credential=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "isAdmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "login.html";
+}
+
+
 
 function exportPdf() {
     startDate = $("#startDate").val(),
@@ -106,3 +145,8 @@ function exportPdf() {
     });
 }
 
+function isAdmin() {
+    var cookies = document.cookie.split(';');
+    var adminCookie = cookies.find(cookie => cookie.trim().startsWith('isAdmin='));
+    return adminCookie && adminCookie.split('=')[1] === 'true';
+}
