@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NewsForYou.Logger;
 using NewsForYou.Models;
 using NewsForYou.DAL;
+using NewsForYou.DAL.Models;
 
 namespace NewsForYou.Business
 {
@@ -20,7 +21,13 @@ namespace NewsForYou.Business
 
         public async Task<bool> SignUp(UserModel model)
         {
-            return await _dataAccess.SignUp(model);
+            User newStudent = new User
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Password = model.Password
+            };
+            return await _dataAccess.SignUp(newStudent);
         }
 
         public async Task<UserModel> Login(LoginModel model)
@@ -30,7 +37,11 @@ namespace NewsForYou.Business
 
         public async Task<bool> AddCategory(CategoryModel category)
         {
-            return await _dataAccess.AddCategory(category);
+            Category newCategory = new Category
+            {
+                CategoryTitle = category.Title,
+            };
+            return await _dataAccess.AddCategory(newCategory);
         }
 
         public async Task<bool> AddAgency(AgencyModel agency)

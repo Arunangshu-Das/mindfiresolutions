@@ -3,35 +3,15 @@ $(document).ready(function () {
     if(sessionStorage.getItem("newsid")==null){
         window.location.href = 'Startup.html';
     }
-    fetchAllData();
-    $.ajax({
-        url: 'https://localhost:7235/api/GetCategoriesFromAgencyId',
-        type: 'GET',
-        data: {id:parseInt(sessionStorage.getItem("newsid"))},
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function (result) {
-            populateSidebar(result)
-        },
-        error: function () {
-            alert('Error while making the AJAX call.');
-        }
-    });
+    var payload={
+        id:parseInt(sessionStorage.getItem("newsid"))
+    }
+    fetchAllData(payload);
+    makeGetRequest('GetCategoriesFromAgencyId',payload,populateSidebar,error,false);
 });
 
-function fetchAllData(){
-    $.ajax({
-        url: 'https://localhost:7235/api/getallnews',
-        type: 'GET',
-        data: {id:parseInt(sessionStorage.getItem("newsid"))},
-        dataType: 'json',
-        success: function (result) {
-            getallnews(result['allnews'])
-        },
-        error: function () {
-            alert('Error while making the AJAX call.');
-        }
-    });
+function fetchAllData(payload){
+    makeGetRequest('news',{id:parseInt(sessionStorage.getItem("newsid"))},displayallnews,error,false);
 }
 
 function geturl(url){
@@ -52,8 +32,9 @@ function geturl(url){
     return src;
 }
 
-function getallnews(data) {
+function displayallnews(data) {
     console.log(data)
+    data=data['allnews']
     const container = document.getElementById('news');
     
     container.innerHTML = '';
@@ -120,36 +101,16 @@ function handleCheckboxClick(){
         categories: checkboxArray,
         id: sessionStorage.getItem("newsid")
     };
-    $.ajax({
-        url: 'https://localhost:7235/api/getnewsbycategories',
-        type: 'POST',
-        data: JSON.stringify(payload),
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(result) {
-            getallnews(result.getnesfromcategory)
-        },
-        error: function() {
-            alert('Error while making the AJAX call.');
-        }
-    });
+    makePostRequest('getnewsbycategories',payload,displayallnews,error,false);
 }
 
 
 
 function readit(e,link){
-    $.ajax({
-        url: 'https://localhost:7235/api/incrementnewsclickcount',
-        type: 'GET',
-        data: {id:parseInt(e.id)},
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(result) {
-        },
-        error: function() {
-            // Handle error response
-            alert('Error while making the AJAX call.');
-        }
-    });
+    makeGetRequest('incrementnewsclickcount',{id:parseInt(e.id)},null,error);
     window.location.href = link;
+}
+
+function error() {
+    alert('Error while making the AJAX call.');
 }

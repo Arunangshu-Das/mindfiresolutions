@@ -27,16 +27,9 @@ namespace NewsForYou.DAL
             this.logger = logger;
         }
 
-        public async Task<bool> SignUp(UserModel signup)
+        public async Task<bool> SignUp(User newStudent)
         {
             bool flag = false;
-
-            User newStudent = new User
-            {
-                Name = signup.Name,
-                Email = signup.Email,
-                Password = signup.Password
-            };
             await context.Users.AddAsync(newStudent);
             await context.SaveChangesAsync();
             flag = true;
@@ -80,13 +73,9 @@ namespace NewsForYou.DAL
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<bool> AddCategory(CategoryModel category)
+        public async Task<bool> AddCategory(Category newCategory)
         {
             bool flag = false;
-            Category newCategory = new Category
-            {
-                CategoryTitle = category.Title,
-            };
             await context.Categories.AddAsync(newCategory);
             await context.SaveChangesAsync();
             flag = true;
@@ -321,6 +310,7 @@ namespace NewsForYou.DAL
                         NewsTitle = item.NewsTitle,
                         NewsPublishDateTime = item.NewsPublishDateTime
                     };
+                    resultnews.Add(n);
                 }
             }
 
