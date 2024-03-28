@@ -18,12 +18,12 @@ namespace NewsForYou.Business
             _dataAccess = dataAccess;
         }
 
-        public async Task<bool> SignUp(SignUp model)
+        public async Task<bool> SignUp(UserModel model)
         {
             return await _dataAccess.SignUp(model);
         }
 
-        public async Task<(bool, string)> Login(LoginModel model)
+        public async Task<UserModel> Login(LoginModel model)
         {
             return await _dataAccess.Login(model);
         }

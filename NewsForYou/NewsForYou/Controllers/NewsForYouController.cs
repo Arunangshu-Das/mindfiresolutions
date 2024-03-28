@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using NewsForYou.Business;
+using NewsForYou.DAL.Models;
 using NewsForYou.Models;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace NewsForYou.Controllers
 {
@@ -11,15 +17,17 @@ namespace NewsForYou.Controllers
     public class NewsForYouController : ControllerBase
     {
         private IService _service;
+        private IConfiguration config;
 
-        public NewsForYouController(IService service)
+        public NewsForYouController(IService service,IConfiguration configuration)
         {
             _service = service;
+            config = configuration;
         }
 
         [HttpPost]
         [Route("signup")]
-        public async Task<IActionResult> SignUp(SignUp model)
+        public async Task<IActionResult> SignUp(UserModel model)
         {
             bool flag = await _service.SignUp(model);
             return Ok(new { flag});
@@ -29,13 +37,44 @@ namespace NewsForYou.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
-            (bool, string)  result=await _service.Login(model);
-            return Ok(new { authenticate = result.Item1, jwtToken = result.Item2 }); ;
+            UserModel result=await _service.Login(model);
+            return Ok(new { authenticate = result!=null, jwtToken = GenerateToken(result) });
         }
 
+        private string GenerateJwtToken(UserModel user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ThisIsASecretKeyWithAtLeast16Bytes"));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+                {
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.Name)
+                };
+
+            var token = new JwtSecurityToken(
+                issuer: "",
+                audience: "",
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(120),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private string GenerateToken(UserModel userCredentials)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Audience"], null, expires: DateTime.Now.AddMinutes(1), signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
 
         [HttpPost]
-        [Route("addcategory")]
+        [Route("category")]
+        [Authorize]
         public async Task<IActionResult> AddCategory(CategoryModel model)
         {
             bool flag = await _service.AddCategory(model);
@@ -43,7 +82,8 @@ namespace NewsForYou.Controllers
         }
 
         [HttpPost]
-        [Route("addagency")]
+        [Route("agency")]
+        [Authorize]
         public async Task<IActionResult> AddAgency(AgencyModel model)
         {
             bool flag = await _service.AddAgency(model);
@@ -52,6 +92,7 @@ namespace NewsForYou.Controllers
 
         [HttpPost]
         [Route("addagencyfeed")]
+        [Authorize]
         public async Task<IActionResult> AddAgencyFeed(AgencyFeedModel model)
         {
             bool flag = await _service.AddAgencyFeed(model);
@@ -59,7 +100,8 @@ namespace NewsForYou.Controllers
         }
 
         [HttpGet]
-        [Route("getcategory")]
+        [Route("category")]
+        [Authorize]
         public async Task<IActionResult> GetCategory()
         {
             List<CategoryModel> result = await _service.GetCategory();
@@ -67,7 +109,7 @@ namespace NewsForYou.Controllers
         }
 
         [HttpGet]
-        [Route("getagency")]
+        [Route("agency")]
         public async Task<IActionResult> GetAgency()
         {
             List<AgencyModel> result = await _service.GetAgency();
@@ -76,6 +118,7 @@ namespace NewsForYou.Controllers
 
         [HttpDelete]
         [Route("deleteall")]
+        [Authorize]
         public async Task<IActionResult> DeleteAllNews()
         {
             bool flag= await _service.DeleteAllNews();
@@ -99,7 +142,8 @@ namespace NewsForYou.Controllers
         }
 
         [HttpPost]
-        [Route("generatepdf")]
+        [Route("report")]
+        [Authorize]
         public async Task<IActionResult> GeneratePdf(ExportModel export)
         {
             List < ReportModel > report= await _service.GeneratePdf(export.Start, export.End); 
@@ -110,7 +154,7 @@ namespace NewsForYou.Controllers
         [Route("getnewsbycategories")]
         public async Task<IActionResult> GetNewsByCategories(GetNewsByCategoriesModel model)
         {
-            List < NewsModel > getnesfromcategory= await _service.GetNewsByCategories(model.categories, model.id); ;
+            List < NewsModel > getnesfromcategory= await _service.GetNewsByCategories(model.Categories, model.Id); ;
             return Ok(new { getnesfromcategory });
         }
 

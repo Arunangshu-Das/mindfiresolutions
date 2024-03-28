@@ -29,8 +29,11 @@ function exportData() {
         endDate: endDate
     }
     $.ajax({
-        url: 'https://localhost:7235/api/generatepdf',
+        url: 'https://localhost:7235/api/report',
         type: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + (sessionStorage.getItem('credential') || null)
+        },
         data: JSON.stringify(payload),
         contentType: 'application/json',
         dataType: 'json',
@@ -107,8 +110,11 @@ function exportPdf() {
         endDate: endDate
     }
     $.ajax({
-        url: 'https://localhost:7235/api/generatepdf',
+        url: 'https://localhost:7235/api/report',
         type: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + (sessionStorage.getItem('credential') || null)
+        },
         data: JSON.stringify(payload),
         contentType: 'application/json',
         dataType: 'json',

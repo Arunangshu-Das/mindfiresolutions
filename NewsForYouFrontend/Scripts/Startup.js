@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#navbar').load('Navbar.html');
     $.ajax({
-        url: 'https://localhost:7235/api/getagency',
+        url: 'https://localhost:7235/api/agency',
         type: 'GET',
         dataType: 'json',
         success: function (result) {

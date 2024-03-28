@@ -8,9 +8,9 @@ function signup() {
         return;
     }
     var payload = {
-        Name: document.getElementById("name").value,
-        Email: document.getElementById("emailid").value,
-        Password: document.getElementById("password").value
+        name: document.getElementById("name").value,
+        email: document.getElementById("emailid").value,
+        password: document.getElementById("password").value
     }
     $.ajax({
         url: 'https://localhost:7235/api/signup',

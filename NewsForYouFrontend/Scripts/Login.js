@@ -8,8 +8,8 @@ function login() {
         return;
     }
     var payload = {
-        Email: document.getElementById("emailid").value,
-        Password: document.getElementById("password").value
+        email: document.getElementById("emailid").value,
+        password: document.getElementById("password").value
     }
     $.ajax({
         url: 'https://localhost:7235/api/login',
@@ -22,7 +22,7 @@ function login() {
                 sessionStorage.setItem("credential", result.jwtToken);
                 var expirationDate = new Date();
                 expirationDate.setTime(expirationDate.getTime() + (2 * 60 * 60 * 1000)); 
-                if(payload.Email === 'admin@gmail.com' && payload.Password === 'admin') {
+                if(payload.email === 'admin@gmail.com' && payload.password === 'admin') {
                     document.cookie = `credential=${result.jwtToken};expires=${expirationDate.toUTCString()};path=/;`;
                     document.cookie = `isAdmin=true;expires=${expirationDate.toUTCString()};path=/;`;
                 } else {

@@ -4,8 +4,11 @@ $(document).ready(function () {
         window.location.href = "login.html";
     }
     $.ajax({
-        url: 'https://localhost:7235/api/getcategory',
+        url: 'https://localhost:7235/api/category',
         type: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + (sessionStorage.getItem('credential') || null)
+        },
         dataType: 'json',
         success: function (result) {
             console.log(result);
@@ -14,9 +17,9 @@ $(document).ready(function () {
         error: function () {
             alert('Error while making the AJAX call.');
         }
-    });
+    });    
     $.ajax({
-        url: 'https://localhost:7235/api/getagency',
+        url: 'https://localhost:7235/api/agency',
         type: 'GET',
         dataType: 'json',
         success: function (result) {
@@ -36,11 +39,14 @@ function addCategory() {
         return;
     }
     var payload = {
-        Title: document.getElementById("categoryname").value
+        title: document.getElementById("categoryname").value
     }
     $.ajax({
-        url: 'https://localhost:7235/api/addcategory',
+        url: 'https://localhost:7235/api/category',
         type: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + (sessionStorage.getItem('credential') || null)
+        },
         data: JSON.stringify(payload),
         contentType: 'application/json',
         dataType: 'json',
@@ -59,13 +65,16 @@ function addAgency() {
         return;
     }
     var payload = {
-        Name: document.getElementById("agencyname").value,
-        Logopath: document.getElementById("logopath").value,
+        name: document.getElementById("agencyname").value,
+        logopath: document.getElementById("logopath").value,
     }
     console.log(payload)
     $.ajax({
-        url: 'https://localhost:7235/api/addagency',
+        url: 'https://localhost:7235/api/agency',
         type: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + (sessionStorage.getItem('credential') || null)
+        },
         data: JSON.stringify(payload),
         contentType: 'application/json',
         dataType: 'json',
@@ -84,13 +93,16 @@ function addAgencyFeed() {
         return;
     }
     var payload = {
-        AgencyId: parseInt(document.getElementById("feedagency").value),
-        CategoryId: parseInt(document.getElementById("feedcategory").value),
-        AgencyFeedUrl: document.getElementById("feedurl").value,
+        agencyId: parseInt(document.getElementById("feedagency").value),
+        categoryId: parseInt(document.getElementById("feedcategory").value),
+        agencyFeedUrl: document.getElementById("feedurl").value,
     }
     $.ajax({
         url: 'https://localhost:7235/api/addagencyfeed',
         type: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + (sessionStorage.getItem('credential') || null)
+        },
         data: JSON.stringify(payload),
         contentType: 'application/json',
         dataType: 'json',
@@ -123,6 +135,9 @@ function deleteAll() {
         $.ajax({
             url: 'https://localhost:7235/api/deleteall',
             type: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + (sessionStorage.getItem('credential') || null)
+            },
             success: function (result) {
                 alert("Done");
             },

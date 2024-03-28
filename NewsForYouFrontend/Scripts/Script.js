@@ -62,7 +62,6 @@ function getallnews(data) {
         const row = document.createElement('div');
         row.classList.add('row', 'row-eq-height'); 
         
-        // Loop through the current set of 3 items
         for (let j = i; j < i + 3 && j < data.length; j++) {
             const element = data[j];
             var cardDiv = document.createElement('div');
@@ -131,7 +130,6 @@ function handleCheckboxClick(){
             getallnews(result.getnesfromcategory)
         },
         error: function() {
-            // Handle error response
             alert('Error while making the AJAX call.');
         }
     });
@@ -155,23 +153,3 @@ function readit(e,link){
     });
     window.location.href = link;
 }
-
-// // Check for the presence of the "credential" cookie
-// function checkCookie() {
-//     var cookies = document.cookie.split(';');
-//     var isLoggedIn = cookies.some(cookie => cookie.trim().startsWith('credential='));
-//     if (isLoggedIn) {
-//         document.getElementById("logoutLink").style.display = "block";
-//     } else {
-//         document.getElementById("loginLink").style.display = "block";
-//         document.getElementById("signupLink").style.display = "block";
-//     }
-// }
-
-// // Function to logout
-// function logout() {
-//     // Clear the credential cookie
-//     document.cookie = "credential=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-//     // Redirect to login page
-//     window.location.href = "login.html";
-// }

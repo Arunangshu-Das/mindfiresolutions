@@ -19,7 +19,7 @@ namespace NewsForYou.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(SignUp model)
+        public async Task<IActionResult> SignUp(UserModel model)
         {
             bool flag = await _service.SignUp(model);
             return Json(flag);
