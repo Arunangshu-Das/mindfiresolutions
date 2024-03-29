@@ -25,7 +25,7 @@ namespace NewsForYou.Controllers
         public async Task<IActionResult> GetAgency()
         {
             List<AgencyModel> result = await _service.GetAgency();
-            if (result.Count == 0)
+            if (result.Count > 0)
             {
                 return Ok(new { result });
             }
